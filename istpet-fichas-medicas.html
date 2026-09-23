@@ -1,0 +1,2291 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema de Fichas Médicas — ISTPET</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.3/cdn.min.js" defer></script>
+  <style>
+    /* ─── Design Tokens ─────────────────────────────────── */
+    :root {
+      --navy:   #1B2A4A;
+      --gold:   #C49A2A;
+      --gold-light: #F0E4B0;
+      --offwhite: #F5F6F8;
+      --surface: #FFFFFF;
+      --border:  #D9DCE3;
+      --text-primary: #1B2A4A;
+      --text-secondary: #5A6478;
+      --text-muted: #8E97A8;
+      --danger: #C0392B;
+      --success: #1E6B4A;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--offwhite);
+      color: var(--text-primary);
+      margin: 0;
+    }
+
+    /* ─── Header ─────────────────────────────────────────── */
+    .site-header {
+      background-color: var(--navy);
+      color: #fff;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(27,42,74,.25);
+    }
+    .site-header .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .site-header .brand-mark {
+      width: 36px;
+      height: 36px;
+      background: var(--gold);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Serif Display', serif;
+      font-size: 18px;
+      color: var(--navy);
+      font-weight: 700;
+    }
+    .site-header .brand-name {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: .04em;
+      color: #fff;
+    }
+    .site-header .brand-sub {
+      font-size: 11px;
+      color: rgba(255,255,255,.55);
+      letter-spacing: .05em;
+    }
+    .header-badge {
+      background: rgba(196,154,42,.18);
+      border: 1px solid var(--gold);
+      color: var(--gold-light);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 4px;
+      letter-spacing: .04em;
+    }
+
+    /* ─── Tab Navigation ─────────────────────────────────── */
+    .tab-bar {
+      background: var(--navy);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      padding: 0 32px;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .tab-bar::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: rgba(255,255,255,.5);
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 14px 20px;
+      cursor: pointer;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color .15s, border-color .15s;
+      letter-spacing: .03em;
+    }
+    .tab-btn:hover { color: rgba(255,255,255,.85); }
+    .tab-btn.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+
+    /* ─── Layout ─────────────────────────────────────────── */
+    .page-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 24px 64px;
+    }
+
+    /* ─── Form Card ──────────────────────────────────────── */
+    .form-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(27,42,74,.06);
+    }
+    .form-card + .form-card { margin-top: 24px; }
+
+    .card-header {
+      background: var(--navy);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .card-header-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .card-header-num {
+      width: 22px;
+      height: 22px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--navy);
+      flex-shrink: 0;
+    }
+
+    .card-body {
+      padding: 20px 24px 24px;
+    }
+
+    /* ─── Form Meta Row (above sections) ─────────────────── */
+    .form-meta {
+      background: #EFF1F5;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+    }
+
+    /* ─── Field Group ─────────────────────────────────────── */
+    .field-group {
+      display: grid;
+      gap: 16px;
+    }
+    .field-group.cols-2 { grid-template-columns: 1fr 1fr; }
+    .field-group.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+    .field-group.cols-4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+    .field-group.cols-1 { grid-template-columns: 1fr; }
+    .pregunta-respuesta-lista {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .pregunta-respuesta {
+      display: grid;
+      grid-template-columns: minmax(150px, .8fr) 1.2fr;
+      gap: 12px;
+      padding: 12px;
+      background: #F8F9FB;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+    .antecedente-familiar {
+      grid-template-columns: minmax(220px, 1.4fr) minmax(180px, 1fr) minmax(220px, 1.2fr);
+      align-items: end;
+      padding: 18px;
+      background: #F8F9FB;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      margin-bottom: 14px;
+    }
+    .antecedente-familiar .field:last-child {
+      grid-column: 1 / -1;
+    }
+    #agregar-antecedente-familiar {
+      margin-top: 4px;
+    }
+
+    @media (max-width: 640px) {
+      .field-group.cols-2,
+      .field-group.cols-3,
+      .field-group.cols-4,
+      .pregunta-respuesta,
+      .antecedente-familiar { grid-template-columns: 1fr; }
+      .antecedente-familiar .field:last-child { grid-column: auto; }
+    }
+
+    /* ─── Field ──────────────────────────────────────────── */
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .field label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      letter-spacing: .04em;
+    }
+    .field input[type="text"],
+    .field input[type="date"],
+    .field input[type="email"],
+    .field input[type="number"],
+    .field input[type="time"],
+    .field select,
+    .field textarea {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 11px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      color: var(--text-primary);
+      background: #FAFBFC;
+      transition: border-color .15s, box-shadow .15s;
+      width: 100%;
+    }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      outline: none;
+      border-color: var(--navy);
+      box-shadow: 0 0 0 3px rgba(27,42,74,.12);
+      background: #fff;
+    }
+    .field textarea {
+      resize: vertical;
+      min-height: 72px;
+    }
+
+    /* ─── Checkbox List ───────────────────────────────────── */
+    .check-grid {
+      display: grid;
+      gap: 8px;
+    }
+    .check-grid.cols-2 { grid-template-columns: 1fr 1fr; }
+    .check-grid.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
+    @media (max-width: 640px) {
+      .check-grid.cols-2,
+      .check-grid.cols-3 { grid-template-columns: 1fr; }
+    }
+
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background .1s, border-color .1s;
+    }
+    .check-item:hover { background: #F5F6F8; border-color: #B8BDC8; }
+    .check-item input[type="checkbox"],
+    .check-item input[type="radio"] {
+      width: 15px;
+      height: 15px;
+      accent-color: var(--navy);
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .check-item span {
+      font-size: 12px;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    /* ─── Inline Si/No ────────────────────────────────────── */
+    .sino-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid #F0F1F5;
+    }
+    .sino-row:last-child { border-bottom: none; }
+    .sino-label {
+      flex: 1;
+      font-size: 12px;
+      color: var(--text-primary);
+    }
+    .sino-options {
+      display: flex;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+    .sino-options label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+    .sino-options input { accent-color: var(--navy); }
+
+    /* ─── Vitals Table ────────────────────────────────────── */
+    .vitals-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    .vitals-table th {
+      background: var(--navy);
+      color: var(--gold-light);
+      font-weight: 600;
+      padding: 8px 10px;
+      text-align: left;
+      font-size: 11px;
+      letter-spacing: .03em;
+    }
+    .vitals-table td {
+      padding: 6px 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .vitals-table td input {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 5px 7px;
+      font-size: 12px;
+      width: 100%;
+      font-family: 'Inter', sans-serif;
+      background: #FAFBFC;
+    }
+    .vitals-table td input:focus {
+      outline: none;
+      border-color: var(--navy);
+      background: #fff;
+    }
+    .vitals-table tr:last-child td { border-bottom: none; }
+
+    /* ─── Signature Area ──────────────────────────────────── */
+    .signature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 8px;
+    }
+    @media (max-width: 540px) { .signature-grid { grid-template-columns: 1fr; } }
+    .signature-box {
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      padding: 20px 16px 12px;
+      text-align: center;
+    }
+    .signature-line {
+      border-top: 1.5px solid var(--text-muted);
+      margin: 40px 0 8px;
+    }
+    .signature-label {
+      font-size: 11px;
+      color: var(--text-secondary);
+      font-weight: 600;
+      letter-spacing: .04em;
+    }
+
+    /* ─── Action Bar ─────────────────────────────────────── */
+    .action-bar {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      padding: 16px 24px;
+      border-top: 1px solid var(--border);
+      background: #F8F9FB;
+    }
+    .btn {
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 9px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: opacity .15s, box-shadow .15s;
+      border: none;
+    }
+    .btn-ghost {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+    .btn-ghost:hover { border-color: #9AA0B0; color: var(--text-primary); }
+    .btn-primary {
+      background: var(--navy);
+      color: #fff;
+    }
+    .btn-primary:hover { opacity: .88; box-shadow: 0 2px 8px rgba(27,42,74,.22); }
+
+    /* ─── Section Divider ─────────────────────────────────── */
+    .section-spacer { height: 20px; }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ─── Tab Panels ─────────────────────────────────────── */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ─── Status Badges ───────────────────────────────────── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 99px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .badge-navy { background: rgba(27,42,74,.1); color: var(--navy); }
+    .badge-gold { background: rgba(196,154,42,.12); color: #8B6A12; }
+
+    /* ─── System Review Grid ──────────────────────────────── */
+    .system-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+    @media (max-width: 580px) { .system-grid { grid-template-columns: 1fr; } }
+
+    .system-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .system-num {
+      width: 20px;
+      height: 20px;
+      background: var(--navy);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+    .system-name {
+      font-size: 12px;
+      color: var(--text-primary);
+      flex: 1;
+    }
+    .system-item input { accent-color: var(--navy); }
+    .system-textarea {
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 6px 9px;
+      font-size: 12px;
+      font-family: 'Inter', sans-serif;
+      width: 100%;
+      resize: vertical;
+      min-height: 56px;
+      background: #FAFBFC;
+    }
+    .system-textarea:focus {
+      outline: none;
+      border-color: var(--navy);
+    }
+
+    /* ─── Diagnostic Table ────────────────────────────────── */
+    .diag-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    .diag-table th {
+      background: #EFF1F5;
+      color: var(--text-secondary);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 7px 10px;
+      text-align: left;
+      letter-spacing: .04em;
+    }
+    .diag-table td {
+      padding: 6px 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .diag-table td input[type="text"] {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 5px 7px;
+      font-size: 12px;
+      width: 100%;
+      font-family: 'Inter', sans-serif;
+    }
+    .diag-table tr:last-child td { border-bottom: none; }
+
+    /* ─── Notice Box ──────────────────────────────────────── */
+    .notice {
+      background: rgba(196,154,42,.08);
+      border-left: 3px solid var(--gold);
+      padding: 12px 16px;
+      border-radius: 0 6px 6px 0;
+      font-size: 12px;
+      color: var(--text-primary);
+      line-height: 1.6;
+    }
+
+    /* ─── Print Styles ────────────────────────────────────── */
+    @media print {
+      .site-header, .tab-bar, .action-bar { display: none !important; }
+      .tab-panel { display: block !important; }
+      .form-card { break-inside: avoid; box-shadow: none; border: 1px solid #ccc; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ HEADER ══════════════════════════════════════════════════ -->
+  <header class="site-header">
+    <div class="brand">
+      <div class="brand-mark">T</div>
+      <div>
+        <div class="brand-name">ISTPET</div>
+        <div class="brand-sub">Instituto Superior Tecnológico Mayor Pedro Traversari</div>
+      </div>
+    </div>
+    <div class="header-badge">Dpto. Médico Estudiantil</div>
+  </header>
+
+  <!-- ══ TAB BAR ══════════════════════════════════════════════════ -->
+  <nav class="tab-bar" role="tablist">
+    <button class="tab-btn active" onclick="showTab('ficha-medica')" role="tab">Ficha Médica Estudiantil</button>
+    <button class="tab-btn" onclick="showTab('atencion-v1')" role="tab">Atención Médica V1</button>
+    <button class="tab-btn" onclick="showTab('atencion-v2')" role="tab">Atención Médica V2</button>
+    <button class="tab-btn" onclick="showTab('validacion')" role="tab">Validación / Certificados</button>
+    <button class="tab-btn" onclick="showTab('seguimiento')" role="tab">Seguimiento DM</button>
+  </nav>
+
+  <main class="page-wrapper">
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- TAB 1 — FICHA MÉDICA ESTUDIANTIL                          -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <div id="tab-ficha-medica" class="tab-panel active">
+
+      <!-- Meta -->
+      <div class="form-card">
+        <div class="form-meta">
+          <div class="field">
+            <label>Carrera</label>
+            <input type="text" placeholder="Ej. Enfermería" />
+          </div>
+          <div class="field">
+            <label>Semestre</label>
+            <input type="text" placeholder="Ej. 3ro" />
+          </div>
+          <div class="field">
+            <label>Número de Ficha</label>
+            <input type="text" placeholder="FM-2026-001" />
+          </div>
+          <div class="field">
+            <label>Fecha (DD/MM/AA)</label>
+            <input type="date" />
+          </div>
+          <div class="field">
+            <label>Evaluado por</label>
+            <input type="text" placeholder="Nombre del profesional" />
+          </div>
+        </div>
+
+        <!-- 1. Datos Personales -->
+        <div class="card-header">
+          <div class="card-header-num">1</div>
+          <div class="card-header-title">Datos Personales</div>
+        </div>
+        <div class="card-body">
+          <div class="field-group cols-3">
+            <div class="field" style="grid-column: span 2">
+              <label>Nombre y Apellido</label>
+              <input type="text" placeholder="Nombre completo del estudiante" />
+            </div>
+            <div class="field">
+              <label>Cédula de Identidad</label>
+              <input type="text" placeholder="0000000000" />
+            </div>
+          </div>
+
+          <div class="section-spacer"></div>
+
+          <div class="field-group cols-3">
+            <div class="field">
+              <label>Lugar de Nacimiento</label>
+              <input type="text" placeholder="Ciudad, país" />
+            </div>
+            <div class="field">
+              <label>Fecha de Nacimiento</label>
+              <input type="date" />
+            </div>
+            <div class="field">
+              <label>Edad</label>
+              <input type="number" placeholder="Años" />
+            </div>
+          </div>
+
+          <div class="section-spacer"></div>
+
+          <div class="field-group cols-4">
+            <div class="field">
+              <label>Grupo Sanguíneo</label>
+              <select>
+                <option value="">—</option>
+                <option>A+</option><option>A-</option>
+                <option>B+</option><option>B-</option>
+                <option>O+</option><option>O-</option>
+                <option>AB+</option><option>AB-</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Sexo</label>
+              <select>
+                <option value="">—</option>
+                <option>Masculino</option>
+                <option>Femenino</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Estado Civil</label>
+              <select>
+                <option value="">—</option>
+                <option>Soltero/a</option>
+                <option>Casado/a</option>
+                <option>Unión libre</option>
+                <option>Otro</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Dirección</label>
+              <input type="text" placeholder="Calle y número" />
+            </div>
+          </div>
+
+          <div class="section-spacer"></div>
+
+          <div class="field-group cols-3">
+            <div class="field">
+              <label>Correo Electrónico</label>
+              <input type="email" placeholder="estudiante@istpet.edu.ec" />
+            </div>
+            <div class="field">
+              <label>Teléfono Celular</label>
+              <input type="text" placeholder="+593 9..." />
+            </div>
+            <div class="field">
+              <label>Teléfono Domicilio</label>
+              <input type="text" placeholder="+593 2..." />
+            </div>
+          </div>
+
+          <div class="section-spacer"></div>
+
+          <div class="field-group cols-3">
+            <div class="field">
+              <label>Profesión / Ocupación</label>
+              <input type="text" placeholder="Ocupación actual" />
+            </div>
+            <div class="field">
+              <label>Contacto de Emergencia</label>
+              <input type="text" placeholder="Nombre completo" />
+            </div>
+            <div class="field">
+              <label>Teléfono Emergencia</label>
+              <input type="text" placeholder="+593..." />
+            </div>
+          </div>
+
+          <div class="section-spacer"></div>
+
+          <div class="section-label">Cargas Familiares</div>
+          <div class="field-group cols-3">
+            <div class="field">
+              <label>¿Tiene cargas familiares?</label>
+              <select>
+                <option value="">—</option>
+                <option>Sí</option>
+                <option>No</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Número de cargas</label>
+              <input type="number" placeholder="0" min="0" />
+            </div>
+            <div class="field">
+              <label>Edad carga familiar</label>
+              <input type="text" placeholder="Ej. 5, 8, 12 años" />
+            </div>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="field-group cols-1">
+            <div class="field">
+              <label>Parentesco</label>
+              <input type="text" placeholder="Ej. Hijo, cónyuge..." />
+            </div>
+          </div>
+
+          <div class="section-spacer"></div>
+
+          <div class="section-label">Discapacidad</div>
+          <div class="check-grid cols-3">
+            <label class="check-item">
+              <input type="checkbox" />
+              <span>Discapacidad Física–Motriz</span>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" />
+              <span>Discapacidad Intelectual</span>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" />
+              <span>Discapacidad Psicosocial</span>
+            </label>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="field-group cols-3">
+            <div class="field">
+              <label>¿Dispone de carnet de discapacidad?</label>
+              <select>
+                <option value="">—</option>
+                <option>Sí</option>
+                <option>No</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Grado de discapacidad (%)</label>
+              <input type="number" placeholder="0" min="0" max="100" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Antecedentes Médicos Generales -->
+      <div class="form-card">
+        <div class="card-header">
+          <div class="card-header-num">2</div>
+          <div class="card-header-title">Antecedentes Médicos Generales</div>
+        </div>
+        <div class="card-body">
+          <div class="sino-row">
+            <span class="sino-label">¿En general goza de buena salud?</span>
+            <div class="sino-options">
+              <label><input type="radio" name="buena_salud" value="si" /> Sí</label>
+              <label><input type="radio" name="buena_salud" value="no" /> No</label>
+            </div>
+          </div>
+          <div class="sino-row">
+            <span class="sino-label">¿Ha sido hospitalizado alguna vez?</span>
+            <div class="sino-options">
+              <label><input type="radio" name="hospitalizado" value="si" /> Sí</label>
+              <label><input type="radio" name="hospitalizado" value="no" /> No</label>
+            </div>
+          </div>
+          <div class="sino-row">
+            <span class="sino-label">¿Ha recibido anestesia general?</span>
+            <div class="sino-options">
+              <label><input type="radio" name="anestesia" value="si" /> Sí</label>
+              <label><input type="radio" name="anestesia" value="no" /> No</label>
+            </div>
+          </div>
+          <div class="sino-row">
+            <span class="sino-label">¿Es alérgico a algún medicamento o comida?</span>
+            <div class="sino-options">
+              <label><input type="radio" name="alergia" value="si" /> Sí</label>
+              <label><input type="radio" name="alergia" value="no" /> No</label>
+            </div>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="field">
+            <label>¿A qué es alérgico?</label>
+            <input type="text" placeholder="Especifique alergenos conocidos" />
+          </div>
+
+          <div class="section-spacer"></div>
+          <div class="section-label">Alteraciones Frecuentes</div>
+          <div style="background:#F8F9FB; border:1px solid var(--border); border-radius:8px; padding:12px 16px;">
+            <div class="sino-row"><span class="sino-label">1. Enfermedades de la piel</span><div class="sino-options"><label><input type="radio" name="alt1" value="si"/>Sí</label><label><input type="radio" name="alt1" value="no"/>No</label></div></div>
+            <div class="sino-row"><span class="sino-label">2. Enfermedades de la visión</span><div class="sino-options"><label><input type="radio" name="alt2" value="si"/>Sí</label><label><input type="radio" name="alt2" value="no"/>No</label></div></div>
+            <div class="sino-row"><span class="sino-label">3. Usa anteojos</span><div class="sino-options"><label><input type="radio" name="alt3" value="si"/>Sí</label><label><input type="radio" name="alt3" value="no"/>No</label></div></div>
+            <div class="sino-row"><span class="sino-label">4. Usa lentes de contacto</span><div class="sino-options"><label><input type="radio" name="alt4" value="si"/>Sí</label><label><input type="radio" name="alt4" value="no"/>No</label></div></div>
+            <div class="sino-row"><span class="sino-label">5. Enfermedades de la audición</span><div class="sino-options"><label><input type="radio" name="alt5" value="si"/>Sí</label><label><input type="radio" name="alt5" value="no"/>No</label></div></div>
+            <div class="sino-row"><span class="sino-label">6. Problemas respiratorios</span><div class="sino-options"><label><input type="radio" name="alt6" value="si"/>Sí</label><label><input type="radio" name="alt6" value="no"/>No</label></div></div>
+            <div class="sino-row"><span class="sino-label">7. Tose periódicamente</span><div class="sino-options"><label><input type="radio" name="alt7" value="si"/>Sí</label><label><input type="radio" name="alt7" value="no"/>No</label></div></div>
+            <div class="sino-row"><span class="sino-label">8. Se cansa con facilidad</span><div class="sino-options"><label><input type="radio" name="alt8" value="si"/>Sí</label><label><input type="radio" name="alt8" value="no"/>No</label></div></div>
+            <div class="sino-row"><span class="sino-label">9. Dolor en el pecho</span><div class="sino-options"><label><input type="radio" name="alt9" value="si"/>Sí</label><label><input type="radio" name="alt9" value="no"/>No</label></div></div>
+            <div class="sino-row"><span class="sino-label">10. Dificultad para tragar</span><div class="sino-options"><label><input type="radio" name="alt10" value="si"/>Sí</label><label><input type="radio" name="alt10" value="no"/>No</label></div></div>
+            <div class="sino-row"><span class="sino-label">11. Presión alta</span><div class="sino-options"><label><input type="radio" name="alt11" value="si"/>Sí</label><label><input type="radio" name="alt11" value="no"/>No</label></div></div>
+            <div class="sino-row"><span class="sino-label">12. Presión baja</span><div class="sino-options"><label><input type="radio" name="alt12" value="si"/>Sí</label><label><input type="radio" name="alt12" value="no"/>No</label></div></div>
+            <div class="sino-row"><span class="sino-label">13. Enfermedades del hígado</span><div class="sino-options"><label><input type="radio" name="alt13" value="si"/>Sí</label><label><input type="radio" name="alt13" value="no"/>No</label></div></div>
+            <div class="sino-row"><span class="sino-label">14. Dolor de cabeza</span><div class="sino-options"><label><input type="radio" name="alt14" value="si"/>Sí</label><label><input type="radio" name="alt14" value="no"/>No</label></div></div>
+            <div class="sino-row"><span class="sino-label">15. Mareos / vértigos / desmayos</span><div class="sino-options"><label><input type="radio" name="alt15" value="si"/>Sí</label><label><input type="radio" name="alt15" value="no"/>No</label></div></div>
+            <div class="sino-row"><span class="sino-label">16. Convulsiones</span><div class="sino-options"><label><input type="radio" name="alt16" value="si"/>Sí</label><label><input type="radio" name="alt16" value="no"/>No</label></div></div>
+            <div class="sino-row"><span class="sino-label">17. Enfermedades Musculares</span><div class="sino-options"><label><input type="radio" name="alt17" value="si"/>Sí</label><label><input type="radio" name="alt17" value="no"/>No</label></div></div>
+            <div class="sino-row"><span class="sino-label">18. Enfermedades Genitales</span><div class="sino-options"><label><input type="radio" name="alt18" value="si"/>Sí</label><label><input type="radio" name="alt18" value="no"/>No</label></div></div>
+            <div class="sino-row"><span class="sino-label">19. Dificultad para orinar</span><div class="sino-options"><label><input type="radio" name="alt19" value="si"/>Sí</label><label><input type="radio" name="alt19" value="no"/>No</label></div></div>
+            <div class="sino-row"><span class="sino-label">20. Accidentes</span><div class="sino-options"><label><input type="radio" name="alt20" value="si"/>Sí</label><label><input type="radio" name="alt20" value="no"/>No</label></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Antecedentes Patológicos Familiares -->
+      <div class="form-card">
+        <div class="card-header">
+          <div class="card-header-num">3</div>
+          <div class="card-header-title">Antecedentes Patológicos Familiares</div>
+        </div>
+        <div class="card-body">
+          <div id="antecedentes-familiares">
+            <div class="antecedente-familiar field-group">
+              <div class="field">
+                <label>Enfermedad</label>
+                <select name="mape_mant_id[]" data-catalogo="MANT_ANTECEDENT">
+                  <option value="">— Seleccione —</option>
+                  <option value="ENF_CATASTROFICA_01">Cáncer</option>
+                  <option value="ENF_CATASTROFICA_02">Insuficiencia renal crónica</option>
+                  <option value="ENF_CATASTROFICA_03">Trasplante de órgano</option>
+                  <option value="ENF_CATASTROFICA_04">Enfermedad rara o huérfana</option>
+                  <option value="ENF_CATASTROFICA_05">VIH / SIDA</option>
+                  <option value="ENF_CATASTROFICA_06">Tuberculosis</option>
+                  <option value="ENF_CATASTROFICA_07">Enfermedad neurológica grave</option>
+                  <option value="ENF_CATASTROFICA_08">Enfermedad cardíaca grave</option>
+                  <option value="ENF_CATASTROFICA_09">Otra enfermedad catastrófica</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Familiar relacionado</label>
+                <select name="idParentezco[]" aria-label="Familiar relacionado">
+                  <option value="">— Seleccione parentesco —</option>
+                  <option value="PADRE">Padre</option>
+                  <option value="MADRE">Madre</option>
+                  <option value="HERMANO">Hermano/a</option>
+                  <option value="ABUELO">Abuelo/a</option>
+                  <option value="OTRO">Otro familiar</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Observación</label>
+                <input type="text" name="mape_detalle[]" placeholder="Detalle adicional" />
+              </div>
+            </div>
+          </div>
+          <template id="antecedente-familiar-template">
+            <div class="antecedente-familiar field-group">
+              <div class="field">
+                <label>Enfermedad</label>
+                <select name="mape_mant_id[]" data-catalogo="MANT_ANTECEDENT"></select>
+              </div>
+              <div class="field">
+                <label>Familiar relacionado</label>
+                <select name="idParentezco[]" aria-label="Familiar relacionado">
+                  <option value="">— Seleccione parentesco —</option>
+                  <option value="PADRE">Padre</option>
+                  <option value="MADRE">Madre</option>
+                  <option value="HERMANO">Hermano/a</option>
+                  <option value="ABUELO">Abuelo/a</option>
+                  <option value="OTRO">Otro familiar</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Observación</label>
+                <input type="text" name="mape_detalle[]" placeholder="Detalle adicional" />
+              </div>
+            </div>
+          </template>
+          <button type="button" class="btn btn-ghost" id="agregar-antecedente-familiar">+ Agregar otra enfermedad</button>
+        </div>
+      </div>
+
+      <!-- 4-5. Hábitos Tóxicos y Estilo de Vida -->
+      <div class="form-card">
+        <div class="card-header">
+          <div class="card-header-num">4–5</div>
+          <div class="card-header-title">Hábitos Tóxicos / Estilo de Vida</div>
+        </div>
+        <div class="card-body">
+          <div class="field-group cols-2">
+            <div>
+              <div class="section-label">Hábitos tóxicos</div>
+              <div class="pregunta-respuesta-lista">
+                <div class="pregunta-respuesta" data-categoria="HABITO_TOXICO" data-codigo="HAB_TABACO">
+                  <input type="hidden" name="mpre_codigo[]" value="HAB_TABACO" />
+                  <input type="hidden" name="mpre_categoria[]" value="HABITO_TOXICO" />
+                  <div class="field"><label>¿Consume tabaco?</label><select name="mres_resp_afirmativa[]"><option value="">—</option><option value="true">Sí</option><option value="false">No</option></select></div>
+                  <div class="field"><label>Especificación / tiempo</label><input type="text" name="mres_especificacion[]" placeholder="Ej. 2 años, cantidad..." /></div>
+                </div>
+                <div class="pregunta-respuesta" data-categoria="HABITO_TOXICO" data-codigo="HAB_ALCOHOL">
+                  <input type="hidden" name="mpre_codigo[]" value="HAB_ALCOHOL" />
+                  <input type="hidden" name="mpre_categoria[]" value="HABITO_TOXICO" />
+                  <div class="field"><label>¿Consume alcohol?</label><select name="mres_resp_afirmativa[]"><option value="">—</option><option value="true">Sí</option><option value="false">No</option></select></div>
+                  <div class="field"><label>Especificación / frecuencia</label><input type="text" name="mres_especificacion[]" placeholder="Ej. ocasional, semanal..." /></div>
+                </div>
+                <div class="pregunta-respuesta" data-categoria="HABITO_TOXICO" data-codigo="HAB_OTRAS_DROGAS">
+                  <input type="hidden" name="mpre_codigo[]" value="HAB_OTRAS_DROGAS" />
+                  <input type="hidden" name="mpre_categoria[]" value="HABITO_TOXICO" />
+                  <div class="field"><label>¿Consume otras drogas?</label><select name="mres_resp_afirmativa[]"><option value="">—</option><option value="true">Sí</option><option value="false">No</option></select></div>
+                  <div class="field"><label>Especifique / frecuencia</label><input type="text" name="mres_especificacion[]" placeholder="Sustancia y frecuencia..." /></div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="section-label">Estilo de vida</div>
+              <div class="pregunta-respuesta-lista">
+                <div class="pregunta-respuesta" data-categoria="ESTILO_VIDA" data-codigo="VIDA_ACTIVIDAD_FISICA">
+                  <input type="hidden" name="mpre_codigo[]" value="VIDA_ACTIVIDAD_FISICA" />
+                  <input type="hidden" name="mpre_categoria[]" value="ESTILO_VIDA" />
+                  <div class="field"><label>¿Realiza actividad física?</label><select name="mres_resp_afirmativa[]"><option value="">—</option><option value="true">Sí</option><option value="false">No</option></select></div>
+                  <div class="field"><label>¿Cuál y con qué frecuencia?</label><input type="text" name="mres_especificacion[]" placeholder="Ej. fútbol, 3 veces/semana..." /></div>
+                </div>
+                <div class="pregunta-respuesta" data-categoria="ESTILO_VIDA" data-codigo="VIDA_MEDICACION_ACTUAL">
+                  <input type="hidden" name="mpre_codigo[]" value="VIDA_MEDICACION_ACTUAL" />
+                  <input type="hidden" name="mpre_categoria[]" value="ESTILO_VIDA" />
+                  <div class="field"><label>¿Toma medicación actualmente?</label><select name="mres_resp_afirmativa[]"><option value="">—</option><option value="true">Sí</option><option value="false">No</option></select></div>
+                  <div class="field"><label>Medicamento / dosis / tiempo</label><input type="text" name="mres_especificacion[]" placeholder="Ej. medicamento, dosis y duración..." /></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Examen Físico -->
+      <div class="form-card">
+        <div class="card-header">
+          <div class="card-header-num">6</div>
+          <div class="card-header-title">Examen Físico / Constantes Vitales y Antropometría</div>
+        </div>
+        <div class="card-body">
+          <div style="overflow-x:auto;">
+            <table class="vitals-table">
+              <thead>
+                <tr>
+                  <th>Presión Arterial</th>
+                  <th>Temperatura</th>
+                  <th>Frec. Cardiaca</th>
+                  <th>Sat. Oxígeno</th>
+                  <th>Frec. Respiratoria</th>
+                  <th>Peso (kg)</th>
+                  <th>Talla (cm)</th>
+                  <th>IMC</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="text" placeholder="mmHg" /></td>
+                  <td><input type="text" placeholder="°C" /></td>
+                  <td><input type="text" placeholder="/min" /></td>
+                  <td><input type="text" placeholder="%" /></td>
+                  <td><input type="text" placeholder="/min" /></td>
+                  <td><input type="number" placeholder="0.0" step="0.1" /></td>
+                  <td><input type="number" placeholder="000" /></td>
+                  <td><input type="text" placeholder="Calculado" /></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="field">
+            <label>Observaciones</label>
+            <textarea placeholder="Hallazgos relevantes del examen físico..."></textarea>
+          </div>
+        </div>
+
+        <!-- Firma -->
+        <div style="padding:0 24px 24px;">
+          <div class="notice">
+            El evaluado corrobora que los datos son verdaderos y otorga el derecho de uso de esta ficha para fines institucionales.
+          </div>
+          <div class="section-spacer"></div>
+          <div class="signature-grid">
+            <div class="signature-box">
+              <div class="signature-line"></div>
+              <div class="signature-label">Evaluador(a) — C.I.</div>
+            </div>
+            <div class="signature-box">
+              <div class="signature-line"></div>
+              <div class="signature-label">Evaluado — C.I.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-bar">
+          <button class="btn btn-ghost" onclick="resetForm()">Limpiar</button>
+          <button class="btn btn-primary" onclick="window.print()">Imprimir</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- TAB 2 — FICHA DE ATENCIÓN MÉDICA V1                       -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <div id="tab-atencion-v1" class="tab-panel">
+
+      <div class="form-card">
+        <div class="form-meta">
+          <div class="field">
+            <label>Tipo de Atendido</label>
+            <select>
+              <option value="">—</option>
+              <option>Estudiante</option>
+              <option>Docente</option>
+              <option>Administrativo</option>
+              <option>Servicio</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Fecha</label>
+            <input type="date" />
+          </div>
+          <div class="field">
+            <label>Hora</label>
+            <input type="time" />
+          </div>
+          <div class="field">
+            <label>Número de Ficha</label>
+            <input type="text" placeholder="FA-V1-001" />
+          </div>
+          <div class="field">
+            <label>Responsable de la Atención</label>
+            <input type="text" placeholder="Nombre del profesional" />
+          </div>
+        </div>
+
+        <!-- 1. Datos Generales -->
+        <div class="card-header">
+          <div class="card-header-num">1</div>
+          <div class="card-header-title">Datos Generales</div>
+        </div>
+        <div class="card-body">
+          <div class="field-group cols-3">
+            <div class="field" style="grid-column:span 2">
+              <label>Nombre del Paciente</label>
+              <input type="text" placeholder="Nombre completo" />
+            </div>
+            <div class="field">
+              <label>Cédula</label>
+              <input type="text" placeholder="0000000000" />
+            </div>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="field-group cols-2">
+            <div class="field">
+              <label>Edad</label>
+              <input type="number" placeholder="Años" />
+            </div>
+            <div class="field">
+              <label>Tipo de Evento</label>
+              <select>
+                <option value="">—</option>
+                <option>Trauma</option>
+                <option>Obstetricia</option>
+                <option>Clínica</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Interrogatorio -->
+        <div class="card-header">
+          <div class="card-header-num">2</div>
+          <div class="card-header-title">Interrogatorio — Antecedentes del evento, síntomas, medicamentos, cinemática</div>
+        </div>
+        <div class="card-body">
+          <div class="field">
+            <label>Descripción</label>
+            <textarea rows="4" placeholder="Relato del paciente: antecedentes, síntomas principales, medicamentos que recibe, mecanismo del evento..."></textarea>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="check-grid cols-2">
+            <label class="check-item">
+              <input type="checkbox" name="alergias" />
+              <span>Alergias</span>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" name="adicciones" />
+              <span>Adicciones</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 3. Examen Físico y Diagnóstico -->
+        <div class="card-header">
+          <div class="card-header-num">3</div>
+          <div class="card-header-title">Examen Físico y Diagnóstico</div>
+        </div>
+        <div class="card-body">
+          <div class="field">
+            <label>Hallazgos del Examen Físico</label>
+            <textarea rows="4" placeholder="Descripción detallada del examen físico por sistemas..."></textarea>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="field-group cols-2">
+            <div class="field">
+              <label>Diagnóstico Presuntivo</label>
+              <input type="text" placeholder="CIE-10 o descripción" />
+            </div>
+            <div class="field"></div>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="field-group cols-2">
+            <div class="field">
+              <label>Estado Inicial</label>
+              <select>
+                <option value="">—</option>
+                <option>Grave</option>
+                <option>Leve</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Estado Final</label>
+              <select>
+                <option value="">—</option>
+                <option>Grave</option>
+                <option>Leve</option>
+                <option>Mejorado</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Signos Vitales -->
+        <div class="card-header">
+          <div class="card-header-num">4</div>
+          <div class="card-header-title">Signos Vitales</div>
+        </div>
+        <div class="card-body">
+          <div style="overflow-x:auto;">
+            <table class="vitals-table">
+              <thead>
+                <tr>
+                  <th>Pulso</th>
+                  <th>Temp</th>
+                  <th>P/A</th>
+                  <th>So2</th>
+                  <th>FR</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="text" placeholder="lpm" /></td>
+                  <td><input type="text" placeholder="°C" /></td>
+                  <td><input type="text" placeholder="120/80" /></td>
+                  <td><input type="text" placeholder="%" /></td>
+                  <td><input type="text" placeholder="/min" /></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 5. Escala de coma de Glasgow -->
+        <div class="card-header">
+          <div class="card-header-num">5</div>
+          <div class="card-header-title">Escala de coma de Glasgow</div>
+        </div>
+        <div class="card-body">
+          <div style="overflow-x:auto;">
+            <table class="vitals-table">
+              <thead>
+                <tr>
+                  <th>AO (4)</th>
+                  <th>RV (5)</th>
+                  <th>RM (6)</th>
+                  <th>GLASGOW</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="number" min="1" max="4" placeholder="4" /></td>
+                  <td><input type="number" min="1" max="5" placeholder="5" /></td>
+                  <td><input type="number" min="1" max="6" placeholder="6" /></td>
+                  <td><input type="number" min="3" max="15" placeholder="15" /></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Pupilas -->
+        <div class="card-header">
+          <div class="card-header-title">Pupilas</div>
+        </div>
+        <div class="card-body">
+          <div style="overflow-x:auto;">
+            <table class="vitals-table">
+              <thead>
+                <tr>
+                  <th colspan="2" style="text-align:center; border-right:1px solid rgba(255,255,255,0.25);">Derecha</th>
+                  <th colspan="2" style="text-align:center;">Izquierda</th>
+                </tr>
+                <tr>
+                  <th>Reacción</th>
+                  <th style="border-right:1px solid rgba(255,255,255,0.25);">Dilatación</th>
+                  <th>Reacción</th>
+                  <th>Dilatación</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><input type="text" placeholder="Reactiva / Fija" /></td>
+                  <td style="border-right:1px solid var(--border);"><input type="text" placeholder="mm" /></td>
+                  <td><input type="text" placeholder="Reactiva / Fija" /></td>
+                  <td><input type="text" placeholder="mm" /></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 6. Trauma -->
+        <div class="card-header">
+          <div class="card-header-num">6</div>
+          <div class="card-header-title">Trauma</div>
+        </div>
+        <div class="card-body">
+          <div class="section-label">Causa</div>
+          <div class="check-grid cols-3">
+            <label class="check-item"><input type="radio" name="causaTrauma" value="violencia" /><span>Violencia</span></label>
+            <label class="check-item"><input type="radio" name="causaTrauma" value="accidente" /><span>Accidente</span></label>
+            <label class="check-item"><input type="radio" name="causaTrauma" value="autoagresion" /><span>Auto agresión</span></label>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="section-label">Tipo de Lesión</div>
+          <div class="check-grid cols-3">
+            <label class="check-item"><input type="checkbox" /><span>Herida por arma de fuego</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Herida por arma cortante</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Herida por arma punzante</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Herida por otro objeto</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Quemadura</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Aplastamiento</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Fractura</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Caída</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Envenenamiento</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Intoxicación</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Agresión física</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Otro</span></label>
+          </div>
+        </div>
+
+        <!-- 7. Emergencias Gineco-Obstétrica -->
+        <div class="card-header">
+          <div class="card-header-num">7</div>
+          <div class="card-header-title">Emergencias Gineco-Obstétrica y Neonatal</div>
+        </div>
+        <div class="card-body">
+          <div class="check-grid cols-3" style="margin-bottom:16px;">
+            <label class="check-item"><input type="radio" name="gine" /><span>Parto</span></label>
+            <label class="check-item"><input type="radio" name="gine" /><span>Aborto</span></label>
+            <label class="check-item"><input type="radio" name="gine" /><span>Sangrado</span></label>
+          </div>
+          <div class="field-group cols-3">
+            <div class="field"><label>Fecha última menstruación</label><input type="date" /></div>
+            <div class="field"><label>Semana de embarazo</label><input type="number" min="1" max="42" placeholder="0" /></div>
+            <div class="field"><label>Gesta</label><input type="number" placeholder="0" /></div>
+            <div class="field"><label>Partos</label><input type="number" placeholder="0" /></div>
+            <div class="field"><label>Abortos</label><input type="number" placeholder="0" /></div>
+            <div class="field"><label>Cesárea</label><input type="number" placeholder="0" /></div>
+            <div class="field"><label>Contracciones uterinas</label><input type="text" placeholder="Frecuencia" /></div>
+            <div class="field"><label>Dilatación</label><input type="text" placeholder="cm" /></div>
+            <div class="field"><label>Borramiento</label><input type="text" placeholder="%" /></div>
+            <div class="field"><label>Altura uterina</label><input type="text" placeholder="cm" /></div>
+            <div class="field"><label>Movimiento fetal</label><input type="text" placeholder="Presente / Ausente" /></div>
+          </div>
+        </div>
+
+        <!-- 8. Paro Cardiorrespiratorio -->
+        <div class="card-header">
+          <div class="card-header-num">8</div>
+          <div class="card-header-title">Paro Cardiorrespiratorio</div>
+        </div>
+        <div class="card-body">
+          <div class="check-grid cols-3">
+            <label class="check-item"><input type="checkbox" /><span>Presenciado por personal SEM</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Presenciado por espectador</span></label>
+            <label class="check-item"><input type="checkbox" /><span>No presenciado</span></label>
+            <label class="check-item"><input type="checkbox" /><span>RCP por personal entrenado</span></label>
+            <label class="check-item"><input type="checkbox" /><span>RCP por lego</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Se utiliza desfibrilador</span></label>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="field-group cols-2">
+            <div class="field"><label>Duración RCP antes de llegada</label><input type="text" placeholder="min" /></div>
+            <div class="field"><label>Duración del paro</label><input type="text" placeholder="min" /></div>
+          </div>
+        </div>
+
+        <!-- 9–11. Procedimientos y Entrega -->
+        <div class="card-header">
+          <div class="card-header-num">9–11</div>
+          <div class="card-header-title">Procedimientos / Materiales / Entrega del Paciente</div>
+        </div>
+        <div class="card-body">
+          <div class="field"><label>9. Procedimientos realizados</label><textarea placeholder="Descripción de procedimientos aplicados..."></textarea></div>
+          <div class="section-spacer"></div>
+          <div class="field">
+            <label>10. Materiales utilizados</label>
+            <div class="check-grid cols-3" style="margin-top:6px;">
+              <label class="check-item"><input type="checkbox" /><span>Guantes de manejo</span></label>
+              <label class="check-item"><input type="checkbox" /><span>Gasas estériles</span></label>
+              <label class="check-item"><input type="checkbox" /><span>Vendas elásticas</span></label>
+              <label class="check-item"><input type="checkbox" /><span>Esparadrapo / Micropore</span></label>
+              <label class="check-item"><input type="checkbox" /><span>Solución salina 0.9%</span></label>
+              <label class="check-item"><input type="checkbox" /><span>Antiséptico / Alcohol</span></label>
+              <label class="check-item"><input type="checkbox" /><span>Apósitos estériles</span></label>
+              <label class="check-item"><input type="checkbox" /><span>Jeringas descartables</span></label>
+              <label class="check-item"><input type="checkbox" /><span>Cánula nasal / Mascarilla O₂</span></label>
+              <label class="check-item"><input type="checkbox" /><span>Férula / Inmovilizador</span></label>
+              <label class="check-item"><input type="checkbox" /><span>Torundas de algodón</span></label>
+              <label class="check-item"><input type="checkbox" /><span>Bajalenguas</span></label>
+            </div>
+            <div style="margin-top:8px;">
+              <input type="text" placeholder="Otros materiales o cantidades específicas..." />
+            </div>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="section-label">11. Entrega del Paciente</div>
+          <div style="margin-bottom: 12px;">
+            <label style="display:block; font-size:11px; font-weight:600; color:var(--text-secondary); text-transform:uppercase; letter-spacing:.05em; margin-bottom:6px;">Destino de la Entrega</label>
+            <div class="check-grid cols-2" style="max-width:360px;">
+              <label class="check-item">
+                <input type="radio" name="destinoEntrega" value="ambulatorio" onchange="toggleDestinoEntrega('ambulatorio')" />
+                <span>Ambulatorio</span>
+              </label>
+              <label class="check-item">
+                <input type="radio" name="destinoEntrega" value="hospitalario" onchange="toggleDestinoEntrega('hospitalario')" />
+                <span>Hospitalario</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Caso Ambulatorio -->
+          <div id="bloque-ambulatorio" style="display:none; background:#F8F9FB; border:1px solid var(--border); border-radius:8px; padding:16px; margin-bottom:14px;">
+            <div class="section-label" style="color:var(--navy); font-size:11px; margin-bottom:10px;">Entrega Ambulatoria</div>
+            <div class="field-group cols-3">
+              <div class="field">
+                <label>Hora de finalización de la atención</label>
+                <input type="time" />
+              </div>
+              <div class="field">
+                <label>Paciente</label>
+                <input type="text" placeholder="Nombre del paciente" />
+              </div>
+              <div class="field">
+                <label>Firma</label>
+                <input type="text" placeholder="Firma / Aclaración" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Caso Hospitalario -->
+          <div id="bloque-hospitalario" style="display:none; background:#F8F9FB; border:1px solid var(--border); border-radius:8px; padding:16px; margin-bottom:14px;">
+            <div class="section-label" style="color:var(--navy); font-size:11px; margin-bottom:10px;">Entrega Hospitalaria</div>
+            <div class="field-group cols-4">
+              <div class="field">
+                <label>Hora de entrega</label>
+                <input type="time" />
+              </div>
+              <div class="field">
+                <label>Unidad que recibe</label>
+                <input type="text" placeholder="Nombre de la unidad" />
+              </div>
+              <div class="field">
+                <label>Responsable que recibe</label>
+                <input type="text" placeholder="Nombre del responsable" />
+              </div>
+              <div class="field">
+                <label>Firma</label>
+                <input type="text" placeholder="Firma del responsable" />
+              </div>
+            </div>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="field"><label>Nombre y firma del responsable de la atención</label><input type="text" placeholder="Nombre completo" /></div>
+          <div class="section-spacer"></div>
+          <div class="field"><label>Observaciones finales</label><textarea placeholder="Observaciones adicionales..."></textarea></div>
+        </div>
+
+        <div class="action-bar">
+          <button class="btn btn-ghost" onclick="resetForm()">Limpiar</button>
+          <button class="btn btn-primary" onclick="window.print()">Imprimir</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- TAB 3 — FICHA DE ATENCIÓN MÉDICA V2 (SNS-MSP)            -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <div id="tab-atencion-v2" class="tab-panel">
+
+      <div class="form-card">
+        <!-- A. Datos del Establecimiento -->
+        <div class="card-header">
+          <div class="card-header-num">A</div>
+          <div class="card-header-title">Datos del Establecimiento y Usuario / Paciente</div>
+        </div>
+        <div class="card-body">
+          <div class="field-group cols-3">
+            <div class="field"><label>Institución del Sistema</label><input type="text" placeholder="ISTPET" /></div>
+            <div class="field"><label>Unicódigo</label><input type="text" placeholder="Código único" /></div>
+            <div class="field"><label>Establecimiento de Salud</label><input type="text" placeholder="Nombre" /></div>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="field-group cols-4">
+            <div class="field"><label>N° Historia Clínica Única</label><input type="text" placeholder="HCU-000" /></div>
+            <div class="field"><label>N° de Archivo</label><input type="text" placeholder="ARQ-000" /></div>
+            <div class="field"><label>N° Hoja</label><input type="number" placeholder="1" min="1" /></div>
+            <div class="field"><label>Sexo</label><select><option value="">—</option><option>M</option><option>F</option></select></div>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="field-group cols-3">
+            <div class="field"><label>Primer Apellido</label><input type="text" /></div>
+            <div class="field"><label>Segundo Apellido</label><input type="text" /></div>
+            <div class="field"><label>Primer Nombre</label><input type="text" /></div>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="field-group cols-2">
+            <div class="field"><label>Segundo Nombre</label><input type="text" /></div>
+            <div class="field"><label>Edad (Años)</label><input type="number" /></div>
+          </div>
+        </div>
+
+        <!-- B. Motivo de Consulta -->
+        <div class="card-header">
+          <div class="card-header-num">B</div>
+          <div class="card-header-title">Motivo de Consulta</div>
+        </div>
+        <div class="card-body">
+          <div class="field-group cols-2">
+            <div class="field">
+              <label>Tipo</label>
+              <div class="check-grid" style="margin-top:6px;">
+                <label class="check-item"><input type="radio" name="tipoConsulta" /><span>Primera consulta</span></label>
+                <label class="check-item"><input type="radio" name="tipoConsulta" /><span>Subsecuente</span></label>
+              </div>
+            </div>
+            <div class="field"><label>Descripción del motivo</label><textarea placeholder="Motivo principal de la consulta..." rows="3"></textarea></div>
+          </div>
+        </div>
+
+        <!-- C. Antecedentes Patológicos Personales -->
+        <div class="card-header">
+          <div class="card-header-num">C</div>
+          <div class="card-header-title">Antecedentes Patológicos Personales</div>
+        </div>
+        <div class="card-body">
+          <div class="check-grid cols-2">
+            <label class="check-item"><input type="checkbox" /><span>1. Cardiopatía</span></label>
+            <label class="check-item"><input type="checkbox" /><span>2. Hipertensión</span></label>
+            <label class="check-item"><input type="checkbox" /><span>3. Enf. Cardio-Vascular</span></label>
+            <label class="check-item"><input type="checkbox" /><span>4. Endocrino Metabólico</span></label>
+            <label class="check-item"><input type="checkbox" /><span>5. Cáncer</span></label>
+            <label class="check-item"><input type="checkbox" /><span>6. Tuberculosis</span></label>
+            <label class="check-item"><input type="checkbox" /><span>7. Enf. Mental</span></label>
+            <label class="check-item"><input type="checkbox" /><span>8. Enf. Infecciosa</span></label>
+            <label class="check-item"><input type="checkbox" /><span>9. Malformación</span></label>
+            <label class="check-item"><input type="checkbox" /><span>10. Otro</span></label>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="field">
+            <label>Datos clínico-quirúrgicos, obstétricos, alérgicos relevantes</label>
+            <textarea placeholder="Describa antecedentes relevantes..." rows="3"></textarea>
+          </div>
+        </div>
+
+        <!-- D. Antecedentes Patológicos Familiares -->
+        <div class="card-header">
+          <div class="card-header-num">D</div>
+          <div class="card-header-title">Antecedentes Patológicos Familiares</div>
+        </div>
+        <div class="card-body">
+          <div class="check-grid cols-2">
+            <label class="check-item"><input type="checkbox" /><span>1. Cardiopatía</span></label>
+            <label class="check-item"><input type="checkbox" /><span>2. Hipertensión</span></label>
+            <label class="check-item"><input type="checkbox" /><span>3. Enf. C. Vascular</span></label>
+            <label class="check-item"><input type="checkbox" /><span>4. Endocrino Metabólico</span></label>
+            <label class="check-item"><input type="checkbox" /><span>5. Cáncer</span></label>
+            <label class="check-item"><input type="checkbox" /><span>6. Tuberculosis</span></label>
+            <label class="check-item"><input type="checkbox" /><span>7. Enf. Mental</span></label>
+            <label class="check-item"><input type="checkbox" /><span>8. Enf. Infecciosa</span></label>
+            <label class="check-item"><input type="checkbox" /><span>9. Malformación</span></label>
+            <label class="check-item"><input type="checkbox" /><span>10. Otro</span></label>
+          </div>
+        </div>
+
+        <!-- E. Enfermedad o Problema Actual -->
+        <div class="card-header">
+          <div class="card-header-num">E</div>
+          <div class="card-header-title">Enfermedad o Problema Actual</div>
+        </div>
+        <div class="card-body">
+          <div class="field">
+            <label>Descripción — Cronología, Localización, Características, Intensidad, Frecuencia, Factores Agravantes</label>
+            <textarea rows="5" placeholder="Describa detalladamente el problema actual del paciente..."></textarea>
+          </div>
+        </div>
+
+        <!-- F. Constantes Vitales y Antropometría -->
+        <div class="card-header">
+          <div class="card-header-num">F</div>
+          <div class="card-header-title">Constantes Vitales y Antropometría</div>
+        </div>
+        <div class="card-body">
+          <div style="overflow-x:auto;">
+            <table class="vitals-table">
+              <thead>
+                <tr>
+                  <th>Parámetro / Constante Vital (Catálogo)</th>
+                  <th style="width:110px;">Unidad</th>
+                  <th style="width:140px;">Valor</th>
+                  <th style="width:140px;">Fecha</th>
+                  <th style="width:130px;">Hora</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Catálogo: requiere_hora = true (Permite ingresar hora manualmente) -->
+                <tr>
+                  <td><strong>Presión Arterial</strong></td>
+                  <td>mmHg</td>
+                  <td><input type="text" value="120/80" placeholder="Ej. 120/80" /></td>
+                  <td><input type="date" value="2026-09-11" /></td>
+                  <td><input type="time" value="08:30" /></td>
+                </tr>
+                <tr>
+                  <td><strong>Frecuencia Cardíaca (Pulso)</strong></td>
+                  <td>lat/min</td>
+                  <td><input type="text" value="72" placeholder="Ej. 72" /></td>
+                  <td><input type="date" value="2026-09-11" /></td>
+                  <td><input type="time" value="08:30" /></td>
+                </tr>
+                <tr>
+                  <td><strong>Frecuencia Respiratoria</strong></td>
+                  <td>resp/min</td>
+                  <td><input type="text" value="18" placeholder="Ej. 18" /></td>
+                  <td><input type="date" value="2026-09-11" /></td>
+                  <td><input type="time" value="08:32" /></td>
+                </tr>
+                <tr>
+                  <td><strong>Temperatura</strong></td>
+                  <td>°C</td>
+                  <td><input type="text" value="36.5" placeholder="Ej. 36.5" /></td>
+                  <td><input type="date" value="2026-09-11" /></td>
+                  <td><input type="time" value="08:32" /></td>
+                </tr>
+                <tr>
+                  <td><strong>Pulsioximetría (SatO2)</strong></td>
+                  <td>%</td>
+                  <td><input type="text" value="98" placeholder="Ej. 98" /></td>
+                  <td><input type="date" value="2026-09-11" /></td>
+                  <td><input type="time" value="08:35" /></td>
+                </tr>
+                <tr>
+                  <td><strong>Glucosa Capilar</strong></td>
+                  <td>mg/dl</td>
+                  <td><input type="text" value="95" placeholder="Ej. 95" /></td>
+                  <td><input type="date" value="2026-09-11" /></td>
+                  <td><input type="time" value="08:40" /></td>
+                </tr>
+                <tr>
+                  <td><strong>Hemoglobina Capilar</strong></td>
+                  <td>g/dl</td>
+                  <td><input type="text" value="14.5" placeholder="Ej. 14.5" /></td>
+                  <td><input type="date" value="2026-09-11" /></td>
+                  <td><input type="time" value="08:40" /></td>
+                </tr>
+
+                <!-- Catálogo: requiere_hora = false (Hora automática en sistema, NO se muestra input en el front) -->
+                <tr>
+                  <td><strong>Peso</strong></td>
+                  <td>kg</td>
+                  <td><input type="number" step="0.1" value="68.5" placeholder="Ej. 68.5" /></td>
+                  <td><input type="date" value="2026-09-11" /></td>
+                  <td style="text-align:center; color:var(--text-muted); font-size:11px;">— (Automática)</td>
+                </tr>
+                <tr>
+                  <td><strong>Talla</strong></td>
+                  <td>cm</td>
+                  <td><input type="number" value="172" placeholder="Ej. 172" /></td>
+                  <td><input type="date" value="2026-09-11" /></td>
+                  <td style="text-align:center; color:var(--text-muted); font-size:11px;">— (Automática)</td>
+                </tr>
+                <tr>
+                  <td><strong>Perímetro Abdominal</strong></td>
+                  <td>cm</td>
+                  <td><input type="number" value="82" placeholder="Ej. 82" /></td>
+                  <td><input type="date" value="2026-09-11" /></td>
+                  <td style="text-align:center; color:var(--text-muted); font-size:11px;">— (Automática)</td>
+                </tr>
+                <tr>
+                  <td><strong>Índice de Masa Corporal (IMC)</strong></td>
+                  <td>kg/m²</td>
+                  <td><input type="text" value="23.2" placeholder="Calculado" readonly /></td>
+                  <td><input type="date" value="2026-09-11" /></td>
+                  <td style="text-align:center; color:var(--text-muted); font-size:11px;">— (Automática)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- G. Revisión Órganos y Sistemas -->
+        <div class="card-header">
+          <div class="card-header-num">G</div>
+          <div class="card-header-title">Revisión Actual de Órganos y Sistemas (Catálogo)</div>
+        </div>
+        <div class="card-body">
+          <div style="overflow-x:auto;">
+            <table class="vitals-table">
+              <thead>
+                <tr>
+                  <th style="width:40px; text-align:center;">#</th>
+                  <th style="width:260px;">Órgano o Sistema (Catálogo)</th>
+                  <th style="width:80px; text-align:center;">Revisado</th>
+                  <th>Descripción / Hallazgo Clínico (Opcional — Positivo / Negativo)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="text-align:center; font-weight:600; color:var(--text-muted);">1</td>
+                  <td><strong>Piel - Anexos</strong></td>
+                  <td style="text-align:center;"><input type="checkbox" checked /></td>
+                  <td><input type="text" value="Negativo: sin lesiones activas, turgencia conservada" placeholder="Describa hallazgo (positivo/negativo)..." /></td>
+                </tr>
+                <tr>
+                  <td style="text-align:center; font-weight:600; color:var(--text-muted);">2</td>
+                  <td><strong>Órganos de los Sentidos</strong></td>
+                  <td style="text-align:center;"><input type="checkbox" checked /></td>
+                  <td><input type="text" value="Negativo: agudeza visual y auditiva sin alteraciones" placeholder="Describa hallazgo (positivo/negativo)..." /></td>
+                </tr>
+                <tr>
+                  <td style="text-align:center; font-weight:600; color:var(--text-muted);">3</td>
+                  <td><strong>Respiratorio</strong></td>
+                  <td style="text-align:center;"><input type="checkbox" checked /></td>
+                  <td><input type="text" value="Positivo: refiere tos seca persistente y rinorrea hialina" placeholder="Describa hallazgo (positivo/negativo)..." /></td>
+                </tr>
+                <tr>
+                  <td style="text-align:center; font-weight:600; color:var(--text-muted);">4</td>
+                  <td><strong>Cardio-Vascular</strong></td>
+                  <td style="text-align:center;"><input type="checkbox" checked /></td>
+                  <td><input type="text" value="Negativo: no refiere dolor precordial, palpitaciones ni disnea" placeholder="Describa hallazgo (positivo/negativo)..." /></td>
+                </tr>
+                <tr>
+                  <td style="text-align:center; font-weight:600; color:var(--text-muted);">5</td>
+                  <td><strong>Digestivo</strong></td>
+                  <td style="text-align:center;"><input type="checkbox" checked /></td>
+                  <td><input type="text" value="Positivo: refiere pirosis y epigastralgia ocasional" placeholder="Describa hallazgo (positivo/negativo)..." /></td>
+                </tr>
+                <tr>
+                  <td style="text-align:center; font-weight:600; color:var(--text-muted);">6</td>
+                  <td><strong>Genito-Urinario</strong></td>
+                  <td style="text-align:center;"><input type="checkbox" checked /></td>
+                  <td><input type="text" value="Negativo: diuresis normal sin disuria ni polaquiuria" placeholder="Describa hallazgo (positivo/negativo)..." /></td>
+                </tr>
+                <tr>
+                  <td style="text-align:center; font-weight:600; color:var(--text-muted);">7</td>
+                  <td><strong>Músculo-Esquelético</strong></td>
+                  <td style="text-align:center;"><input type="checkbox" checked /></td>
+                  <td><input type="text" value="Negativo: sin rigidez articular ni mialgias" placeholder="Describa hallazgo (positivo/negativo)..." /></td>
+                </tr>
+                <tr>
+                  <td style="text-align:center; font-weight:600; color:var(--text-muted);">8</td>
+                  <td><strong>Endocrino</strong></td>
+                  <td style="text-align:center;"><input type="checkbox" /></td>
+                  <td><input type="text" value="" placeholder="Describa hallazgo (positivo/negativo)..." /></td>
+                </tr>
+                <tr>
+                  <td style="text-align:center; font-weight:600; color:var(--text-muted);">9</td>
+                  <td><strong>Hemo-Linfático</strong></td>
+                  <td style="text-align:center;"><input type="checkbox" /></td>
+                  <td><input type="text" value="" placeholder="Describa hallazgo (positivo/negativo)..." /></td>
+                </tr>
+                <tr>
+                  <td style="text-align:center; font-weight:600; color:var(--text-muted);">10</td>
+                  <td><strong>Nervioso</strong></td>
+                  <td style="text-align:center;"><input type="checkbox" checked /></td>
+                  <td><input type="text" value="Negativo: lúcido, orientado en espacio y tiempo, sin cefaleas" placeholder="Describa hallazgo (positivo/negativo)..." /></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- H. Examen Físico -->
+        <div class="card-header">
+          <div class="card-header-num">H</div>
+          <div class="card-header-title">Examen Físico — Regional y Sistémico (Catálogo)</div>
+        </div>
+        <div class="card-body">
+          <div style="overflow-x:auto;">
+            <table class="vitals-table">
+              <thead>
+                <tr>
+                  <th style="width:40px; text-align:center;">#</th>
+                  <th style="width:130px;">Ámbito</th>
+                  <th style="width:230px;">Región o Sistema (Catálogo)</th>
+                  <th style="width:80px; text-align:center;">Revisado</th>
+                  <th>Descripción / Hallazgo Clínico (Opcional — Positivo / Negativo)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="text-align:center; font-weight:600; color:var(--text-muted);">1</td>
+                  <td>Regional</td>
+                  <td><strong>Cabeza y Cuello</strong></td>
+                  <td style="text-align:center;"><input type="checkbox" checked /></td>
+                  <td><input type="text" value="Negativo: normocéfalo, cuello móvil sin adenopatías palpables" placeholder="Describa hallazgo (positivo/negativo)..." /></td>
+                </tr>
+                <tr>
+                  <td style="text-align:center; font-weight:600; color:var(--text-muted);">2</td>
+                  <td>Regional</td>
+                  <td><strong>Ojos, Oídos, Nariz, Boca y Orofaringe</strong></td>
+                  <td style="text-align:center;"><input type="checkbox" checked /></td>
+                  <td><input type="text" value="Positivo: orofaringe congestiva con eritema difuso, sin placas purulentas" placeholder="Describa hallazgo (positivo/negativo)..." /></td>
+                </tr>
+                <tr>
+                  <td style="text-align:center; font-weight:600; color:var(--text-muted);">3</td>
+                  <td>Regional</td>
+                  <td><strong>Tórax y Pulmones</strong></td>
+                  <td style="text-align:center;"><input type="checkbox" checked /></td>
+                  <td><input type="text" value="Positivo: murmullo vesicular áspero, sibilancias espiratorias aisladas" placeholder="Describa hallazgo (positivo/negativo)..." /></td>
+                </tr>
+                <tr>
+                  <td style="text-align:center; font-weight:600; color:var(--text-muted);">4</td>
+                  <td>Sistémico</td>
+                  <td><strong>Cardiovascular</strong></td>
+                  <td style="text-align:center;"><input type="checkbox" checked /></td>
+                  <td><input type="text" value="Negativo: ruidos cardíacos rítmicos normofonéticos, no se auscultan soplos" placeholder="Describa hallazgo (positivo/negativo)..." /></td>
+                </tr>
+                <tr>
+                  <td style="text-align:center; font-weight:600; color:var(--text-muted);">5</td>
+                  <td>Regional</td>
+                  <td><strong>Abdomen</strong></td>
+                  <td style="text-align:center;"><input type="checkbox" checked /></td>
+                  <td><input type="text" value="Negativo: blando, depresible, no doloroso a palpación superficial ni profunda, RHA presentes" placeholder="Describa hallazgo (positivo/negativo)..." /></td>
+                </tr>
+                <tr>
+                  <td style="text-align:center; font-weight:600; color:var(--text-muted);">6</td>
+                  <td>Regional</td>
+                  <td><strong>Columna Vertebral</strong></td>
+                  <td style="text-align:center;"><input type="checkbox" checked /></td>
+                  <td><input type="text" value="Negativo: curvaturas fisiológicas conservadas, no dolor a palpación" placeholder="Describa hallazgo (positivo/negativo)..." /></td>
+                </tr>
+                <tr>
+                  <td style="text-align:center; font-weight:600; color:var(--text-muted);">7</td>
+                  <td>Regional</td>
+                  <td><strong>Miembros Superiores e Inferiores</strong></td>
+                  <td style="text-align:center;"><input type="checkbox" checked /></td>
+                  <td><input type="text" value="Negativo: simétricos, tono y movilidad completa, sin edema periférico" placeholder="Describa hallazgo (positivo/negativo)..." /></td>
+                </tr>
+                <tr>
+                  <td style="text-align:center; font-weight:600; color:var(--text-muted);">8</td>
+                  <td>Sistémico</td>
+                  <td><strong>Neurológico</strong></td>
+                  <td style="text-align:center;"><input type="checkbox" checked /></td>
+                  <td><input type="text" value="" placeholder="Describa hallazgo (positivo/negativo)..." /></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- I. Diagnóstico -->
+        <div class="card-header">
+          <div class="card-header-num">I</div>
+          <div class="card-header-title">Diagnóstico</div>
+        </div>
+        <div class="card-body">
+          <div style="overflow-x:auto;">
+            <table class="diag-table" id="tabla-diagnosticos-v2">
+              <thead>
+                <tr>
+                  <th style="width:35px; text-align:center;">N°</th>
+                  <th>Diagnóstico / Descripción</th>
+                  <th style="width:90px;">CIE</th>
+                  <th style="width:50px; text-align:center;">Pre</th>
+                  <th style="width:50px; text-align:center;">Def</th>
+                  <th style="width:45px; text-align:center;"></th>
+                </tr>
+              </thead>
+              <tbody id="tbody-diagnosticos-v2">
+                <tr>
+                  <td style="width:35px; text-align:center; font-weight:600; color:var(--text-muted);">1.</td>
+                  <td><input type="text" value="Faringitis aguda, no especificada" placeholder="Diagnóstico presuntivo o definitivo" /></td>
+                  <td style="width:90px;"><input type="text" value="J02.9" placeholder="CIE-10" /></td>
+                  <td style="width:50px; text-align:center;"><input type="checkbox" /></td>
+                  <td style="width:50px; text-align:center;"><input type="checkbox" checked /></td>
+                  <td style="width:45px; text-align:center;"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="margin-top:12px;">
+            <button type="button" class="btn btn-ghost" onclick="agregarDiagnosticoV2()">+ Agregar Diagnóstico</button>
+          </div>
+        </div>
+
+        <!-- J. Plan de Tratamiento -->
+        <div class="card-header">
+          <div class="card-header-num">J</div>
+          <div class="card-header-title">Plan de Tratamiento — Diagnóstico, Terapéutico y Educacional</div>
+        </div>
+        <div class="card-body">
+          <div class="field"><textarea rows="6" placeholder="Detalle el plan de tratamiento: estudios complementarios, medicación, indicaciones educativas al paciente..."></textarea></div>
+        </div>
+
+        <!-- K. Datos del Profesional -->
+        <div class="card-header">
+          <div class="card-header-num">K</div>
+          <div class="card-header-title">Datos del Profesional Responsable</div>
+        </div>
+        <div class="card-body">
+          <div class="field-group cols-3">
+            <div class="field"><label>Fecha (aaaa-mm-dd)</label><input type="date" /></div>
+            <div class="field"><label>Hora (hh:mm)</label><input type="time" /></div>
+            <div class="field"><label>Primer Nombre</label><input type="text" /></div>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="field-group cols-2">
+            <div class="field"><label>Primer Apellido</label><input type="text" /></div>
+            <div class="field"><label>Segundo Apellido</label><input type="text" /></div>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="field-group cols-2">
+            <div class="field"><label>N° Documento de Identificación</label><input type="text" /></div>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="signature-grid">
+            <div class="signature-box">
+              <div class="signature-line"></div>
+              <div class="signature-label">Firma del Profesional</div>
+            </div>
+            <div class="signature-box">
+              <div class="signature-line"></div>
+              <div class="signature-label">Sello Institucional</div>
+            </div>
+          </div>
+          <div class="section-spacer"></div>
+          <div style="font-size:10px; color:var(--text-muted); text-align:center;">SNS-MSP / HCU-form.002 / 2021</div>
+        </div>
+
+        <div class="action-bar">
+          <button class="btn btn-ghost" onclick="resetForm()">Limpiar</button>
+          <button class="btn btn-primary" onclick="window.print()">Imprimir</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- TAB 4 — FICHA ATENCIÓN / VALIDACIÓN CERTIFICADOS          -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <div id="tab-validacion" class="tab-panel">
+
+      <div class="form-card">
+        <div class="form-meta">
+          <div class="field"><label>Período</label><input type="text" placeholder="Ej. Abril–Septiembre 2026" /></div>
+          <div class="field"><label>Versión N°</label><input type="text" placeholder="01" /></div>
+          <div class="field"><label>Nro.</label><input type="text" placeholder="VAL-001" /></div>
+          <div class="field"><label>Fecha de Emisión</label><input type="date" /></div>
+        </div>
+
+        <!-- 1. Información General del Estudiante -->
+        <div class="card-header">
+          <div class="card-header-num">1</div>
+          <div class="card-header-title">Información General del Estudiante</div>
+        </div>
+        <div class="card-body">
+          <div class="field-group cols-3">
+            <div class="field" style="grid-column:span 2"><label>Nombre y Apellido</label><input type="text" placeholder="Nombre completo del estudiante" /></div>
+            <div class="field"><label>Correo Institucional</label><input type="email" placeholder="est@istpet.edu.ec" /></div>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="field-group cols-2">
+            <div class="field"><label>Carrera</label><input type="text" placeholder="Ej. Enfermería" /></div>
+            <div class="field"><label>Semestre</label><input type="text" placeholder="Ej. 4to" /></div>
+          </div>
+        </div>
+
+        <!-- 2. Tipo de Atención / Validación -->
+        <div class="card-header">
+          <div class="card-header-num">2</div>
+          <div class="card-header-title">Tipo de Atención / Validación</div>
+        </div>
+        <div class="card-body">
+          <div class="check-grid cols-2">
+            <label class="check-item"><input type="checkbox" /><span>Validación de certificado médico</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Atención médica institucional</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Emergencia</span></label>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="field"><label>Otro (especifique)</label><input type="text" placeholder="Descripción del tipo de atención" /></div>
+        </div>
+
+        <!-- 3. Motivo de la Atención -->
+        <div class="card-header">
+          <div class="card-header-num">3</div>
+          <div class="card-header-title">Motivo de la Atención</div>
+        </div>
+        <div class="card-body">
+          <div class="check-grid cols-3">
+            <label class="check-item"><input type="checkbox" /><span>Enfermedad</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Maternidad</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Paternidad</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Accidente</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Otro</span></label>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="field"><label>Especifique motivo</label><input type="text" placeholder="Descripción del motivo" /></div>
+        </div>
+
+        <!-- 4. Descripción del Caso Clínico -->
+        <div class="card-header">
+          <div class="card-header-num">4</div>
+          <div class="card-header-title">Descripción del Caso Clínico <span class="badge badge-gold" style="margin-left:8px;">Información sensible — uso restringido</span></div>
+        </div>
+        <div class="card-body">
+          <div class="field">
+            <label>Debe especificar detalladamente el motivo de atención en relación a lo marcado en la sección 3</label>
+            <textarea rows="5" placeholder="Descripción clínica detallada del caso..."></textarea>
+          </div>
+        </div>
+
+        <!-- 5. Validación del Documento Médico -->
+        <div class="card-header">
+          <div class="card-header-num">5</div>
+          <div class="card-header-title">Validación del Documento Médico</div>
+        </div>
+        <div class="card-body">
+          <div class="field-group cols-2">
+            <div class="field"><label>Tipo de documento presentado</label><input type="text" placeholder="Ej. Certificado médico, reposo..." /></div>
+            <div class="field"><label>Institución emisora</label><input type="text" placeholder="Nombre del establecimiento de salud" /></div>
+            <div class="field"><label>Fecha de emisión</label><input type="date" /></div>
+            <div class="field"><label>Período de reposo</label><input type="text" placeholder="Ej. 3 días" /></div>
+            <div class="field"><label>Diagnóstico (codificado CIE-10)</label><input type="text" placeholder="Ej. J06.9" /></div>
+            <div class="field">
+              <label>Adjuntar documento médico (PDF, JPG, PNG)</label>
+              <input type="file" accept=".pdf,image/jpeg,image/png" />
+            </div>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="section-label">Resultado de la Validación</div>
+          <div class="check-grid cols-3">
+            <label class="check-item"><input type="radio" name="valResult" /><span>✓ Documento válido</span></label>
+            <label class="check-item"><input type="radio" name="valResult" /><span>⚠ Requiere verificación adicional</span></label>
+            <label class="check-item"><input type="radio" name="valResult" /><span>✗ Documento no válido</span></label>
+          </div>
+        </div>
+
+        <!-- 6. Observaciones Complementarias -->
+        <div class="card-header">
+          <div class="card-header-num">6</div>
+          <div class="card-header-title">Observaciones Complementarias</div>
+        </div>
+        <div class="card-body">
+          <div class="field"><textarea rows="4" placeholder="Observaciones adicionales sobre el caso..."></textarea></div>
+        </div>
+
+        <!-- 7. Recomendaciones -->
+        <div class="card-header">
+          <div class="card-header-num">7</div>
+          <div class="card-header-title">Recomendaciones Académicas y Médicas</div>
+        </div>
+        <div class="card-body">
+          <div class="check-grid cols-2">
+            <label class="check-item"><input type="checkbox" /><span>Reposo académico temporal</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Adaptación de actividades académicas</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Restricción de actividad física</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Seguimiento médico institucional</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Derivación a especialista</span></label>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="field"><label>Otro (especifique)</label><input type="text" placeholder="Otra recomendación" /></div>
+          <div class="section-spacer"></div>
+          <div class="field"><label>Detalle de las recomendaciones</label><textarea rows="3" placeholder="Detalle las recomendaciones académicas y médicas..."></textarea></div>
+          <div class="section-spacer"></div>
+          <div class="signature-grid">
+            <div class="signature-box">
+              <div class="signature-line"></div>
+              <div class="signature-label">Bienestar Estudiantil — Nombre y Sello</div>
+            </div>
+            <div class="signature-box">
+              <div class="signature-line"></div>
+              <div class="signature-label">Departamento Médico — Nombre y Sello</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-bar">
+          <button class="btn btn-ghost" onclick="resetForm()">Limpiar</button>
+          <button class="btn btn-primary" onclick="window.print()">Imprimir</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <!-- TAB 5 — FICHA DE SEGUIMIENTO DM                           -->
+    <!-- ══════════════════════════════════════════════════════════ -->
+    <div id="tab-seguimiento" class="tab-panel">
+
+      <div class="form-card">
+        <div class="form-meta">
+          <div class="field"><label>Período</label><input type="text" placeholder="Ej. Abril–Septiembre 2026" /></div>
+          <div class="field"><label>Versión N°</label><input type="text" placeholder="02" /></div>
+          <div class="field"><label>Nro.</label><input type="text" placeholder="SEG-001" /></div>
+          <div class="field"><label>Fecha de Emisión</label><input type="date" /></div>
+        </div>
+
+        <div style="background:var(--navy); padding:10px 24px; text-align:center;">
+          <span style="font-size:13px; font-weight:700; color:var(--gold-light); letter-spacing:.06em;">FICHA DE SEGUIMIENTO — DEPARTAMENTO MÉDICO ESTUDIANTIL</span>
+        </div>
+        <div style="background:#EFF1F5; padding:8px 24px; text-align:center; font-size:11px; font-weight:600; color:var(--text-secondary); letter-spacing:.04em;">
+          NOTIFICACIÓN SEGUIMIENTO
+        </div>
+
+        <!-- 1. Datos Generales del Estudiante -->
+        <div class="card-header">
+          <div class="card-header-num">1</div>
+          <div class="card-header-title">Datos Generales del Estudiante</div>
+        </div>
+        <div class="card-body">
+          <div class="field-group cols-3">
+            <div class="field" style="grid-column:span 2"><label>Nombre y Apellido</label><input type="text" placeholder="Nombre completo" /></div>
+            <div class="field"><label>Correo Institucional</label><input type="email" placeholder="est@istpet.edu.ec" /></div>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="field-group cols-2">
+            <div class="field"><label>Carrera</label><input type="text" placeholder="Ej. Enfermería" /></div>
+            <div class="field"><label>Semestre</label><input type="text" placeholder="Ej. 4to" /></div>
+          </div>
+        </div>
+
+        <!-- 2. Información del Caso -->
+        <div class="card-header">
+          <div class="card-header-num">2</div>
+          <div class="card-header-title">Información del Caso</div>
+        </div>
+        <div class="card-body">
+          <div class="field-group cols-2">
+            <div class="field"><label>Fecha de inicio del seguimiento</label><input type="date" /></div>
+            <div class="field"><label>Motivo del seguimiento</label><input type="text" placeholder="Ej. Control post-hospitalización" /></div>
+            <div class="field"><label>Diagnóstico (codificado CIE-10)</label><input type="text" placeholder="Ej. J18.9" /></div>
+            <div class="field">
+              <label>Tipo de caso</label>
+              <select>
+                <option value="">—</option>
+                <option>Agudo</option>
+                <option>Crónico</option>
+                <option>Rehabilitación</option>
+                <option>Postquirúrgico</option>
+                <option>Otro</option>
+              </select>
+            </div>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="field">
+            <label>Descripción — Especifique detalladamente el tipo de atención en relación a lo marcado</label>
+            <textarea rows="4" placeholder="Descripción clínica del seguimiento..."></textarea>
+          </div>
+        </div>
+
+        <!-- Control de Asistencia y Adaptación Académica -->
+        <div class="card-header">
+          <div class="card-header-num">3</div>
+          <div class="card-header-title">Control de Asistencia y Adaptación Académica</div>
+        </div>
+        <div class="card-body">
+          <div class="field-group cols-3">
+            <div class="field">
+              <label>¿Requiere adaptación académica?</label>
+              <select>
+                <option value="">—</option>
+                <option>Sí</option>
+                <option>No</option>
+                <option>No aplica</option>
+              </select>
+            </div>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="section-label">Tipo de Adaptación</div>
+          <div class="check-grid cols-2">
+            <label class="check-item"><input type="checkbox" /><span>Reducción de carga académica</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Actividades teóricas</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Restricción de actividad física</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Modalidad virtual</span></label>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="field"><label>Otro tipo de adaptación</label><input type="text" placeholder="Especifique" /></div>
+          <div class="section-spacer"></div>
+          <div class="field"><label>Observaciones académicas</label><textarea rows="3" placeholder="Directrices pedagógicas no clínicas..."></textarea></div>
+        </div>
+
+        <!-- Plan de Acción -->
+        <div class="card-header">
+          <div class="card-header-num">4</div>
+          <div class="card-header-title">Plan de Acción</div>
+        </div>
+        <div class="card-body">
+          <div class="check-grid cols-2">
+            <label class="check-item"><input type="checkbox" /><span>Continuar seguimiento</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Alta médica</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Derivación a especialista</span></label>
+            <label class="check-item"><input type="checkbox" /><span>Notificación a Bienestar Estudiantil</span></label>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="field"><label>Detalle del plan de acción</label><textarea rows="3" placeholder="Instrucciones específicas, derivación o aviso a Bienestar..."></textarea></div>
+        </div>
+
+        <!-- Responsables -->
+        <div class="card-header">
+          <div class="card-header-num">5</div>
+          <div class="card-header-title">Responsables</div>
+        </div>
+        <div class="card-body">
+          <div class="signature-grid" style="grid-template-columns:1fr;">
+            <div class="signature-box" style="max-width:320px; margin:0 auto;">
+              <div class="signature-line"></div>
+              <div class="signature-label">Departamento Médico — Nombre y Firma</div>
+            </div>
+          </div>
+          <div class="section-spacer"></div>
+          <div class="notice">
+            <strong>Documento confidencial.</strong> Prohibida su divulgación sin autorización institucional. — SNS-MSP / HCU-form.DM / V.02
+          </div>
+        </div>
+
+        <div class="action-bar">
+          <button class="btn btn-ghost" onclick="resetForm()">Limpiar</button>
+          <button class="btn btn-primary" onclick="window.print()">Imprimir</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    // ─── Tab Switching ──────────────────────────────────────────
+    function showTab(id) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-' + id).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+
+    // ─── IMC Auto-Calculation ───────────────────────────────────
+    // Tab 1 vitals
+    document.addEventListener('input', function(e) {
+      // Simple IMC calc for first vitals table
+      const pesoInputs = document.querySelectorAll('input[placeholder="0.0"]');
+      const tallaInputs = document.querySelectorAll('input[placeholder="000"]');
+      const imcInputs = document.querySelectorAll('input[placeholder="Calculado"]');
+      pesoInputs.forEach((p, i) => {
+        const calcIMC = () => {
+          const peso = parseFloat(p.value);
+          const talla = parseFloat(tallaInputs[i]?.value) / 100;
+          if (peso > 0 && talla > 0 && imcInputs[i]) {
+            imcInputs[i].value = (peso / (talla * talla)).toFixed(1);
+          }
+        };
+        p.addEventListener('input', calcIMC);
+        if (tallaInputs[i]) tallaInputs[i].addEventListener('input', calcIMC);
+      });
+    }, { once: true });
+
+    // ─── Toggle Destino Entrega (Tab 2) ─────────────────────────
+    function toggleDestinoEntrega(tipo) {
+      const amb = document.getElementById('bloque-ambulatorio');
+      const hosp = document.getElementById('bloque-hospitalario');
+      if (!amb || !hosp) return;
+      if (tipo === 'ambulatorio') {
+        amb.style.display = 'block';
+        hosp.style.display = 'none';
+      } else if (tipo === 'hospitalario') {
+        amb.style.display = 'none';
+        hosp.style.display = 'block';
+      } else {
+        amb.style.display = 'none';
+        hosp.style.display = 'none';
+      }
+    }
+
+    // ─── Diagnósticos Dinámicos (Ficha V2) ───────────────────────
+    function agregarDiagnosticoV2() {
+      const tbody = document.getElementById('tbody-diagnosticos-v2');
+      if (!tbody) return;
+      const count = tbody.querySelectorAll('tr').length + 1;
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td style="width:35px; text-align:center; font-weight:600; color:var(--text-muted);">${count}.</td>
+        <td><input type="text" placeholder="Diagnóstico presuntivo o definitivo" /></td>
+        <td style="width:90px;"><input type="text" placeholder="CIE-10" /></td>
+        <td style="width:50px; text-align:center;"><input type="checkbox" /></td>
+        <td style="width:50px; text-align:center;"><input type="checkbox" /></td>
+        <td style="width:45px; text-align:center;">
+          <button type="button" class="btn btn-ghost" onclick="eliminarDiagnosticoV2(this)" title="Eliminar diagnóstico" style="padding:2px 7px; font-size:11px; line-height:1;">✕</button>
+        </td>
+      `;
+      tbody.appendChild(tr);
+    }
+
+    function eliminarDiagnosticoV2(btn) {
+      const tr = btn.closest('tr');
+      const tbody = document.getElementById('tbody-diagnosticos-v2');
+      if (tr && tbody) {
+        tr.remove();
+        tbody.querySelectorAll('tr').forEach((row, idx) => {
+          const numTd = row.querySelector('td:first-child');
+          if (numTd) numTd.textContent = (idx + 1) + '.';
+        });
+      }
+    }
+
+    // ─── Catálogo de antecedentes familiares ─────────────────────
+    const antecedentesFamiliares = document.getElementById('antecedentes-familiares');
+    const antecedenteTemplate = document.getElementById('antecedente-familiar-template');
+    const agregarAntecedente = document.getElementById('agregar-antecedente-familiar');
+    const catalogoAntecedentes = antecedentesFamiliares?.querySelector('select[data-catalogo="MANT_ANTECEDENT"]');
+
+    agregarAntecedente?.addEventListener('click', function() {
+      if (!antecedenteTemplate || !catalogoAntecedentes) return;
+      const fila = antecedenteTemplate.content.cloneNode(true);
+      const selector = fila.querySelector('select[data-catalogo="MANT_ANTECEDENT"]');
+      selector.replaceChildren(...Array.from(catalogoAntecedentes.options).map(option => option.cloneNode(true)));
+      antecedentesFamiliares.appendChild(fila);
+    });
+
+    // ─── Reset Form ─────────────────────────────────────────────
+    function resetForm() {
+      if (!confirm('¿Desea limpiar todos los campos del formulario actual?')) return;
+      const activePanel = document.querySelector('.tab-panel.active');
+      if (!activePanel) return;
+      activePanel.querySelectorAll('input[type="text"], input[type="date"], input[type="email"], input[type="number"], input[type="time"], textarea, select').forEach(el => {
+        if (el.tagName === 'SELECT') el.selectedIndex = 0;
+        else el.value = '';
+      });
+      activePanel.querySelectorAll('input[type="checkbox"], input[type="radio"]').forEach(el => el.checked = false);
+      if (activePanel.id === 'tab-ficha-medica' && antecedentesFamiliares) {
+        antecedentesFamiliares.querySelectorAll('.antecedente-familiar:not(:first-child)').forEach(el => el.remove());
+      }
+      const amb = document.getElementById('bloque-ambulatorio');
+      const hosp = document.getElementById('bloque-hospitalario');
+      if (amb) amb.style.display = 'none';
+      if (hosp) hosp.style.display = 'none';
+    }
+  </script>
+</body>
+</html>
