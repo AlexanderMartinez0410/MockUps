@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="es-EC" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Grupos de Investigación – ISTPET</title>
+  
+  <link rel="shortcut icon" href="https://istpet.edu.ec/wp-content/themes/g5_helium/custom/images/favicon.png" type="image/x-icon" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nunito:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    :root {
+      --istpet-navy: #212c59;
+      --istpet-navy-dark: #121933;
+      --istpet-navy-deep: #0b1126;
+      --istpet-navy-light: #2c3a75;
+      --istpet-navy-subtle: #0d2757;
+      --istpet-gold: #c59b27;
+      --istpet-gold-hover: #b0871d;
+      --istpet-gold-light: #fdf8eb;
+      --istpet-text: #334155;
+      --istpet-heading: #1e293b;
+      --istpet-border: #e2e8f0;
+      --istpet-border-light: #f1f5f9;
+      --istpet-badge-bg: #1e293b;
+      --istpet-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      --istpet-shadow-hover: 0 10px 30px rgba(33, 44, 89, 0.12);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Roboto', 'Nunito', sans-serif; color: var(--istpet-text); background-color: #ffffff; line-height: 1.6; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; transition: var(--transition); }
+    ul { list-style: none; }
+    img { max-width: 100%; height: auto; display: block; }
+    .container { width: 100%; max-width: 1260px; margin: 0 auto; padding: 0 24px; }
+
+    /* ═════════════════════════════════════════════════════════════
+       HEADER & NAVIGATION
+       ═════════════════════════════════════════════════════════════ */
+    .top-header { background: #ffffff; border-bottom: 1px solid #edf2f7; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04); }
+    .nav-wrapper { display: flex; align-items: center; justify-content: space-between; height: 85px; }
+    .brand-logo img { height: 52px; width: auto; object-fit: contain; }
+    .main-nav { display: flex; align-items: center; gap: 4px; }
+    .nav-item { position: relative; }
+    .nav-link { display: flex; align-items: center; gap: 6px; padding: 12px 14px; font-size: 14.5px; font-weight: 600; color: var(--istpet-navy); border-radius: 6px; cursor: pointer; }
+    .nav-link i.fa-chevron-down { font-size: 10px; transition: transform 0.25s ease; opacity: 0.8; }
+    .nav-link:hover, .nav-item.active > .nav-link { color: var(--istpet-gold); }
+    .nav-item:hover > .nav-link i.fa-chevron-down { transform: rotate(180deg); }
+
+    .dropdown-menu { position: absolute; top: 100%; left: 0; min-width: 250px; background: #ffffff; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12); border-radius: 8px; padding: 10px 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.25s ease; z-index: 1100; border: 1px solid #f1f5f9; }
+    .nav-item:hover > .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+    .dropdown-link { display: flex; align-items: center; gap: 10px; padding: 11px 20px; font-size: 13.5px; font-weight: 500; color: #334155; }
+    .dropdown-link i { font-size: 13px; color: var(--istpet-gold); width: 16px; text-align: center; }
+    .dropdown-link:hover, .dropdown-item.active > .dropdown-link { background-color: #f8fafc; color: var(--istpet-navy); padding-left: 24px; border-left: 3px solid var(--istpet-gold); font-weight: 600; }
+
+    .hamburger-btn { display: none; background: none; border: none; font-size: 24px; color: var(--istpet-navy); cursor: pointer; padding: 8px; }
+    .mobile-drawer { position: fixed; top: 0; right: -100%; width: 310px; height: 100vh; background: #ffffff; box-shadow: -5px 0 25px rgba(0,0,0,0.15); z-index: 2000; transition: right 0.35s ease; display: flex; flex-direction: column; overflow-y: auto; }
+    .mobile-drawer.open { right: 0; }
+    .drawer-header { display: flex; align-items: center; justify-content: space-between; padding: 20px; border-bottom: 1px solid #edf2f7; }
+    .drawer-close { background: none; border: none; font-size: 20px; color: #64748b; cursor: pointer; }
+    .drawer-nav { padding: 20px; display: flex; flex-direction: column; gap: 8px; }
+    .drawer-link { font-size: 15px; font-weight: 600; color: var(--istpet-navy); padding: 8px 0; display: block; border-bottom: 1px solid #f8fafc; }
+    .drawer-sublink { font-size: 13.5px; color: #475569; padding: 6px 0 6px 16px; display: flex; align-items: center; gap: 8px; }
+    .drawer-sublink.active { color: var(--istpet-navy); font-weight: 700; }
+    .drawer-backdrop { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.4); z-index: 1999; display: none; }
+    .drawer-backdrop.active { display: block; }
+
+    /* ═════════════════════════════════════════════════════════════
+       MOCKUP HERO BANNER (MATCHING USER REFERENCE)
+       ═════════════════════════════════════════════════════════════ */
+    .hero-scientific-banner {
+      position: relative;
+      background: linear-gradient(135deg, #07152f 0%, #0f2552 45%, #0a3a78 100%);
+      color: #ffffff;
+      padding: 55px 0 60px;
+      overflow: hidden;
+      border-bottom: 4px solid var(--istpet-gold);
+    }
+    .hero-scientific-banner::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0; bottom: 0; width: 55%;
+      background: radial-gradient(circle at 75% 45%, rgba(45, 140, 255, 0.22) 0%, rgba(15, 37, 82, 0) 70%);
+      pointer-events: none;
+    }
+    .hero-scientific-banner::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 4%; width: 420px; height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200' opacity='0.25'%3E%3Cpath fill='%2360a5fa' d='M320,130 C300,100 280,100 260,130 C240,160 220,160 200,130 C180,100 160,100 140,130 L140,180 L320,180 Z' /%3E%3Ccircle cx='340' cy='60' r='26' fill='%2393c5fd' opacity='0.7'/%3E%3Ccircle cx='280' cy='45' r='18' fill='%2360a5fa' opacity='0.5'/%3E%3Cpath fill='%2338bdf8' d='M80 140 L110 50 L140 140 Z' opacity='0.3'/%3E%3Cpath stroke='%2338bdf8' stroke-width='3' fill='none' d='M50,80 Q100,20 150,80 T250,80 T350,80'/%3E%3Ccircle cx='90' cy='120' r='6' fill='%23fbbf24'/%3E%3Ccircle cx='180' cy='50' r='7' fill='%23fbbf24'/%3E%3Ccircle cx='310' cy='110' r='6' fill='%23fbbf24'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center right;
+      background-size: contain;
+      pointer-events: none;
+      opacity: 0.65;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    .hero-pretitle {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #93c5fd;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-pretitle::after {
+      content: '';
+      display: inline-block;
+      width: 40px;
+      height: 2px;
+      background: #60a5fa;
+      opacity: 0.7;
+    }
+    .hero-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+      color: #ffffff;
+    }
+
+
+    /* ═════════════════════════════════════════════════════════════
+       MAIN 2-COLUMN LAYOUT
+       ═════════════════════════════════════════════════════════════ */
+    .groups-main-section {
+      padding: 50px 0 80px;
+      background-color: #ffffff;
+    }
+    .groups-layout-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      gap: 50px;
+      align-items: start;
+    }
+
+    /* Left Column: Academic Text */
+    .academic-intro-col {
+      padding-right: 15px;
+    }
+    .academic-p {
+      font-size: 15.5px;
+      line-height: 1.85;
+      color: #475569;
+      margin-bottom: 24px;
+      text-align: justify;
+    }
+    .academic-p strong {
+      color: #0f172a;
+      font-weight: 700;
+    }
+    .academic-quote-box {
+      margin-top: 30px;
+      padding: 20px 24px;
+      background: var(--istpet-gold-light);
+      border-left: 4px solid var(--istpet-gold);
+      border-radius: 0 8px 8px 0;
+      font-size: 14.5px;
+      color: #78350f;
+    }
+    .academic-quote-box i {
+      margin-right: 8px;
+      color: var(--istpet-gold);
+    }
+
+    /* Right Column: Search & Carreras Accordion */
+    .groups-explorer-col {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* Search Box */
+    .search-box-wrapper {
+      position: relative;
+      width: 100%;
+    }
+    .search-box-input {
+      width: 100%;
+      height: 52px;
+      padding: 12px 20px 12px 48px;
+      font-size: 15px;
+      font-family: inherit;
+      color: #1e293b;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      outline: none;
+      transition: var(--transition);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+    }
+    .search-box-input:focus {
+      border-color: #0d2757;
+      box-shadow: 0 0 0 3px rgba(13, 39, 87, 0.12);
+    }
+    .search-box-icon {
+      position: absolute;
+      top: 50%;
+      left: 18px;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 17px;
+      pointer-events: none;
+    }
+    .search-clear-btn {
+      position: absolute;
+      top: 50%;
+      right: 16px;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 14px;
+      cursor: pointer;
+      display: none;
+    }
+    .search-clear-btn:hover {
+      color: #334155;
+    }
+
+    /* Accordion Container */
+    .carreras-accordion-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Accordion Item */
+    .carrera-accordion-item {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: var(--transition);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+    }
+    .carrera-accordion-item:hover {
+      border-color: #cbd5e1;
+    }
+    .carrera-accordion-item.active {
+      border-color: #93c5fd;
+      box-shadow: 0 6px 18px rgba(13, 39, 87, 0.06);
+    }
+
+    /* Accordion Header */
+    .carrera-accordion-header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      background: #ffffff;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      text-align: left;
+      transition: background-color 0.2s ease;
+    }
+    .carrera-accordion-item.active .carrera-accordion-header {
+      background: #f8fafc;
+      border-bottom: 1px solid #edf2f7;
+    }
+    .carrera-accordion-header:hover {
+      background: #f8fafc;
+    }
+    .carrera-title-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14.5px;
+      font-weight: 700;
+      color: #0d2757;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .carrera-title-text i {
+      font-size: 15px;
+      color: var(--istpet-gold);
+    }
+    .carrera-chevron {
+      font-size: 15px;
+      color: #0d2757;
+      transition: transform 0.3s ease;
+    }
+    .carrera-accordion-item.active .carrera-chevron {
+      transform: rotate(180deg);
+    }
+
+    /* Accordion Body */
+    .carrera-accordion-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0, 1, 0, 1);
+      background: #ffffff;
+    }
+    .carrera-accordion-item.active .carrera-accordion-body {
+      max-height: 1200px;
+      transition: max-height 0.4s ease-in-out;
+    }
+
+    .groups-sublist {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Group Row inside Accordion */
+    .group-row-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      border-bottom: 1px solid #f1f5f9;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      text-decoration: none;
+      gap: 15px;
+    }
+    .group-row-item:last-child {
+      border-bottom: none;
+    }
+    .group-row-item:hover {
+      background-color: #f8fafc;
+      padding-left: 24px;
+    }
+    .group-name-label {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #1e293b;
+      line-height: 1.45;
+      text-transform: uppercase;
+      letter-spacing: 0.01em;
+      flex: 1;
+    }
+    .group-row-item:hover .group-name-label {
+      color: #0d2757;
+    }
+    .group-code-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #0d2757;
+      color: #ffffff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 20px;
+      white-space: nowrap;
+      letter-spacing: 0.05em;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+    .group-row-item:hover .group-code-badge {
+      background: var(--istpet-gold);
+      color: #0d2757;
+      transform: scale(1.05);
+    }
+
+    /* Bottom Action Button */
+    .conoce-mas-wrapper {
+      margin-top: 15px;
+    }
+    .conoce-mas-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: #0d2757;
+      color: #ffffff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 6px;
+      transition: var(--transition);
+      box-shadow: 0 4px 12px rgba(13, 39, 87, 0.2);
+    }
+    .conoce-mas-btn:hover {
+      background-color: var(--istpet-gold);
+      color: #0d2757;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(197, 155, 39, 0.35);
+    }
+
+    /* Search empty state */
+    .no-search-results {
+      display: none;
+      padding: 30px;
+      text-align: center;
+      background: #f8fafc;
+      border-radius: 8px;
+      border: 1px dashed #cbd5e1;
+      color: #64748b;
+    }
+    .no-search-results i {
+      font-size: 32px;
+      color: #94a3b8;
+      margin-bottom: 10px;
+    }
+
+    /* ═════════════════════════════════════════════════════════════
+       FOOTER & WIDGETS
+       ═════════════════════════════════════════════════════════════ */
+    .site-footer { background-color: var(--istpet-navy); color: #ffffff; padding-top: 60px; border-top: 4px solid var(--istpet-gold); }
+    .footer-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 40px; padding-bottom: 50px; }
+    .footer-logo img { max-width: 230px; margin-bottom: 18px; }
+    .footer-desc { font-size: 14px; color: #cbd5e1; max-width: 340px; }
+    .footer-col-title { font-family: 'Montserrat', sans-serif; font-size: 17px; font-weight: 700; color: var(--istpet-gold); margin-bottom: 20px; position: relative; padding-bottom: 8px; }
+    .footer-col-title::after { content: ''; position: absolute; bottom: 0; left: 0; width: 35px; height: 2px; background-color: var(--istpet-gold); }
+    .footer-info-list { display: flex; flex-direction: column; gap: 14px; font-size: 14px; color: #e2e8f0; }
+    .footer-info-item { display: flex; gap: 12px; }
+    .footer-info-item i { color: var(--istpet-gold); margin-top: 3px; }
+    .footer-link-highlight { color: var(--istpet-gold); font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+    .social-links-row { display: flex; gap: 12px; margin-top: 18px; }
+    .social-btn { width: 38px; height: 38px; border-radius: 50%; background: rgba(255, 255, 255, 0.1); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+    .social-btn:hover { background: var(--istpet-gold); color: var(--istpet-navy-dark); }
+    .sub-footer { background: var(--istpet-navy-dark); padding: 20px 0; text-align: center; font-size: 13.5px; color: #94a3b8; }
+
+    .floating-whatsapp { position: fixed; bottom: 25px; right: 25px; width: 58px; height: 58px; background-color: #25d366; color: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4); z-index: 1500; }
+    .floating-gdpr-gear { position: fixed; bottom: 25px; left: 25px; width: 44px; height: 44px; background-color: #212c59; color: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; z-index: 1500; border: 2px solid rgba(255, 255, 255, 0.2); cursor: pointer; }
+
+    @media (max-width: 1024px) {
+      .main-nav { display: none; }
+      .hamburger-btn { display: block; }
+      .groups-layout-grid { grid-template-columns: 1fr; gap: 40px; }
+      .academic-intro-col { padding-right: 0; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .hero-title { font-size: 28px; }
+      .hero-scientific-banner::after { display: none; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="top-header">
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="../index.html" class="brand-logo" title="Tecnológico Traversari - ISTPET">
+          <img src="https://istpet.edu.ec/wp-content/themes/g5_helium/custom/images/istpet-logo1.png" alt="ISTPET Tecnológico Traversari" />
+        </a>
+
+        <nav class="main-nav">
+          <div class="nav-item"><a class="nav-link" href="#">Nosotros <i class="fa-solid fa-chevron-down"></i></a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Admisiones <i class="fa-solid fa-chevron-down"></i></a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Programa Académico <i class="fa-solid fa-chevron-down"></i></a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Mi ISTPET <i class="fa-solid fa-chevron-down"></i></a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Meraki</a></div>
+          
+          <!-- Investigación -->
+          <div class="nav-item active">
+            <a class="nav-link" href="../index.html">
+              Investigación <i class="fa-solid fa-chevron-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-item"><a class="dropdown-link" href="../produccion-cientifica/">Producción Científica</a></li>
+              <li class="dropdown-item"><a class="dropdown-link" href="../proyectos/">Proyectos de Investigación</a></li>
+              <li class="dropdown-item active"><a class="dropdown-link" href="./">Grupos de Investigación</a></li>
+              <li class="dropdown-item"><a class="dropdown-link" href="../ditra/">DITRA</a></li>
+            </ul>
+          </div>
+
+          <div class="nav-item"><a class="nav-link" href="#">Vinculación</a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Contacto</a></div>
+        </nav>
+
+        <button class="hamburger-btn" id="mobileMenuBtn"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-header">
+      <img src="https://istpet.edu.ec/wp-content/themes/g5_helium/custom/images/istpet-logo1.png" alt="ISTPET Logo" style="height: 38px;">
+      <button class="drawer-close" id="drawerCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="drawer-nav">
+      <a class="drawer-link" href="#">Inicio</a>
+      <a class="drawer-link" href="#">Nosotros</a>
+      <a class="drawer-link" href="#">Admisiones</a>
+      <a class="drawer-link" href="#">Programa Académico</a>
+      <a class="drawer-link" href="#">Mi ISTPET</a>
+      <a class="drawer-link" href="#">Meraki</a>
+      <a class="drawer-link active" href="../index.html" style="color:var(--istpet-gold);">Investigación</a>
+      <a class="drawer-sublink" href="../produccion-cientifica/">Producción Científica</a>
+      <a class="drawer-sublink" href="../proyectos/">Proyectos</a>
+      <a class="drawer-sublink active" href="./">Grupos de Investigación</a>
+      <a class="drawer-sublink" href="../ditra/">DITRA</a>
+      <a class="drawer-link" href="#">Vinculación</a>
+      <a class="drawer-link" href="#">Contacto</a>
+    </div>
+  </aside>
+
+  <!-- Mockup Hero Banner -->
+  <section class="hero-scientific-banner">
+    <div class="container">
+      <div class="hero-content">
+        <p class="hero-pretitle">INVESTIGACIÓN / COMUNIDAD CIENTÍFICA</p>
+        <h1 class="hero-title">Grupos de Investigación</h1>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Main Section: 2 Columns (Academic description vs Carreras Accordion) -->
+  <main class="groups-main-section">
+    <div class="container">
+      <div class="groups-layout-grid">
+        
+        <!-- Left Column: Academic Philosophy & Role of Research Groups -->
+        <div class="academic-intro-col">
+          <p class="academic-p">
+            Lo que importa en la <strong>institución</strong> para la <strong>producción de conocimiento</strong> no es tanto el proyecto sino el grupo que lo enfrenta y ejecuta, la diversidad de grupos y sus proyectos multiplica las posibilidades de recorridos de aprendizaje y con cada acción e iniciativa contagia a la comunidad académica.
+          </p>
+
+          <p class="academic-p">
+            La trans e interdisciplinariedad es posible en el seno de los grupos, así como la unicidad de la <strong>docencia e investigación</strong>. Cada grupo gestiona su <strong>autonomía</strong> en relación con las instancias centrales en el instituto, armonizando la relación ecosistémica en la comunidad académica.
+          </p>
+
+          <p class="academic-p">
+            Los <strong>grupos de investigación</strong> cumplen una doble función: por una parte, son el lugar por excelencia donde se concentra y acumula la <strong>experiencia</strong> y el proceso de <strong>aprendizaje–investigación</strong>; por otra, son generadores de <strong>innovación académica</strong> que retroalimenta curricularmente a las carreras y sus programas de investigación.
+          </p>
+
+          <div class="academic-quote-box">
+            <i class="fa-solid fa-lightbulb"></i>
+            <strong>Fomento a la Ciencia:</strong> Los grupos del ISTPET integran docentes investigadores, estudiantes de grado y redes de cooperación nacional e internacional.
+          </div>
+        </div>
+
+        <!-- Right Column: Search + Carreras Accordion + CTA -->
+        <div class="groups-explorer-col">
+          
+          <!-- Search Input -->
+          <div class="search-box-wrapper">
+            <i class="fa-solid fa-magnifying-glass search-box-icon"></i>
+            <input 
+              type="text" 
+              class="search-box-input" 
+              id="groupsSearchInput" 
+              placeholder="Buscar grupos por palabra clave o sigla..." 
+              autocomplete="off"
+            />
+            <button class="search-clear-btn" id="searchClearBtn" title="Limpiar búsqueda">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+
+          <!-- Empty search results notice -->
+          <div class="no-search-results" id="noSearchResults">
+            <i class="fa-solid fa-folder-open"></i>
+            <p>No se encontraron grupos de investigación que coincidan con el criterio de búsqueda.</p>
+          </div>
+
+          <!-- Carreras Accordion List -->
+          <div class="carreras-accordion-list" id="carrerasAccordion">
+
+            <!-- Carrera 1: Software (Opened by default as reference in mockup) -->
+            <div class="carrera-accordion-item active" data-carrera="desarrollo de software sistemas inteligencia artificial ia">
+              <button class="carrera-accordion-header" onclick="toggleAccordion(this)">
+                <span class="carrera-title-text">
+                  <i class="fa-solid fa-laptop-code"></i> DESARROLLO DE SOFTWARE
+                </span>
+                <i class="fa-solid fa-chevron-down carrera-chevron"></i>
+              </button>
+              <div class="carrera-accordion-body">
+                <div class="groups-sublist">
+                  <a href="./detalle/?id=gi-iata" class="group-row-item" data-keywords="inteligencia artificial gi-iata tecnologias asistencia software algoritmos">
+                    <span class="group-name-label">GRUPO DE INVESTIGACIÓN DE INTELIGENCIA ARTIFICIAL Y TECNOLOGÍAS DE ASISTENCIA</span>
+                    <span class="group-code-badge">GI-IATA</span>
+                  </a>
+                  <a href="./detalle/?id=gitel" class="group-row-item" data-keywords="telecomunicaciones gitel redes telemática ciberseguridad cloud iot">
+                    <span class="group-name-label">GRUPO DE INVESTIGACIÓN EN TELECOMUNICACIONES Y TELEMÁTICA</span>
+                    <span class="group-code-badge">GITEL</span>
+                  </a>
+                  <a href="./detalle/?id=gidsw" class="group-row-item" data-keywords="software gidsw web arquitecturas cloud devops desarrollo sistemas">
+                    <span class="group-name-label">GRUPO DE INVESTIGACIÓN EN DESARROLLO DE SOFTWARE Y SISTEMAS WEB</span>
+                    <span class="group-code-badge">GIDSW</span>
+                  </a>
+                  <a href="./detalle/?id=game-lab" class="group-row-item" data-keywords="game lab videojuegos interactivos realidad virtual aumentada gamificacion">
+                    <span class="group-name-label">GRUPO DE INVESTIGACIÓN GAME LAB - ISTPET</span>
+                    <span class="group-code-badge">GAME LAB - ISTPET</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Carrera 2: Mecánica Automotriz -->
+            <div class="carrera-accordion-item" data-carrera="mecanica automotriz electromecanica energia vehiculos">
+              <button class="carrera-accordion-header" onclick="toggleAccordion(this)">
+                <span class="carrera-title-text">
+                  <i class="fa-solid fa-car-battery"></i> MECÁNICA AUTOMOTRIZ
+                </span>
+                <i class="fa-solid fa-chevron-down carrera-chevron"></i>
+              </button>
+              <div class="carrera-accordion-body">
+                <div class="groups-sublist">
+                  <a href="./detalle/?id=giema" class="group-row-item" data-keywords="electromecanica automotriz giema diagnostico electronico vehiculos">
+                    <span class="group-name-label">GRUPO DE INVESTIGACIÓN EN INNOVACIÓN ELECTROMECÁNICA Y AUTOMOTRIZ</span>
+                    <span class="group-code-badge">GIEMA</span>
+                  </a>
+                  <a href="./detalle/?id=gie" class="group-row-item" data-keywords="energias gie ecomovilidad propulsion electrica hibrida renovables">
+                    <span class="group-name-label">GRUPO DE INVESTIGACIÓN EN ENERGÍAS Y ECO-MOVILIDAD</span>
+                    <span class="group-code-badge">GIE</span>
+                  </a>
+                  <a href="./detalle/?id=giit" class="group-row-item" data-keywords="transporte giit ingenieria diagnostico predictivo industrial">
+                    <span class="group-name-label">GRUPO DE INVESTIGACIÓN EN INGENIERÍA DEL TRANSPORTE</span>
+                    <span class="group-code-badge">GIIT</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Carrera 3: Entrenamiento Deportivo -->
+            <div class="carrera-accordion-item" data-carrera="entrenamiento deportivo deporte salud biomecanica actividad fisica">
+              <button class="carrera-accordion-header" onclick="toggleAccordion(this)">
+                <span class="carrera-title-text">
+                  <i class="fa-solid fa-person-running"></i> ENTRENAMIENTO DEPORTIVO
+                </span>
+                <i class="fa-solid fa-chevron-down carrera-chevron"></i>
+              </button>
+              <div class="carrera-accordion-body">
+                <div class="groups-sublist">
+                  <a href="./detalle/?id=gidis" class="group-row-item" data-keywords="deporte gidis salud integral prescripcion ejercicio rendimiento">
+                    <span class="group-name-label">GRUPO DE INVESTIGACIÓN EN DEPORTE, INNOVACIÓN Y SALUD INTEGRAL</span>
+                    <span class="group-code-badge">GIDIS</span>
+                  </a>
+                  <a href="./detalle/?id=gibrd" class="group-row-item" data-keywords="biomecanica gibrd rendimiento deportivo kinesiologia evaluacion">
+                    <span class="group-name-label">GRUPO DE INVESTIGACIÓN EN BIOMECÁNICA Y ALTO RENDIMIENTO</span>
+                    <span class="group-code-badge">GIBRD</span>
+                  </a>
+                  <a href="./detalle/?id=giaf" class="group-row-item" data-keywords="actividad fisica giaf estilos de vida salud comunitaria adultos">
+                    <span class="group-name-label">GRUPO DE INVESTIGACIÓN EN ACTIVIDAD FÍSICA Y BIENESTAR</span>
+                    <span class="group-code-badge">GIAF</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Carrera 4: Administración y Talento Humano -->
+            <div class="carrera-accordion-item" data-carrera="administracion talento humano gestion emprendimiento produccion">
+              <button class="carrera-accordion-header" onclick="toggleAccordion(this)">
+                <span class="carrera-title-text">
+                  <i class="fa-solid fa-chart-line"></i> ADMINISTRACIÓN Y TALENTO HUMANO
+                </span>
+                <i class="fa-solid fa-chevron-down carrera-chevron"></i>
+              </button>
+              <div class="carrera-accordion-body">
+                <div class="groups-sublist">
+                  <a href="./detalle/?id=gidtec" class="group-row-item" data-keywords="tecnologias industriales gidtec gestion empresarial procesos calidad">
+                    <span class="group-name-label">GRUPO DE INVESTIGACIÓN Y DESARROLLO EN TECNOLOGÍAS INDUSTRIALES</span>
+                    <span class="group-code-badge">GIDTEC</span>
+                  </a>
+                  <a href="./detalle/?id=gigte" class="group-row-item" data-keywords="talento humano gigte emprendimiento liderazgo clima organizacional">
+                    <span class="group-name-label">GRUPO DE INVESTIGACIÓN EN GESTIÓN DEL TALENTO Y EMPRENDIMIENTO</span>
+                    <span class="group-code-badge">GIGTE</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Carrera 5: Enfermería y Salud -->
+            <div class="carrera-accordion-item" data-carrera="enfermeria atencion adulto mayor salud gerontologia cuidados">
+              <button class="carrera-accordion-header" onclick="toggleAccordion(this)">
+                <span class="carrera-title-text">
+                  <i class="fa-solid fa-heart-pulse"></i> ENFERMERÍA Y CUIDADO INTEGRAL
+                </span>
+                <i class="fa-solid fa-chevron-down carrera-chevron"></i>
+              </button>
+              <div class="carrera-accordion-body">
+                <div class="groups-sublist">
+                  <a href="./detalle/?id=gicsg" class="group-row-item" data-keywords="cuidados salud gicsg gerontologia adulto mayor atencion primaria">
+                    <span class="group-name-label">GRUPO DE INVESTIGACIÓN EN CUIDADOS INTEGRALES Y GERONTOLOGÍA</span>
+                    <span class="group-code-badge">GICSG</span>
+                  </a>
+                  <a href="./detalle/?id=giscp" class="group-row-item" data-keywords="salud comunitaria giscp epidemiologia prevencion promocion salud">
+                    <span class="group-name-label">GRUPO DE INVESTIGACIÓN EN SALUD COMUNITARIA Y PREVENCIÓN</span>
+                    <span class="group-code-badge">GISCP</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Carrera 6: Diseño y Multimedia -->
+            <div class="carrera-accordion-item" data-carrera="diseno grafico multimedia comunicacion visual interfaces ux ui">
+              <button class="carrera-accordion-header" onclick="toggleAccordion(this)">
+                <span class="carrera-title-text">
+                  <i class="fa-solid fa-palette"></i> DISEÑO GRÁFICO Y MULTIMEDIA
+                </span>
+                <i class="fa-solid fa-chevron-down carrera-chevron"></i>
+              </button>
+              <div class="carrera-accordion-body">
+                <div class="groups-sublist">
+                  <a href="./detalle/?id=gidmn" class="group-row-item" data-keywords="diseno visual gidmn multimedia narrativas digitales animacion ux ui">
+                    <span class="group-name-label">GRUPO DE INVESTIGACIÓN EN DISEÑO VISUAL Y NARRATIVAS DIGITALES</span>
+                    <span class="group-code-badge">GIDMN</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Button: Conoce Más -->
+          <div class="conoce-mas-wrapper">
+            <a href="../ditra/" class="conoce-mas-btn">
+              Conoce más <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 12px;"></i>
+            </a>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="../index.html" class="footer-logo">
+            <img src="https://istpet.edu.ec/wp-content/uploads/2024/11/dorado-blanco-1024x405.png" alt="ISTPET">
+          </a>
+          <p class="footer-desc">Formamos profesionales competitivos, creativos, íntegros y con valores, con elevado nivel académico y tecnológico.</p>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-title">Encuéntranos en</h4>
+          <div class="footer-info-list">
+            <div class="footer-info-item">
+              <i class="fa-solid fa-location-dot"></i>
+              <div>Av. Matilde Álvarez y Hugo Díaz Romero. Sector Chillogallo
+                <div><a href="https://goo.gl/maps/mGFeWLYE1saLpAT97" target="_blank" class="footer-link-highlight">Ir a Google Maps <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 11px;"></i></a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-title">Contáctanos</h4>
+          <div class="footer-info-list">
+            <div class="footer-info-item"><i class="fa-solid fa-phone"></i><span>02 303 2894</span></div>
+            <div class="footer-info-item"><i class="fa-brands fa-whatsapp"></i><a href="https://wa.link/6j9opo" target="_blank" style="color:inherit">098 403 3166</a></div>
+            <div class="footer-info-item"><i class="fa-regular fa-envelope"></i><a href="mailto:ditra@istpet.edu.ec" style="color:inherit">ditra@istpet.edu.ec</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sub-footer">
+      <div class="container"><p>© Copyright 2025 Todos los derechos reservados | Tecnológico Traversari</p></div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/593984033166?text=Hola%20Tecnol%C3%B3gico%20Traversari,%20necesito%20informaci%C3%B3n%20sobre%20Grupos%20de%20Investigaci%C3%B3n." target="_blank" class="floating-whatsapp"><i class="fa-brands fa-whatsapp"></i></a>
+  <button class="floating-gdpr-gear" onclick="alert('Configuración de Privacidad RGPD ISTPET')"><i class="fa-solid fa-gear"></i></button>
+
+  <!-- Interactive Logic -->
+  <script>
+    // Accordion Toggle
+    function toggleAccordion(headerElement) {
+      const item = headerElement.closest('.carrera-accordion-item');
+      const wasActive = item.classList.contains('active');
+      
+      // Close all if you want accordion behavior (or toggle individually)
+      // If user is searching, keep all matching open, else single open
+      item.classList.toggle('active', !wasActive);
+    }
+
+    // Live Search Filter
+    const searchInput = document.getElementById('groupsSearchInput');
+    const clearBtn = document.getElementById('searchClearBtn');
+    const accordionItems = document.querySelectorAll('.carrera-accordion-item');
+    const noResultsMsg = document.getElementById('noSearchResults');
+
+    searchInput.addEventListener('input', function() {
+      const term = this.value.trim().toLowerCase();
+      clearBtn.style.display = term ? 'block' : 'none';
+
+      let totalVisible = 0;
+
+      accordionItems.forEach(item => {
+        const carreraKeywords = item.getAttribute('data-carrera') || '';
+        const groupRows = item.querySelectorAll('.group-row-item');
+        let itemHasMatch = false;
+
+        groupRows.forEach(row => {
+          const rowText = (row.textContent + ' ' + (row.getAttribute('data-keywords') || '')).toLowerCase();
+          if (!term || rowText.includes(term) || carreraKeywords.includes(term)) {
+            row.style.display = 'flex';
+            itemHasMatch = true;
+            totalVisible++;
+          } else {
+            row.style.display = 'none';
+          }
+        });
+
+        if (itemHasMatch) {
+          item.style.display = 'block';
+          if (term.length > 0) {
+            item.classList.add('active'); // Expand matching categories
+          }
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      noResultsMsg.style.display = (totalVisible === 0) ? 'block' : 'none';
+    });
+
+    clearBtn.addEventListener('click', function() {
+      searchInput.value = '';
+      searchInput.dispatchEvent(new Event('input'));
+      searchInput.focus();
+    });
+
+    // Mobile Menu Drawer
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const drawer = document.getElementById('mobileDrawer');
+    const backdrop = document.getElementById('drawerBackdrop');
+    const closeBtn = document.getElementById('drawerCloseBtn');
+
+    function toggleMobileMenu() {
+      drawer.classList.toggle('open');
+      backdrop.classList.toggle('active');
+    }
+    mobileBtn.addEventListener('click', toggleMobileMenu);
+    closeBtn.addEventListener('click', toggleMobileMenu);
+    backdrop.addEventListener('click', toggleMobileMenu);
+
+    // Live Reload SSE
+    if (window.EventSource) {
+      const source = new EventSource('/__live_reload');
+      source.onmessage = function(e) { if (e.data === 'reload') location.reload(); };
+    }
+  </script>
+</body>
+</html>

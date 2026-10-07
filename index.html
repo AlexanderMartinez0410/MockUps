@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landing Pages & MockUps Hub | Plataforma Central</title>
+  
+  <link rel="shortcut icon" href="https://istpet.edu.ec/wp-content/themes/g5_helium/custom/images/favicon.png" type="image/x-icon" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-canvas: #fafbfd;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --primary: #212c59;
+      --accent-gold: #c59b27;
+      --accent-blue: #2563eb;
+      --border-color: #e2e8f0;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+      --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
+      --shadow-hover: 0 20px 35px -10px rgba(33, 44, 89, 0.15);
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-canvas);
+      color: var(--text-main);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* Top Navbar */
+    .hub-header {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hub-nav-container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 75px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .hub-brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .hub-brand-logo {
+      height: 42px;
+      width: auto;
+    }
+
+    .hub-brand-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hub-brand-badge {
+      background: rgba(33, 44, 89, 0.08);
+      color: var(--primary);
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+
+    .hub-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 12.5px;
+      font-weight: 600;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background-color: #10b981;
+      border-radius: 50%;
+      animation: pulseDot 2s infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.8); }
+    }
+
+    /* Hero Canvas Banner */
+    .canvas-hero {
+      padding: 45px 24px 35px;
+      max-width: 1300px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .canvas-hero-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: 36px 40px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .canvas-hero-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--primary) 0%, var(--accent-gold) 100%);
+    }
+
+    .hero-content h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-content p {
+      color: var(--text-muted);
+      font-size: 15px;
+      max-width: 680px;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 20px;
+      flex-shrink: 0;
+    }
+
+    .stat-box {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      padding: 14px 20px;
+      border-radius: var(--radius-md);
+      text-align: center;
+      min-width: 110px;
+    }
+
+    .stat-num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1.1;
+    }
+
+    .stat-label {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* Controls Bar: Search & Categories */
+    .controls-wrapper {
+      max-width: 1300px;
+      margin: 0 auto 30px;
+      padding: 0 24px;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .search-bar-wrap {
+      position: relative;
+      flex: 1;
+      min-width: 280px;
+      max-width: 440px;
+    }
+
+    .search-bar-wrap input {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      padding: 12px 16px 12px 42px;
+      border-radius: var(--radius-md);
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .search-bar-wrap input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(33, 44, 89, 0.1);
+    }
+
+    .search-bar-wrap i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+    }
+
+    .category-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .cat-btn {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      padding: 9px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cat-btn:hover {
+      background: #f1f5f9;
+      color: var(--text-main);
+    }
+
+    .cat-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    /* Mockups White Canvas Grid */
+    .mockups-grid-section {
+      max-width: 1300px;
+      margin: 0 auto 60px;
+      padding: 0 24px;
+      width: 100%;
+      flex: 1;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 24px;
+    }
+
+    /* Mockup White Card */
+    .mockup-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .mockup-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+      border-color: #cbd5e1;
+    }
+
+    .card-preview-header {
+      height: 160px;
+      background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .preview-bg-pattern {
+      position: absolute;
+      inset: 0;
+      opacity: 0.15;
+      background-size: 16px 16px;
+      background-image: radial-gradient(#212c59 1px, transparent 1px);
+    }
+
+    .preview-icon-wrapper {
+      position: relative;
+      z-index: 2;
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      background: #ffffff;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      box-shadow: var(--shadow-md);
+      transition: transform 0.3s ease;
+    }
+
+    .mockup-card:hover .preview-icon-wrapper {
+      transform: scale(1.1);
+      color: var(--accent-gold);
+    }
+
+    .card-tag-status {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      z-index: 3;
+    }
+
+    .tag-ready { background: #dcfce7; color: #15803d; }
+    .tag-updated { background: #e0f2fe; color: #0369a1; }
+    .tag-featured { background: #fef3c7; color: #b45309; }
+
+    .card-body {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+    }
+
+    .card-meta-category {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent-gold);
+      margin-bottom: 6px;
+    }
+
+    .card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+      line-height: 1.35;
+    }
+
+    .card-desc {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 20px;
+    }
+
+    .card-footer-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-top: 16px;
+      border-top: 1px solid #f1f5f9;
+    }
+
+    .btn-open-mockup {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--primary);
+      color: #ffffff;
+      padding: 10px 16px;
+      border-radius: var(--radius-md);
+      font-size: 13.5px;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .btn-open-mockup:hover {
+      background: var(--accent-gold);
+      color: #ffffff;
+    }
+
+    .btn-preview-popup {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+
+    .btn-preview-popup:hover {
+      background: #e2e8f0;
+      color: var(--primary);
+    }
+
+    /* Responsive Iframe Preview Modal */
+    .preview-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+      display: none;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .preview-modal.active {
+      display: flex;
+    }
+
+    .modal-bar {
+      background: #ffffff;
+      border-radius: 12px 12px 0 0;
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .modal-title-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .modal-title-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .device-switcher {
+      display: flex;
+      gap: 6px;
+      background: #f1f5f9;
+      padding: 4px;
+      border-radius: 8px;
+    }
+
+    .device-btn {
+      border: none;
+      background: transparent;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .device-btn.active {
+      background: #ffffff;
+      color: var(--primary);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    }
+
+    .modal-close-btn {
+      border: none;
+      background: #f1f5f9;
+      color: var(--text-muted);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+    }
+
+    .modal-close-btn:hover {
+      background: #e2e8f0;
+      color: #000;
+    }
+
+    .modal-iframe-box {
+      flex: 1;
+      background: #1e293b;
+      border-radius: 0 0 12px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 15px;
+    }
+
+    .modal-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #ffffff;
+      border-radius: 8px;
+      transition: width 0.3s ease;
+    }
+
+    .modal-iframe.device-desktop { width: 100%; }
+    .modal-iframe.device-tablet { width: 768px; }
+    .modal-iframe.device-mobile { width: 375px; }
+
+    /* Footer */
+    .hub-footer {
+      background: #ffffff;
+      border-top: 1px solid var(--border-color);
+      padding: 24px;
+      text-align: center;
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-top: auto;
+    }
+
+    @media (max-width: 768px) {
+      .canvas-hero-card { flex-direction: column; text-align: center; padding: 24px; }
+      .canvas-hero-card::before { width: 100%; height: 5px; }
+      .hero-stats { width: 100%; justify-content: center; }
+      .grid-container { grid-template-columns: 1fr; }
+      .controls-wrapper { flex-direction: column; align-items: stretch; }
+      .search-bar-wrap { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <header class="hub-header">
+    <div class="hub-nav-container">
+      <div class="hub-brand">
+        <img src="https://istpet.edu.ec/wp-content/themes/g5_helium/custom/images/istpet-logo1.png" alt="ISTPET Logo" class="hub-brand-logo">
+        <div class="hub-brand-title">
+          <span>Mockups Hub</span>
+          <span class="hub-brand-badge">PROYECTO ESCALABLE</span>
+        </div>
+      </div>
+      <div class="hub-status-pill">
+        <span class="status-dot"></span>
+        <span>Live Reload Activo</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Canvas Banner -->
+  <section class="canvas-hero">
+    <div class="canvas-hero-card">
+      <div class="hero-content">
+        <h1>Plano Maestro de Mockups & Landing Pages</h1>
+        <p>
+          Espacio centralizado para visualizar, navegar y almacenar cada landing page y mockup del Tecnológico Traversari de forma modular e instantánea.
+        </p>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-box">
+          <div class="stat-num" id="totalMockupsCount">2</div>
+          <div class="stat-label">Módulos</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Rendimiento</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filter & Search Controls -->
+  <div class="controls-wrapper">
+    <div class="search-bar-wrap">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" id="hubSearchInput" placeholder="Buscar módulo por nombre, tecnología o área..." />
+    </div>
+    <div class="category-tabs">
+      <button class="cat-btn active" data-filter="all"><i class="fa-solid fa-border-all"></i> Todos (2)</button>
+      <button class="cat-btn" data-filter="investigacion"><i class="fa-solid fa-flask"></i> Investigación</button>
+      <button class="cat-btn" data-filter="medicas"><i class="fa-solid fa-notes-medical"></i> Fichas Médicas</button>
+    </div>
+  </div>
+
+  <!-- Mockups Cards Grid (Plano Blanco) -->
+  <main class="mockups-grid-section">
+    <div class="grid-container" id="mockupsGrid">
+
+      <!-- Mockup 1: Portal de Investigación -->
+      <div class="mockup-card" data-category="investigacion">
+        <div class="card-preview-header">
+          <div class="preview-bg-pattern"></div>
+          <span class="card-tag-status tag-featured">Portal Modular</span>
+          <div class="preview-icon-wrapper"><i class="fa-solid fa-atom"></i></div>
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="card-meta-category">I+D+i Institucional</div>
+            <h2 class="card-title">Portal de Investigación</h2>
+            <p class="card-desc">
+              Ecosistema científico del Tecnológico Traversari estructurado en submódulos modulares: Producción Científica (Artículos, Libros, Ponencias), Proyectos I+D+i, Grupos de Investigación y DITRA.
+            </p>
+            <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px;">
+              <a href="/investigacion/produccion-cientifica/" style="font-size:11.5px; background:#eff6ff; color:#1d4ed8; padding:3px 8px; border-radius:6px; font-weight:600;"><i class="fa-solid fa-book-open"></i> Producción</a>
+              <a href="/investigacion/produccion-cientifica/articulos/" style="font-size:11.5px; background:#f0fdf4; color:#15803d; padding:3px 8px; border-radius:6px; font-weight:600;"><i class="fa-solid fa-newspaper"></i> Artículos</a>
+              <a href="/investigacion/produccion-cientifica/libros/" style="font-size:11.5px; background:#fefce8; color:#a16207; padding:3px 8px; border-radius:6px; font-weight:600;"><i class="fa-solid fa-book"></i> Libros</a>
+              <a href="/investigacion/produccion-cientifica/ponencias/" style="font-size:11.5px; background:#ecfdf5; color:#047857; padding:3px 8px; border-radius:6px; font-weight:600;"><i class="fa-solid fa-person-chalkboard"></i> Ponencias</a>
+              <a href="/investigacion/proyectos/" style="font-size:11.5px; background:#f1f5f9; color:#475569; padding:3px 8px; border-radius:6px; font-weight:600;"><i class="fa-solid fa-flask"></i> Proyectos</a>
+              <a href="/investigacion/grupos/" style="font-size:11.5px; background:#f1f5f9; color:#475569; padding:3px 8px; border-radius:6px; font-weight:600;"><i class="fa-solid fa-users"></i> Grupos</a>
+              <a href="/investigacion/ditra/" style="font-size:11.5px; background:#faf5ff; color:#7e22ce; padding:3px 8px; border-radius:6px; font-weight:600;"><i class="fa-solid fa-landmark"></i> DITRA</a>
+            </div>
+          </div>
+          <div class="card-footer-actions">
+            <a href="/investigacion/" class="btn-open-mockup">
+              <span>Abrir Investigación</span>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+            <button class="btn-preview-popup" onclick="openPreviewModal('/investigacion/', 'Portal de Investigación ISTPET')">
+              <i class="fa-solid fa-desktop"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mockup 2: Sistema de Fichas Médicas -->
+      <div class="mockup-card" data-category="medicas">
+        <div class="card-preview-header" style="background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);">
+          <div class="preview-bg-pattern"></div>
+          <span class="card-tag-status tag-ready">Sistema Completo</span>
+          <div class="preview-icon-wrapper" style="color:#2563eb;"><i class="fa-solid fa-notes-medical"></i></div>
+        </div>
+        <div class="card-body">
+          <div>
+            <div class="card-meta-category">Salud & Bienestar Estudiantil</div>
+            <h2 class="card-title">Sistema de Fichas Médicas</h2>
+            <p class="card-desc">
+              Plataforma interactiva para la gestión de fichas médicas estudiantiles, registro de consultas clínicas, historial de antecedentes patológicos, certificados de aptitud física y reportes institucionales.
+            </p>
+            <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom:16px;">
+              <span style="font-size:11.5px; background:#eff6ff; color:#1d4ed8; padding:3px 8px; border-radius:6px; font-weight:600;"><i class="fa-solid fa-user-doctor"></i> Ficha Clínica</span>
+              <span style="font-size:11.5px; background:#f0fdf4; color:#15803d; padding:3px 8px; border-radius:6px; font-weight:600;"><i class="fa-solid fa-heart-pulse"></i> Signos Vitales</span>
+              <span style="font-size:11.5px; background:#fefce8; color:#a16207; padding:3px 8px; border-radius:6px; font-weight:600;"><i class="fa-solid fa-file-medical"></i> Diagnósticos</span>
+            </div>
+          </div>
+          <div class="card-footer-actions">
+            <a href="/fichas-medicas/" class="btn-open-mockup" style="background:#2563eb;">
+              <span>Abrir Fichas Médicas</span>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+            <button class="btn-preview-popup" onclick="openPreviewModal('/fichas-medicas/', 'Sistema de Fichas Médicas ISTPET')">
+              <i class="fa-solid fa-desktop"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Interactive Device Preview Modal -->
+  <div class="preview-modal" id="previewModal">
+    <div class="modal-bar">
+      <div class="modal-title-area">
+        <i class="fa-solid fa-eye" style="color:var(--accent-gold);"></i>
+        <span class="modal-title-text" id="modalTitle">Vista Previa</span>
+      </div>
+      <div class="device-switcher">
+        <button class="device-btn active" data-device="desktop" onclick="changeDevice('desktop')"><i class="fa-solid fa-desktop"></i> Desktop</button>
+        <button class="device-btn" data-device="tablet" onclick="changeDevice('tablet')"><i class="fa-solid fa-tablet-screen-button"></i> Tablet</button>
+        <button class="device-btn" data-device="mobile" onclick="changeDevice('mobile')"><i class="fa-solid fa-mobile-screen"></i> Móvil</button>
+      </div>
+      <button class="modal-close-btn" onclick="closePreviewModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-iframe-box">
+      <iframe src="" class="modal-iframe device-desktop" id="previewIframe"></iframe>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="hub-footer">
+    <p>© 2025 Tecnológico Traversari (ISTPET) | Plano Maestro de Landing Pages y Mockups</p>
+  </footer>
+
+  <script>
+    // Search & Category Filters
+    const searchInput = document.getElementById('hubSearchInput');
+    const catButtons = document.querySelectorAll('.cat-btn');
+    const cards = document.querySelectorAll('.mockup-card');
+
+    let activeFilter = 'all';
+    let searchQuery = '';
+
+    function filterCards() {
+      let visibleCount = 0;
+      cards.forEach(card => {
+        const cat = card.getAttribute('data-category');
+        const matchesCategory = (activeFilter === 'all' || cat.includes(activeFilter));
+        const matchesSearch = (searchQuery === '' || card.innerText.toLowerCase().includes(searchQuery));
+
+        if (matchesCategory && matchesSearch) {
+          card.style.display = 'flex';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+      document.getElementById('totalMockupsCount').textContent = visibleCount;
+    }
+
+    catButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        catButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilter = btn.getAttribute('data-filter');
+        filterCards();
+      });
+    });
+
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value.toLowerCase().trim();
+      filterCards();
+    });
+
+    // Preview Modal Logic
+    const modal = document.getElementById('previewModal');
+    const iframe = document.getElementById('previewIframe');
+    const modalTitle = document.getElementById('modalTitle');
+    const deviceButtons = document.querySelectorAll('.device-btn');
+
+    function openPreviewModal(url, title) {
+      modalTitle.textContent = title;
+      iframe.src = url;
+      modal.classList.add('active');
+    }
+
+    function closePreviewModal() {
+      modal.classList.remove('active');
+      iframe.src = '';
+    }
+
+    function changeDevice(device) {
+      deviceButtons.forEach(b => b.classList.remove('active'));
+      document.querySelector(`[data-device="${device}"]`).classList.add('active');
+      iframe.className = `modal-iframe device-${device}`;
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closePreviewModal();
+    });
+
+    // Live reload
+    if (window.EventSource) {
+      const source = new EventSource('/__live_reload');
+      source.onmessage = function(e) { if (e.data === 'reload') location.reload(); };
+    }
+  </script>
+</body>
+</html>

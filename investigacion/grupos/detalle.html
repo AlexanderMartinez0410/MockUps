@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="es-EC" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title id="pageTitle">Grupo de Investigación – ISTPET</title>
+  
+  <link rel="shortcut icon" href="https://istpet.edu.ec/wp-content/themes/g5_helium/custom/images/favicon.png" type="image/x-icon" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nunito:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    :root {
+      --istpet-navy: #212c59;
+      --istpet-navy-dark: #0f1938;
+      --istpet-navy-deep: #070d1e;
+      --istpet-navy-light: #2c3a75;
+      --istpet-gold: #c59b27;
+      --istpet-gold-hover: #b0871d;
+      --istpet-gold-light: #fdf8eb;
+      --istpet-text: #334155;
+      --istpet-heading: #0f172a;
+      --istpet-border: #e2e8f0;
+      --istpet-border-light: #f1f5f9;
+      --istpet-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      --istpet-shadow-hover: 0 10px 30px rgba(33, 44, 89, 0.12);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Roboto', 'Nunito', sans-serif; color: var(--istpet-text); background-color: #f8fafc; line-height: 1.6; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; transition: var(--transition); }
+    ul { list-style: none; }
+    img { max-width: 100%; height: auto; display: block; }
+    .container { width: 100%; max-width: 1260px; margin: 0 auto; padding: 0 24px; }
+
+    /* ═════════════════════════════════════════════════════════════
+       HEADER & NAVIGATION
+       ═════════════════════════════════════════════════════════════ */
+    .top-header { background: #ffffff; border-bottom: 1px solid #edf2f7; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04); }
+    .nav-wrapper { display: flex; align-items: center; justify-content: space-between; height: 85px; }
+    .brand-logo img { height: 52px; width: auto; object-fit: contain; }
+    .main-nav { display: flex; align-items: center; gap: 4px; }
+    .nav-item { position: relative; }
+    .nav-link { display: flex; align-items: center; gap: 6px; padding: 12px 14px; font-size: 14.5px; font-weight: 600; color: var(--istpet-navy); border-radius: 6px; cursor: pointer; }
+    .nav-link i.fa-chevron-down { font-size: 10px; transition: transform 0.25s ease; opacity: 0.8; }
+    .nav-link:hover, .nav-item.active > .nav-link { color: var(--istpet-gold); }
+    .nav-item:hover > .nav-link i.fa-chevron-down { transform: rotate(180deg); }
+
+    .dropdown-menu { position: absolute; top: 100%; left: 0; min-width: 250px; background: #ffffff; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12); border-radius: 8px; padding: 10px 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.25s ease; z-index: 1100; border: 1px solid #f1f5f9; }
+    .nav-item:hover > .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+    .dropdown-link { display: flex; align-items: center; gap: 10px; padding: 11px 20px; font-size: 13.5px; font-weight: 500; color: #334155; }
+    .dropdown-link i { font-size: 13px; color: var(--istpet-gold); width: 16px; text-align: center; }
+    .dropdown-link:hover, .dropdown-item.active > .dropdown-link { background-color: #f8fafc; color: var(--istpet-navy); padding-left: 24px; border-left: 3px solid var(--istpet-gold); font-weight: 600; }
+
+    .hamburger-btn { display: none; background: none; border: none; font-size: 24px; color: var(--istpet-navy); cursor: pointer; padding: 8px; }
+    .mobile-drawer { position: fixed; top: 0; right: -100%; width: 310px; height: 100vh; background: #ffffff; box-shadow: -5px 0 25px rgba(0,0,0,0.15); z-index: 2000; transition: right 0.35s ease; display: flex; flex-direction: column; overflow-y: auto; }
+    .mobile-drawer.open { right: 0; }
+    .drawer-header { display: flex; align-items: center; justify-content: space-between; padding: 20px; border-bottom: 1px solid #edf2f7; }
+    .drawer-close { background: none; border: none; font-size: 20px; color: #64748b; cursor: pointer; }
+    .drawer-nav { padding: 20px; display: flex; flex-direction: column; gap: 8px; }
+    .drawer-link { font-size: 15px; font-weight: 600; color: var(--istpet-navy); padding: 8px 0; display: block; border-bottom: 1px solid #f8fafc; }
+    .drawer-sublink { font-size: 13.5px; color: #475569; padding: 6px 0 6px 16px; display: flex; align-items: center; gap: 8px; }
+    .drawer-sublink.active { color: var(--istpet-navy); font-weight: 700; }
+    .drawer-backdrop { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.4); z-index: 1999; display: none; }
+    .drawer-backdrop.active { display: block; }
+
+    /* ═════════════════════════════════════════════════════════════
+       DETAIL HERO BANNER (MATCHING MOCKUP IMAGE 3)
+       ═════════════════════════════════════════════════════════════ */
+    .detail-hero-banner {
+      position: relative;
+      min-height: 240px;
+      background: linear-gradient(135deg, rgba(11, 22, 54, 0.92) 0%, rgba(15, 37, 82, 0.88) 100%), 
+                  url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1600&auto=format&fit=crop') center center / cover no-repeat;
+      color: #ffffff;
+      padding: 45px 0 35px;
+      border-bottom: 4px solid #ef4444;
+      display: flex;
+      align-items: center;
+    }
+    .detail-hero-banner::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, #ef4444 0%, var(--istpet-gold) 100%);
+    }
+    .detail-hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1050px;
+    }
+    .detail-hero-subtitle {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: #cbd5e1;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .detail-badge-pill {
+      display: inline-block;
+      background-color: #fbbf24;
+      color: #0f172a;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12.5px;
+      font-weight: 800;
+      padding: 4px 14px;
+      border-radius: 20px;
+      letter-spacing: 0.05em;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+    .detail-hero-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 30px;
+      font-weight: 800;
+      line-height: 1.25;
+      color: #ffffff;
+      letter-spacing: -0.01em;
+      margin-bottom: 18px;
+    }
+    .detail-hero-chips {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .detail-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #ffffff;
+    }
+    .detail-chip i {
+      font-size: 11px;
+      color: #fbbf24;
+    }
+
+    /* ═════════════════════════════════════════════════════════════
+       DETAIL MAIN LAYOUT (2 COLUMNS)
+       ═════════════════════════════════════════════════════════════ */
+    .detail-page-body {
+      padding: 40px 0 80px;
+    }
+    .detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 36px;
+      align-items: start;
+    }
+
+    .detail-main-content {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .detail-section-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 32px 36px;
+      box-shadow: var(--istpet-shadow);
+    }
+
+    .section-card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .section-header-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      background: #f1f5f9;
+      color: #0d2757;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      border: 1px solid #e2e8f0;
+      flex-shrink: 0;
+    }
+    .section-header-titles {
+      display: flex;
+      flex-direction: column;
+    }
+    .section-header-eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #94a3b8;
+      margin-bottom: 2px;
+    }
+    .section-header-main-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: #0d2757;
+    }
+
+    .social-share-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .share-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 4px;
+      background: #3b5998;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .share-btn.twitter { background: #1da1f2; }
+    .share-btn.linkedin { background: #0077b5; }
+    .share-btn.whatsapp { background: #25d366; }
+    .share-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      opacity: 0.92;
+    }
+
+    .info-boxes-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .info-box-item {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 16px 20px;
+      background: #ffffff;
+      transition: border-color 0.2s ease;
+    }
+    .info-box-item:hover {
+      border-color: #cbd5e1;
+    }
+    .info-box-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #0d2757;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .info-box-title::before {
+      content: '';
+      display: inline-block;
+      width: 3px;
+      height: 14px;
+      background: #0d2757;
+      border-radius: 2px;
+    }
+    .info-box-content {
+      font-size: 14px;
+      color: #475569;
+      line-height: 1.65;
+    }
+    .info-box-content ul {
+      padding-left: 18px;
+      list-style-type: disc;
+    }
+    .info-box-content li {
+      margin-bottom: 4px;
+    }
+    .info-box-content a {
+      color: #0d2757;
+      font-weight: 600;
+    }
+    .info-box-content a:hover {
+      color: var(--istpet-gold);
+      text-decoration: underline;
+    }
+
+    /* ═════════════════════════════════════════════════════════════
+       IMAGE CAROUSEL SECTION (MATCHING MOCKUP IMAGE 4)
+       ═════════════════════════════════════════════════════════════ */
+    .gallery-carousel-wrapper {
+      position: relative;
+      width: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #0f172a;
+    }
+    .gallery-carousel-track {
+      position: relative;
+      width: 100%;
+      height: 380px;
+      display: flex;
+      transition: transform 0.4s ease-in-out;
+    }
+    .gallery-slide {
+      min-width: 100%;
+      height: 100%;
+      position: relative;
+    }
+    .gallery-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .gallery-slide-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
+      color: #ffffff;
+      padding: 30px 20px 14px;
+      font-size: 13.5px;
+      font-weight: 500;
+    }
+
+    .carousel-nav-btn {
+      position: absolute;
+      bottom: 20px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #0d2757;
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      cursor: pointer;
+      z-index: 10;
+      transition: var(--transition);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+    .carousel-nav-btn:hover {
+      background: var(--istpet-gold);
+      color: #0d2757;
+      transform: scale(1.1);
+    }
+    .carousel-prev-btn { left: 20px; }
+    .carousel-next-btn { right: 20px; }
+
+    .carousel-dots-row {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .carousel-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #cbd5e1;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .carousel-dot.active {
+      background: #0d2757;
+      width: 24px;
+      border-radius: 10px;
+    }
+
+    .projects-subgrid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .project-mini-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      background: #f8fafc;
+      border-radius: 6px;
+      border-left: 3px solid #0d2757;
+      font-size: 13.5px;
+    }
+    .project-mini-status {
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 12px;
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    /* ═════════════════════════════════════════════════════════════
+       RIGHT SIDEBAR (MATCHING MOCKUP IMAGE 3 & 4)
+       ═════════════════════════════════════════════════════════════ */
+    .detail-sidebar {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      position: sticky;
+      top: 105px;
+    }
+
+    .sidebar-widget-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 28px 24px;
+      box-shadow: var(--istpet-shadow);
+      text-align: center;
+    }
+    .sidebar-icon-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--istpet-gold-light);
+      color: var(--istpet-gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      margin: 0 auto 16px;
+    }
+    .sidebar-widget-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: #0d2757;
+      margin-bottom: 10px;
+    }
+    .sidebar-widget-text {
+      font-size: 13.5px;
+      color: #64748b;
+      line-height: 1.55;
+      margin-bottom: 22px;
+    }
+    .sidebar-btn-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .sidebar-primary-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #0d2757;
+      color: #ffffff;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 12px 18px;
+      border-radius: 6px;
+      transition: var(--transition);
+      box-shadow: 0 4px 10px rgba(13, 39, 87, 0.15);
+    }
+    .sidebar-primary-btn:hover {
+      background: var(--istpet-gold);
+      color: #0d2757;
+      transform: translateY(-2px);
+    }
+    .sidebar-secondary-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #ffffff;
+      color: #334155;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 11px 18px;
+      border-radius: 6px;
+      border: 1px solid #cbd5e1;
+      transition: var(--transition);
+    }
+    .sidebar-secondary-btn:hover {
+      background: #f1f5f9;
+      color: #0d2757;
+      border-color: #94a3b8;
+    }
+
+    .sidebar-doc-links {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: left;
+      margin-top: 14px;
+    }
+    .sidebar-doc-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      color: #334155;
+      padding: 10px 12px;
+      border-radius: 6px;
+      background: #f8fafc;
+      transition: var(--transition);
+    }
+    .sidebar-doc-item i {
+      color: #ef4444;
+      font-size: 16px;
+    }
+    .sidebar-doc-item:hover {
+      background: #f1f5f9;
+      color: #0d2757;
+    }
+
+    /* ═════════════════════════════════════════════════════════════
+       FOOTER & FLOATING ACTIONS
+       ═════════════════════════════════════════════════════════════ */
+    .site-footer { background-color: var(--istpet-navy); color: #ffffff; padding-top: 60px; border-top: 4px solid var(--istpet-gold); }
+    .footer-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 40px; padding-bottom: 50px; }
+    .footer-logo img { max-width: 230px; margin-bottom: 18px; }
+    .footer-desc { font-size: 14px; color: #cbd5e1; max-width: 340px; }
+    .footer-col-title { font-family: 'Montserrat', sans-serif; font-size: 17px; font-weight: 700; color: var(--istpet-gold); margin-bottom: 20px; position: relative; padding-bottom: 8px; }
+    .footer-col-title::after { content: ''; position: absolute; bottom: 0; left: 0; width: 35px; height: 2px; background-color: var(--istpet-gold); }
+    .footer-info-list { display: flex; flex-direction: column; gap: 14px; font-size: 14px; color: #e2e8f0; }
+    .footer-info-item { display: flex; gap: 12px; }
+    .footer-info-item i { color: var(--istpet-gold); margin-top: 3px; }
+    .footer-link-highlight { color: var(--istpet-gold); font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+    .sub-footer { background: var(--istpet-navy-dark); padding: 20px 0; text-align: center; font-size: 13.5px; color: #94a3b8; }
+
+    .floating-whatsapp { position: fixed; bottom: 25px; right: 25px; width: 58px; height: 58px; background-color: #25d366; color: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4); z-index: 1500; }
+    .floating-gdpr-gear { position: fixed; bottom: 25px; left: 25px; width: 44px; height: 44px; background-color: #212c59; color: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; z-index: 1500; border: 2px solid rgba(255, 255, 255, 0.2); cursor: pointer; }
+
+    @media (max-width: 1024px) {
+      .main-nav { display: none; }
+      .hamburger-btn { display: block; }
+      .detail-grid { grid-template-columns: 1fr; }
+      .detail-sidebar { position: static; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .detail-hero-title { font-size: 22px; }
+      .detail-section-card { padding: 20px 18px; }
+      .gallery-carousel-track { height: 260px; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="top-header">
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="../index.html" class="brand-logo" title="Tecnológico Traversari - ISTPET">
+          <img src="https://istpet.edu.ec/wp-content/themes/g5_helium/custom/images/istpet-logo1.png" alt="ISTPET Tecnológico Traversari" />
+        </a>
+
+        <nav class="main-nav">
+          <div class="nav-item"><a class="nav-link" href="#">Nosotros <i class="fa-solid fa-chevron-down"></i></a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Admisiones <i class="fa-solid fa-chevron-down"></i></a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Programa Académico <i class="fa-solid fa-chevron-down"></i></a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Mi ISTPET <i class="fa-solid fa-chevron-down"></i></a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Meraki</a></div>
+          
+          <!-- Investigación -->
+          <div class="nav-item active">
+            <a class="nav-link" href="../index.html">
+              Investigación <i class="fa-solid fa-chevron-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-item"><a class="dropdown-link" href="../produccion-cientifica/">Producción Científica</a></li>
+              <li class="dropdown-item"><a class="dropdown-link" href="../proyectos/">Proyectos de Investigación</a></li>
+              <li class="dropdown-item active"><a class="dropdown-link" href="./">Grupos de Investigación</a></li>
+              <li class="dropdown-item"><a class="dropdown-link" href="../ditra/">DITRA</a></li>
+            </ul>
+          </div>
+
+          <div class="nav-item"><a class="nav-link" href="#">Vinculación</a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Contacto</a></div>
+        </nav>
+
+        <button class="hamburger-btn" id="mobileMenuBtn"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-header">
+      <img src="https://istpet.edu.ec/wp-content/themes/g5_helium/custom/images/istpet-logo1.png" alt="ISTPET Logo" style="height: 38px;">
+      <button class="drawer-close" id="drawerCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="drawer-nav">
+      <a class="drawer-link" href="#">Inicio</a>
+      <a class="drawer-link" href="#">Nosotros</a>
+      <a class="drawer-link" href="#">Admisiones</a>
+      <a class="drawer-link" href="#">Programa Académico</a>
+      <a class="drawer-link" href="#">Mi ISTPET</a>
+      <a class="drawer-link" href="#">Meraki</a>
+      <a class="drawer-link active" href="../index.html" style="color:var(--istpet-gold);">Investigación</a>
+      <a class="drawer-sublink" href="../produccion-cientifica/">Producción Científica</a>
+      <a class="drawer-sublink" href="../proyectos/">Proyectos</a>
+      <a class="drawer-sublink active" href="./">Grupos de Investigación</a>
+      <a class="drawer-sublink" href="../ditra/">DITRA</a>
+      <a class="drawer-link" href="#">Vinculación</a>
+      <a class="drawer-link" href="#">Contacto</a>
+    </div>
+  </aside>
+
+  <!-- Detail Hero Banner -->
+  <section class="detail-hero-banner" id="heroBanner">
+    <div class="container">
+      <div class="detail-hero-content">
+        <p class="detail-hero-subtitle">GRUPO DE INVESTIGACIÓN</p>
+        <span class="detail-badge-pill" id="groupAcronymBadge">GI-IATA</span>
+        <h1 class="detail-hero-title" id="groupTitle">GRUPO DE INVESTIGACIÓN DE INTELIGENCIA ARTIFICIAL Y TECNOLOGÍAS DE ASISTENCIA (GI-IATA)</h1>
+        <div class="detail-hero-chips">
+          <div class="detail-chip" id="carreraChip">
+            <i class="fa-solid fa-graduation-cap"></i> <span id="carreraText">Carrera: Desarrollo de Software</span>
+          </div>
+          <div class="detail-chip">
+            <i class="fa-solid fa-landmark"></i> <span>Investigación ISTPET</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Detail Body -->
+  <main class="detail-page-body">
+    <div class="container">
+      <div class="detail-grid">
+        
+        <!-- Left Main Content -->
+        <div class="detail-main-content">
+          
+          <!-- Card 1: Perfil del Grupo & Información Académica -->
+          <article class="detail-section-card">
+            <div class="section-card-header">
+              <div class="section-header-icon-box">
+                <i class="fa-regular fa-file-lines"></i>
+              </div>
+              <div class="section-header-titles">
+                <span class="section-header-eyebrow">PERFIL DEL GRUPO</span>
+                <h2 class="section-header-main-title">Información académica y líneas de trabajo</h2>
+              </div>
+            </div>
+
+            <!-- Social Share Bar -->
+            <div class="social-share-row">
+              <a href="#" class="share-btn" id="shareFb" title="Compartir en Facebook" onclick="shareFacebook(event)"><i class="fa-brands fa-facebook-f"></i></a>
+              <a href="#" class="share-btn twitter" id="shareTw" title="Compartir en X / Twitter" onclick="shareTwitter(event)"><i class="fa-brands fa-x-twitter"></i></a>
+              <a href="#" class="share-btn linkedin" id="shareIn" title="Compartir en LinkedIn" onclick="shareLinkedIn(event)"><i class="fa-brands fa-linkedin-in"></i></a>
+              <a href="#" class="share-btn whatsapp" id="shareWa" title="Compartir por WhatsApp" onclick="shareWhatsApp(event)"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
+
+            <!-- Bordered Data Boxes Stack -->
+            <div class="info-boxes-stack">
+              
+              <!-- Box 1: Líneas de Investigación -->
+              <div class="info-box-item">
+                <h3 class="info-box-title">Líneas de investigación:</h3>
+                <div class="info-box-content">
+                  <ul id="researchLinesList">
+                    <li>Educación, Políticas, Cultura y Prácticas Inclusivas</li>
+                    <li>Sistemas Informáticos e Inteligencia Artificial</li>
+                    <li>Tecnologías y Sistemas para la Inclusión Educativa y Laboral</li>
+                    <li>Biomedicina y Procesamiento Digital de Datos</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Box 2: Coordinador -->
+              <div class="info-box-item">
+                <h3 class="info-box-title">Coordinador:</h3>
+                <div class="info-box-content" id="coordinatorName">
+                  Ing. Paola Ingavelez Ph.D.
+                </div>
+              </div>
+
+              <!-- Box 3: Correo Electrónico -->
+              <div class="info-box-item">
+                <h3 class="info-box-title">Correo Electrónico:</h3>
+                <div class="info-box-content">
+                  <a href="mailto:pcingavelez@istpet.edu.ec" id="coordinatorEmail">pcingavelez@istpet.edu.ec</a>
+                </div>
+              </div>
+
+              <!-- Box 4: Misión y Enfoque -->
+              <div class="info-box-item">
+                <h3 class="info-box-title">Enfoque y Propósito Institucional:</h3>
+                <div class="info-box-content" id="groupDescription">
+                  El grupo impulsa la generación de conocimiento aplicado y desarrollo tecnológico en el campo de la Inteligencia Artificial, visión por computador, algoritmos de asistencia a personas con capacidades diversas y transformación digital con alto impacto en la comunidad técnica y productiva.
+                </div>
+              </div>
+
+            </div>
+          </article>
+
+          <!-- Card 2: Galería / Imágenes del Grupo -->
+          <article class="detail-section-card">
+            <div class="section-card-header">
+              <div class="section-header-icon-box">
+                <i class="fa-regular fa-images"></i>
+              </div>
+              <div class="section-header-titles">
+                <span class="section-header-eyebrow">IMÁGENES DEL GRUPO</span>
+                <h2 class="section-header-main-title">Imágenes del grupo de investigación</h2>
+              </div>
+            </div>
+
+            <!-- Image Carousel Container -->
+            <div class="gallery-carousel-wrapper">
+              <div class="gallery-carousel-track" id="carouselTrack">
+                <div class="gallery-slide">
+                  <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop" alt="Equipo de Investigación ISTPET" />
+                  <div class="gallery-slide-caption">Sesión de trabajo del equipo docente y coinvestigadores en el Laboratorio de I+D</div>
+                </div>
+                <div class="gallery-slide">
+                  <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop" alt="Presentación de Proyectos" />
+                  <div class="gallery-slide-caption">Jornada de divulgación científica y sustentación de prototipos tecnológicos</div>
+                </div>
+                <div class="gallery-slide">
+                  <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1200&auto=format&fit=crop" alt="Desarrollo Experimental" />
+                  <div class="gallery-slide-caption">Pruebas experimentales y validación de arquitecturas de software e IA</div>
+                </div>
+              </div>
+
+              <!-- Prev / Next navigation buttons -->
+              <button class="carousel-nav-btn carousel-prev-btn" id="carouselPrevBtn" title="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
+              <button class="carousel-nav-btn carousel-next-btn" id="carouselNextBtn" title="Siguiente"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+
+            <!-- Dots Indicator -->
+            <div class="carousel-dots-row" id="carouselDots">
+              <div class="carousel-dot active" onclick="goToSlide(0)"></div>
+              <div class="carousel-dot" onclick="goToSlide(1)"></div>
+              <div class="carousel-dot" onclick="goToSlide(2)"></div>
+            </div>
+          </article>
+
+          <!-- Card 3: Proyectos Vinculados -->
+          <article class="detail-section-card">
+            <div class="section-card-header">
+              <div class="section-header-icon-box">
+                <i class="fa-solid fa-flask"></i>
+              </div>
+              <div class="section-header-titles">
+                <span class="section-header-eyebrow">PROYECTOS VINCULADOS</span>
+                <h2 class="section-header-main-title">Proyectos de Investigación del Grupo</h2>
+              </div>
+            </div>
+
+            <div class="projects-subgrid" id="projectsSubgrid">
+              <div class="project-mini-card">
+                <div>
+                  <strong>PROY-2025-01:</strong> Implementación de Modelos de Visión Artificial para Accesibilidad Digital
+                </div>
+                <span class="project-mini-status">En Ejecución</span>
+              </div>
+              <div class="project-mini-card">
+                <div>
+                  <strong>PROY-2024-04:</strong> Plataforma Web Inclusiva de Aprendizaje Asistido por Machine Learning
+                </div>
+                <span class="project-mini-status">Concluido</span>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Right Sidebar -->
+        <aside class="detail-sidebar">
+          
+          <!-- Widget: Recursos del Grupo -->
+          <div class="sidebar-widget-card">
+            <div class="sidebar-icon-circle">
+              <i class="fa-regular fa-lightbulb"></i>
+            </div>
+            <h3 class="sidebar-widget-title">Recursos del grupo</h3>
+            <p class="sidebar-widget-text">
+              Accede a los perfiles, resultados y espacios oficiales vinculados a este grupo de investigación.
+            </p>
+
+            <div class="sidebar-btn-stack">
+              <a href="../produccion-cientifica/" class="sidebar-primary-btn">
+                Resultados de Investigación <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 11px;"></i>
+              </a>
+              <a href="./" class="sidebar-secondary-btn">
+                Ver más grupos <i class="fa-solid fa-arrow-right" style="font-size: 11px;"></i>
+              </a>
+            </div>
+          </div>
+
+          <!-- Widget: Documentos y Enlaces -->
+          <div class="sidebar-widget-card" style="text-align: left;">
+            <h3 class="sidebar-widget-title" style="font-size: 15px; margin-bottom: 12px;">
+              <i class="fa-solid fa-folder-closed" style="color: var(--istpet-gold); margin-right: 6px;"></i> Documentación DITRA
+            </h3>
+            <div class="sidebar-doc-links">
+              <a href="#" class="sidebar-doc-item" onclick="alert('Descargando: Formato_Postulacion_Grupos_ISTPET.pdf')">
+                <i class="fa-regular fa-file-pdf"></i>
+                <span>Formato de Adhesión al Grupo</span>
+              </a>
+              <a href="#" class="sidebar-doc-item" onclick="alert('Descargando: Reglamento_Investigacion_DITRA.pdf')">
+                <i class="fa-regular fa-file-pdf"></i>
+                <span>Reglamento de Investigación ISTPET</span>
+              </a>
+              <a href="../ditra/" class="sidebar-doc-item">
+                <i class="fa-solid fa-landmark" style="color: var(--istpet-navy);"></i>
+                <span>Dirección DITRA ISTPET</span>
+              </a>
+            </div>
+          </div>
+
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="../index.html" class="footer-logo">
+            <img src="https://istpet.edu.ec/wp-content/uploads/2024/11/dorado-blanco-1024x405.png" alt="ISTPET">
+          </a>
+          <p class="footer-desc">Formamos profesionales competitivos, creativos, íntegros y con valores, con elevado nivel académico.</p>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-title">Encuéntranos en</h4>
+          <div class="footer-info-list">
+            <div class="footer-info-item">
+              <i class="fa-solid fa-location-dot"></i>
+              <div>Av. Matilde Álvarez y Hugo Díaz Romero. Sector Chillogallo
+                <div><a href="https://goo.gl/maps/mGFeWLYE1saLpAT97" target="_blank" class="footer-link-highlight">Ir a Google Maps <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 11px;"></i></a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-title">Contáctanos</h4>
+          <div class="footer-info-list">
+            <div class="footer-info-item"><i class="fa-solid fa-phone"></i><span>02 303 2894</span></div>
+            <div class="footer-info-item"><i class="fa-brands fa-whatsapp"></i><a href="https://wa.link/6j9opo" target="_blank" style="color:inherit">098 403 3166</a></div>
+            <div class="footer-info-item"><i class="fa-regular fa-envelope"></i><a href="mailto:ditra@istpet.edu.ec" style="color:inherit">ditra@istpet.edu.ec</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sub-footer">
+      <div class="container"><p>© Copyright 2025 Todos los derechos reservados | Tecnológico Traversari</p></div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/593984033166?text=Hola%20Tecnol%C3%B3gico%20Traversari,%20necesito%20informaci%C3%B3n%20sobre%20este%20Grupo%20de%20Investigaci%C3%B3n." target="_blank" class="floating-whatsapp"><i class="fa-brands fa-whatsapp"></i></a>
+  <button class="floating-gdpr-gear" onclick="alert('Configuración de Privacidad RGPD ISTPET')"><i class="fa-solid fa-gear"></i></button>
+
+  <!-- Complete Dataset & Dynamic Routing -->
+  <script>
+    const GROUPS_DATABASE = {
+      'gi-iata': {
+        acronym: 'GI-IATA',
+        title: 'GRUPO DE INVESTIGACIÓN DE INTELIGENCIA ARTIFICIAL Y TECNOLOGÍAS DE ASISTENCIA (GI-IATA)',
+        carrera: 'Desarrollo de Software',
+        coordinator: 'Ing. Paola Ingavelez Ph.D.',
+        email: 'pcingavelez@istpet.edu.ec',
+        lines: [
+          'Educación, Políticas, Cultura y Prácticas Inclusivas',
+          'Sistemas Informáticos e Inteligencia Artificial',
+          'Tecnologías y Sistemas para la Inclusión Educativa y Laboral',
+          'Biomedicina y Procesamiento Digital de Datos'
+        ],
+        description: 'El grupo impulsa la generación de conocimiento aplicado y desarrollo tecnológico en el campo de la Inteligencia Artificial, visión por computador, algoritmos de asistencia a personas con capacidades diversas y transformación digital con alto impacto en la comunidad técnica y productiva.',
+        projects: [
+          { code: 'PROY-2025-01', title: 'Implementación de Modelos de Visión Artificial para Accesibilidad Digital', status: 'En Ejecución' },
+          { code: 'PROY-2024-04', title: 'Plataforma Web Inclusiva de Aprendizaje Asistido por Machine Learning', status: 'Concluido' }
+        ],
+        images: [
+          { url: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop', caption: 'Sesión de trabajo del equipo docente y coinvestigadores en el Laboratorio de I+D' },
+          { url: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop', caption: 'Jornada de divulgación científica y sustentación de prototipos tecnológicos' },
+          { url: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1200&auto=format&fit=crop', caption: 'Pruebas experimentales y validación de arquitecturas de software e IA' }
+        ]
+      },
+      'gitel': {
+        acronym: 'GITEL',
+        title: 'GRUPO DE INVESTIGACIÓN EN TELECOMUNICACIONES Y TELEMÁTICA (GITEL)',
+        carrera: 'Desarrollo de Software / Redes',
+        coordinator: 'Msc. Carlos Villacís',
+        email: 'cvillacis@istpet.edu.ec',
+        lines: [
+          'Redes Inalámbricas y Protocolos IoT de Baja Potencia',
+          'Ciberseguridad Defensiva y Protección de Infraestructuras Críticas',
+          'Sistemas Distribuidos y Computación en la Niebla (Fog Computing)',
+          'Monitoreo Telemático de Sensores Industriales'
+        ],
+        description: 'Dedicado al estudio, diseño e implementación de arquitecturas de conectividad de nueva generación, telemetría y protocolos seguros para la industria 4.0.',
+        projects: [
+          { code: 'PROY-2025-08', title: 'Diseño de Red de Sensores LoRaWAN para Monitoreo Agrícola Periurbano', status: 'En Ejecución' }
+        ],
+        images: [
+          { url: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop', caption: 'Laboratorio de Conectividad y Redes Telemáticas' },
+          { url: 'https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=1200&auto=format&fit=crop', caption: 'Despliegue de nodos inalámbricos y ciberseguridad' }
+        ]
+      },
+      'gidsw': {
+        acronym: 'GIDSW',
+        title: 'GRUPO DE INVESTIGACIÓN EN DESARROLLO DE SOFTWARE Y SISTEMAS WEB (GIDSW)',
+        carrera: 'Desarrollo de Software',
+        coordinator: 'Msc. Gustavo Fernández',
+        email: 'gfernandez@istpet.edu.ec',
+        lines: [
+          'Arquitecturas de Microservicios y Cloud Native',
+          'Desarrollo de Software Seguro e Integración Continua (DevSecOps)',
+          'Aplicaciones Web Progresivas y Experiencia de Usuario',
+          'Analítica de Datos y Business Intelligence'
+        ],
+        description: 'Especializado en la creación de metodologías ágiles, estándares de ingeniería de software robustos y productos digitales de alta escalabilidad.',
+        projects: [
+          { code: 'PROY-2025-11', title: 'Ecosistema Digital Modular para la Gestión de Fichas Médicas Institucionales', status: 'En Ejecución' }
+        ],
+        images: [
+          { url: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop', caption: 'Desarrollo de software y pruebas de código' },
+          { url: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop', caption: 'Planificación de sprints y arquitectura técnica' }
+        ]
+      },
+      'game-lab': {
+        acronym: 'GAME LAB - ISTPET',
+        title: 'GRUPO DE INVESTIGACIÓN GAME LAB & INTERACCIÓN HUMANO-COMPUTADOR (GAME LAB)',
+        carrera: 'Desarrollo de Software / Multimedia',
+        coordinator: 'Ing. David Salazar',
+        email: 'dsalazar@istpet.edu.ec',
+        lines: [
+          'Gamificación Educativa y Serious Games',
+          'Desarrollo con Motores 3D (Unity / Unreal Engine)',
+          'Realidad Virtual e Inmersiva en Procesos de Capacitación',
+          'Interacción Humano-Computador y Pruebas Biométricas'
+        ],
+        description: 'Investiga el impacto pedagógico y experiencial de los videojuegos, la realidad extendida y los entornos virtuales en el aprendizaje técnico.',
+        projects: [
+          { code: 'PROY-2025-03', title: 'Simulador Virtual 3D para Capacitación en Talleres Automotrices', status: 'En Ejecución' }
+        ],
+        images: [
+          { url: 'https://images.unsplash.com/photo-1593508512255-86ab42a8e620?q=80&w=1200&auto=format&fit=crop', caption: 'Pruebas de simulación inmersiva VR' },
+          { url: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200&auto=format&fit=crop', caption: 'Desarrollo y modelado interactivo' }
+        ]
+      },
+      'giema': {
+        acronym: 'GIEMA',
+        title: 'GRUPO DE INVESTIGACIÓN EN INNOVACIÓN ELECTROMECÁNICA Y AUTOMOTRIZ (GIEMA)',
+        carrera: 'Mecánica Automotriz',
+        coordinator: 'Ing. Patricio Aguirre',
+        email: 'paguirre@istpet.edu.ec',
+        lines: [
+          'Diagnóstico Electrónico Computarizado y Redes CAN Bus',
+          'Eficiencia Energética y Mantenimiento Predictivo Industrial',
+          'Modelado y Dinámica Vehicular',
+          'Sistemas de Seguridad Activa y Pasiva en Automotores'
+        ],
+        description: 'Lidera la investigación aplicada en electromovilidad, termofluidos y protocolos avanzados de diagnosis vehicular.',
+        projects: [
+          { code: 'PROY-2024-09', title: 'Protocolo de Calibración para Bancos de Inyección Diésel Common Rail', status: 'Concluido' }
+        ],
+        images: [
+          { url: 'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?q=80&w=1200&auto=format&fit=crop', caption: 'Diagnóstico en taller y bancos de prueba de motores' },
+          { url: 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?q=80&w=1200&auto=format&fit=crop', caption: 'Análisis de osciloscopios automotrices' }
+        ]
+      },
+      'gie': {
+        acronym: 'GIE',
+        title: 'GRUPO DE INVESTIGACIÓN EN ENERGÍAS Y ECO-MOVILIDAD (GIE)',
+        carrera: 'Mecánica Automotriz / Electrónica',
+        coordinator: 'Ing. Marcelo Paredes',
+        email: 'mparedes@istpet.edu.ec',
+        lines: [
+          'Sistemas de Propulsión Eléctrica e Híbrida',
+          'Gestión Térmica y Baterías de Ion-Litio',
+          'Energías Limpias y Descarbonización del Transporte',
+          'Conversión y Eficiencia en Vehículos Urbanos'
+        ],
+        description: 'Enfocado en la transición energética, optimización del almacenamiento electroquímico y sostenibilidad en el transporte.',
+        projects: [
+          { code: 'PROY-2025-05', title: 'Diseño de un Banco de Pruebas Regenerativo para Motores Eléctricos BLDC', status: 'En Ejecución' }
+        ],
+        images: [
+          { url: 'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?q=80&w=1200&auto=format&fit=crop', caption: 'Estudio de celdas de batería y propulsión eléctrica' }
+        ]
+      },
+      'giit': {
+        acronym: 'GIIT',
+        title: 'GRUPO DE INVESTIGACIÓN EN INGENIERÍA DEL TRANSPORTE (GIIT)',
+        carrera: 'Mecánica Automotriz',
+        coordinator: 'Ing. Santiago Morales',
+        email: 'smorales@istpet.edu.ec',
+        lines: [
+          'Seguridad Vial y Telemetría de Flotas',
+          'Optimización Logística del Transporte Pesado',
+          'Evaluación de Emisiones y Calidad del Aire'
+        ],
+        description: 'Desarrolla estudios técnicos para la mitigación del impacto ambiental del transporte y la optimización de flotas comerciales.',
+        projects: [
+          { code: 'PROY-2024-12', title: 'Monitoreo de Huella de Carbono en Rutas de Transporte Urbano', status: 'Concluido' }
+        ],
+        images: [
+          { url: 'https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=1200&auto=format&fit=crop', caption: 'Evaluación y telemetría de flotas' }
+        ]
+      },
+      'gidis': {
+        acronym: 'GIDIS',
+        title: 'GRUPO DE INVESTIGACIÓN EN DEPORTE, INNOVACIÓN Y SALUD INTEGRAL (GIDIS)',
+        carrera: 'Entrenamiento Deportivo',
+        coordinator: 'Msc. Jairo Pérez',
+        email: 'jperez@istpet.edu.ec',
+        lines: [
+          'Biomecánica del Rendimiento Físico',
+          'Prescripción de Ejercicio en Poblaciones Especiales',
+          'Nutrición y Fisiología del Entrenamiento',
+          'Salud Metabólica y Prevención del Sedentarismo'
+        ],
+        description: 'Genera evidencia científica sobre adaptación fisiológica, metodologías de entrenamiento contemporáneo y salud comunitaria.',
+        projects: [
+          { code: 'PROY-2025-02', title: 'Evaluación Cineantropométrica y Capacidad Cardiorrespiratoria en Jóvenes Atletas', status: 'En Ejecución' }
+        ],
+        images: [
+          { url: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=1200&auto=format&fit=crop', caption: 'Pruebas de esfuerzo y análisis fisiológico' }
+        ]
+      },
+      'gibrd': {
+        acronym: 'GIBRD',
+        title: 'GRUPO DE INVESTIGACIÓN EN BIOMECÁNICA Y ALTO RENDIMIENTO (GIBRD)',
+        carrera: 'Entrenamiento Deportivo',
+        coordinator: 'Msc. Edwin Cárdenas',
+        email: 'ecardenas@istpet.edu.ec',
+        lines: [
+          'Cinemática del Movimiento y Plataformas de Fuerza',
+          'Prevención de Lesiones en Atletas de Contacto',
+          'Monitoreo de Carga de Entrenamiento por GPS y Acelerómetros'
+        ],
+        description: 'Aplica instrumental tecnológico de alta precisión para el análisis neuromuscular y cinemático del deportista.',
+        projects: [
+          { code: 'PROY-2025-06', title: 'Análisis de Fuerzas de Reacción en el Salto Vertical en Futbolistas Formativos', status: 'En Ejecución' }
+        ],
+        images: [
+          { url: 'https://images.unsplash.com/photo-1574680096145-d05b474e2155?q=80&w=1200&auto=format&fit=crop', caption: 'Evaluación biomecánica en laboratorio deportivo' }
+        ]
+      },
+      'gidtec': {
+        acronym: 'GIDTEC',
+        title: 'GRUPO DE INVESTIGACIÓN Y DESARROLLO EN TECNOLOGÍAS INDUSTRIALES (GIDTEC)',
+        carrera: 'Administración y Talento Humano',
+        coordinator: 'Msc. Ramiro Cadena',
+        email: 'rcadena@istpet.edu.ec',
+        lines: [
+          'Gestión de Procesos y Manufactura Esbelta (Lean)',
+          'Sistemas Integrados de Calidad y Seguridad Ocupacional',
+          'Economía Circular y Optimización de la Cadena de Suministro'
+        ],
+        description: 'Impulsa la productividad y la competitividad de las MiPyMEs mediante modelos de gestión ágil y mejora continua.',
+        projects: [
+          { code: 'PROY-2024-07', title: 'Modelo de Productividad Basado en 5S para Microempresas del Sur de Quito', status: 'Concluido' }
+        ],
+        images: [
+          { url: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1200&auto=format&fit=crop', caption: 'Consultoría e investigación en procesos organizacionales' }
+        ]
+      }
+    };
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const groupId = (urlParams.get('id') || 'gi-iata').toLowerCase();
+    const groupData = GROUPS_DATABASE[groupId] || GROUPS_DATABASE['gi-iata'];
+
+    document.getElementById('pageTitle').textContent = `${groupData.acronym} – Grupo de Investigación ISTPET`;
+    document.getElementById('groupAcronymBadge').textContent = groupData.acronym;
+    document.getElementById('groupTitle').textContent = groupData.title;
+    document.getElementById('carreraText').textContent = `Carrera: ${groupData.carrera}`;
+    document.getElementById('coordinatorName').textContent = groupData.coordinator;
+    document.getElementById('coordinatorEmail').textContent = groupData.email;
+    document.getElementById('coordinatorEmail').href = `mailto:${groupData.email}`;
+    document.getElementById('groupDescription').textContent = groupData.description;
+
+    const linesList = document.getElementById('researchLinesList');
+    linesList.innerHTML = '';
+    groupData.lines.forEach(line => {
+      const li = document.createElement('li');
+      li.textContent = line;
+      linesList.appendChild(li);
+    });
+
+    if (groupData.projects && groupData.projects.length > 0) {
+      const projContainer = document.getElementById('projectsSubgrid');
+      projContainer.innerHTML = '';
+      groupData.projects.forEach(p => {
+        const item = document.createElement('div');
+        item.className = 'project-mini-card';
+        item.innerHTML = `
+          <div><strong>${p.code}:</strong> ${p.title}</div>
+          <span class="project-mini-status">${p.status}</span>
+        `;
+        projContainer.appendChild(item);
+      });
+    }
+
+    let currentSlide = 0;
+    const track = document.getElementById('carouselTrack');
+    const dotsContainer = document.getElementById('carouselDots');
+
+    if (groupData.images && groupData.images.length > 0) {
+      track.innerHTML = '';
+      dotsContainer.innerHTML = '';
+      groupData.images.forEach((img, idx) => {
+        const slide = document.createElement('div');
+        slide.className = 'gallery-slide';
+        slide.innerHTML = `
+          <img src="${img.url}" alt="${groupData.acronym} Foto ${idx + 1}" />
+          <div class="gallery-slide-caption">${img.caption}</div>
+        `;
+        track.appendChild(slide);
+
+        const dot = document.createElement('div');
+        dot.className = `carousel-dot ${idx === 0 ? 'active' : ''}`;
+        dot.onclick = () => goToSlide(idx);
+        dotsContainer.appendChild(dot);
+      });
+    }
+
+    function updateCarousel() {
+      const slides = track.querySelectorAll('.gallery-slide');
+      const dots = dotsContainer.querySelectorAll('.carousel-dot');
+      if (slides.length === 0) return;
+
+      if (currentSlide < 0) currentSlide = slides.length - 1;
+      if (currentSlide >= slides.length) currentSlide = 0;
+
+      track.style.transform = `translateX(-${currentSlide * 100}%)`;
+      dots.forEach((d, idx) => {
+        d.classList.toggle('active', idx === currentSlide);
+      });
+    }
+
+    function goToSlide(idx) {
+      currentSlide = idx;
+      updateCarousel();
+    }
+
+    document.getElementById('carouselPrevBtn').addEventListener('click', () => {
+      currentSlide--;
+      updateCarousel();
+    });
+    document.getElementById('carouselNextBtn').addEventListener('click', () => {
+      currentSlide++;
+      updateCarousel();
+    });
+
+    function shareFacebook(e) {
+      e.preventDefault();
+      window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(location.href)}`, '_blank', 'width=600,height=400');
+    }
+    function shareTwitter(e) {
+      e.preventDefault();
+      window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(groupData.title)}&url=${encodeURIComponent(location.href)}`, '_blank', 'width=600,height=400');
+    }
+    function shareLinkedIn(e) {
+      e.preventDefault();
+      window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(location.href)}`, '_blank', 'width=600,height=400');
+    }
+    function shareWhatsApp(e) {
+      e.preventDefault();
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(groupData.title + ' ' + location.href)}`, '_blank');
+    }
+
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const drawer = document.getElementById('mobileDrawer');
+    const backdrop = document.getElementById('drawerBackdrop');
+    const closeBtn = document.getElementById('drawerCloseBtn');
+
+    function toggleMobileMenu() {
+      drawer.classList.toggle('open');
+      backdrop.classList.toggle('active');
+    }
+    mobileBtn.addEventListener('click', toggleMobileMenu);
+    closeBtn.addEventListener('click', toggleMobileMenu);
+    backdrop.addEventListener('click', toggleMobileMenu);
+
+    if (window.EventSource) {
+      const source = new EventSource('/__live_reload');
+      source.onmessage = function(e) { if (e.data === 'reload') location.reload(); };
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="es-EC" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Investigación – Tecnológico Traversari – ISTPET</title>
+  
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="https://istpet.edu.ec/wp-content/themes/g5_helium/custom/images/favicon.png" type="image/x-icon" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nunito:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    :root {
+      --istpet-navy: #212c59;
+      --istpet-navy-dark: #161e40;
+      --istpet-navy-light: #2c3a75;
+      --istpet-gold: #c59b27;
+      --istpet-gold-hover: #b0871d;
+      --istpet-gold-light: #fdf8eb;
+      --istpet-text: #333333;
+      --istpet-border: #e2e8f0;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Roboto', 'Nunito', sans-serif;
+      color: var(--istpet-text);
+      background-color: #ffffff;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: var(--transition);
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* ═════════════════════════════════════════════════════════════
+       HEADER & NAVIGATION BAR
+       ═════════════════════════════════════════════════════════════ */
+    .top-header {
+      background: #ffffff;
+      border-bottom: 1px solid #edf2f7;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+    }
+
+    .nav-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 85px;
+    }
+
+    .brand-logo img {
+      height: 52px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .nav-item {
+      position: relative;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 14px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 14.5px;
+      font-weight: 600;
+      color: var(--istpet-navy);
+      border-radius: 6px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+
+    .nav-link i.fa-chevron-down {
+      font-size: 10px;
+      transition: transform 0.25s ease;
+      opacity: 0.8;
+    }
+
+    .nav-link:hover,
+    .nav-item.active > .nav-link {
+      color: var(--istpet-gold);
+    }
+
+    .nav-item:hover > .nav-link i.fa-chevron-down {
+      transform: rotate(180deg);
+    }
+
+    /* Dropdown Menus */
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      min-width: 240px;
+      background: #ffffff;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+      border-radius: 8px;
+      padding: 10px 0;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all 0.25s ease;
+      z-index: 1100;
+      border: 1px solid #f1f5f9;
+    }
+
+    .nav-item:hover > .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-item {
+      position: relative;
+    }
+
+    .dropdown-link {
+      display: block;
+      padding: 11px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #334155;
+      transition: var(--transition);
+    }
+
+    .dropdown-link:hover,
+    .dropdown-item.active > .dropdown-link {
+      background-color: #f8fafc;
+      color: var(--istpet-navy);
+      padding-left: 24px;
+      border-left: 3px solid var(--istpet-gold);
+      font-weight: 600;
+    }
+
+    .has-submenu > .dropdown-menu {
+      top: 0;
+      left: 100%;
+      margin-left: 2px;
+    }
+
+    .hamburger-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: var(--istpet-navy);
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    /* Mobile Drawer */
+    .mobile-drawer {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 310px;
+      height: 100vh;
+      background: #ffffff;
+      box-shadow: -5px 0 25px rgba(0,0,0,0.15);
+      z-index: 2000;
+      transition: right 0.35s ease;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+    }
+
+    .mobile-drawer.open {
+      right: 0;
+    }
+
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+      border-bottom: 1px solid #edf2f7;
+    }
+
+    .drawer-close {
+      background: none;
+      border: none;
+      font-size: 20px;
+      color: #64748b;
+      cursor: pointer;
+    }
+
+    .drawer-nav {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .drawer-link {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--istpet-navy);
+      padding: 8px 0;
+      display: block;
+      border-bottom: 1px solid #f8fafc;
+    }
+
+    .drawer-sublink {
+      font-size: 13.5px;
+      color: #475569;
+      padding: 6px 0 6px 16px;
+      display: block;
+    }
+
+    .drawer-sublink:hover,
+    .drawer-sublink.active {
+      color: var(--istpet-navy);
+      font-weight: 700;
+    }
+
+    .drawer-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.4);
+      z-index: 1999;
+      display: none;
+    }
+
+    .drawer-backdrop.active {
+      display: block;
+    }
+
+    /* ═════════════════════════════════════════════════════════════
+       HERO BANNER (CON DIFUMINADO A LA IZQUIERDA - ESTILO UPS)
+       ═════════════════════════════════════════════════════════════ */
+    .hero-banner-section {
+      width: 100%;
+      position: relative;
+      background: linear-gradient(90deg, 
+        rgba(15, 23, 42, 0.98) 0%, 
+        rgba(20, 27, 56, 0.94) 38%, 
+        rgba(20, 27, 56, 0.72) 65%, 
+        rgba(20, 27, 56, 0.35) 100%), 
+        url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1800&q=80') center right/cover no-repeat;
+      padding: 95px 0 110px;
+      color: #ffffff;
+      border-bottom: 4px solid var(--istpet-gold);
+    }
+
+    .hero-banner-content {
+      max-width: 680px;
+    }
+
+    .hero-pretitle {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #cbd5e1;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 14px;
+      display: inline-block;
+    }
+
+    .hero-main-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 46px;
+      font-weight: 900;
+      line-height: 1.12;
+      color: #ffffff;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-main-title span {
+      color: var(--istpet-gold);
+    }
+
+    .hero-description {
+      font-size: 16.5px;
+      line-height: 1.65;
+      color: #e2e8f0;
+      margin-bottom: 34px;
+      font-weight: 400;
+    }
+
+    .hero-btn-group {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .hero-pill-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 28px;
+      border-radius: 40px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .hero-pill-btn-primary {
+      background: rgba(14, 165, 233, 0.15);
+      border: 2px solid #0284c7;
+      color: #ffffff;
+      box-shadow: 0 0 20px rgba(2, 132, 199, 0.25);
+    }
+
+    .hero-pill-btn-primary:hover {
+      background: #0284c7;
+      color: #ffffff;
+      box-shadow: 0 0 30px rgba(2, 132, 199, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .hero-pill-btn-secondary {
+      background: rgba(33, 44, 89, 0.7);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      color: #ffffff;
+    }
+
+    .hero-pill-btn-secondary:hover {
+      border-color: var(--istpet-gold);
+      background: var(--istpet-gold);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    /* ═════════════════════════════════════════════════════════════
+       CARDS CON IMÁGENES INFERIORES (DITRA, PRODUCCIÓN CIENTÍFICA, PROYECTOS, GRUPOS)
+       ═════════════════════════════════════════════════════════════ */
+    .featured-portals-section {
+      padding: 70px 0 80px;
+      background-color: #f8fafc;
+    }
+
+    .section-title-wrap {
+      text-align: center;
+      max-width: 750px;
+      margin: 0 auto 45px;
+    }
+
+    .section-eyebrow {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--istpet-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .section-heading {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--istpet-navy);
+      margin-bottom: 12px;
+      line-height: 1.25;
+    }
+
+    .section-desc {
+      font-size: 15px;
+      color: var(--istpet-text-muted);
+    }
+
+    .portals-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .portal-image-card {
+      position: relative;
+      height: 340px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 24px;
+      transition: var(--transition);
+      border: 1px solid var(--istpet-border);
+      text-decoration: none;
+    }
+
+    .portal-image-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(33, 44, 89, 0.22);
+      border-color: var(--istpet-gold);
+    }
+
+    .portal-card-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+      z-index: 1;
+    }
+
+    .portal-image-card:hover .portal-card-bg {
+      transform: scale(1.08);
+    }
+
+    .portal-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, 
+        rgba(20, 27, 56, 0.2) 0%, 
+        rgba(20, 27, 56, 0.65) 45%, 
+        rgba(15, 23, 42, 0.95) 100%);
+      z-index: 2;
+      transition: background 0.3s ease;
+    }
+
+    .portal-image-card:hover .portal-card-overlay {
+      background: linear-gradient(180deg, 
+        rgba(20, 27, 56, 0.1) 0%, 
+        rgba(20, 27, 56, 0.55) 40%, 
+        rgba(15, 23, 42, 0.98) 100%);
+    }
+
+    .portal-card-content {
+      position: relative;
+      z-index: 3;
+      color: #ffffff;
+    }
+
+    .portal-badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: rgba(197, 155, 39, 0.9);
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+
+    .portal-card-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.25;
+      text-transform: uppercase;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .portal-card-desc {
+      font-size: 13px;
+      color: #cbd5e1;
+      line-height: 1.45;
+      margin-bottom: 14px;
+    }
+
+    .portal-card-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--istpet-gold);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .portal-image-card:hover .portal-card-action {
+      color: #ffffff;
+    }
+
+    /* ═════════════════════════════════════════════════════════════
+       TEXTO GENERAL LIMPIO DE INVESTIGACIÓN
+       ═════════════════════════════════════════════════════════════ */
+    .general-text-section {
+      padding: 60px 0 80px;
+      background-color: #ffffff;
+    }
+
+    .general-text-container {
+      max-width: 1040px;
+      margin: 0 auto;
+      text-align: justify;
+    }
+
+    .general-paragraph {
+      font-size: 16.5px;
+      line-height: 1.9;
+      color: #2c3e50;
+      font-weight: 400;
+      margin-bottom: 24px;
+    }
+
+    .general-paragraph:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ═════════════════════════════════════════════════════════════
+       FOOTER
+       ═════════════════════════════════════════════════════════════ */
+    .site-footer {
+      background-color: var(--istpet-navy);
+      color: #ffffff;
+      padding-top: 60px;
+      position: relative;
+      border-top: 4px solid var(--istpet-gold);
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 50px;
+    }
+
+    .footer-logo img {
+      max-width: 230px;
+      height: auto;
+      margin-bottom: 18px;
+    }
+
+    .footer-desc {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #cbd5e1;
+      max-width: 340px;
+    }
+
+    .footer-col-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--istpet-gold);
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .footer-col-title::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 35px;
+      height: 2px;
+      background-color: var(--istpet-gold);
+    }
+
+    .footer-links-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links-list a {
+      font-size: 14px;
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-links-list a:hover {
+      color: var(--istpet-gold);
+      padding-left: 5px;
+    }
+
+    .footer-links-list a i {
+      font-size: 11px;
+      color: var(--istpet-gold);
+    }
+
+    .footer-info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .footer-info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      color: #cbd5e1;
+      line-height: 1.5;
+    }
+
+    .footer-info-item i {
+      color: var(--istpet-gold);
+      font-size: 16px;
+      margin-top: 3px;
+    }
+
+    .footer-link-highlight {
+      color: var(--istpet-gold);
+      font-weight: 600;
+    }
+
+    .footer-link-highlight:hover {
+      text-decoration: underline;
+    }
+
+    .footer-social-bar {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .social-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      transition: var(--transition);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .social-btn:hover {
+      background: var(--istpet-gold);
+      color: #ffffff;
+      transform: translateY(-3px);
+    }
+
+    .sub-footer {
+      background-color: var(--istpet-navy-dark);
+      padding: 20px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 13.5px;
+      color: #94a3b8;
+      text-align: center;
+    }
+
+    /* Floating CTA */
+    .floating-whatsapp {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      width: 58px;
+      height: 58px;
+      background-color: #25d366;
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+      z-index: 1500;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .floating-whatsapp:hover {
+      transform: scale(1.08) rotate(8deg);
+      background-color: #20ba5a;
+    }
+
+    .floating-gdpr-gear {
+      position: fixed;
+      bottom: 25px;
+      left: 25px;
+      width: 44px;
+      height: 44px;
+      background-color: #212c59;
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      z-index: 1500;
+      cursor: pointer;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .live-status-pill {
+      position: fixed;
+      top: 96px;
+      right: 20px;
+      background: rgba(33, 44, 89, 0.95);
+      color: #ffffff;
+      backdrop-filter: blur(8px);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      z-index: 999;
+      border: 1px solid rgba(255,255,255,0.15);
+      pointer-events: none;
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #10b981;
+      animation: pulseDot 1.5s infinite;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    @media (max-width: 1024px) {
+      .main-nav { display: none; }
+      .hamburger-btn { display: block; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .portals-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .portals-grid { grid-template-columns: 1fr; }
+      .hero-main-title { font-size: 32px; }
+      .hero-banner-section { padding: 60px 0 70px; }
+      .general-paragraph { font-size: 15px; }
+      .general-text-section { padding: 40px 0 60px; }
+    }
+  </style>
+</head>
+<body>
+
+
+
+
+
+  <!-- ═════════════════════════════════════════════════════════════
+       HEADER & NAVIGATION
+       ═════════════════════════════════════════════════════════════ -->
+  <header class="top-header">
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="index.html" class="brand-logo" title="Tecnológico Traversari - ISTPET">
+          <img src="https://istpet.edu.ec/wp-content/themes/g5_helium/custom/images/istpet-logo1.png" alt="ISTPET Tecnológico Traversari" />
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="main-nav">
+          <div class="nav-item"><a class="nav-link" href="#">Nosotros <i class="fa-solid fa-chevron-down"></i></a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Admisiones <i class="fa-solid fa-chevron-down"></i></a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Programa Académico <i class="fa-solid fa-chevron-down"></i></a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Mi ISTPET <i class="fa-solid fa-chevron-down"></i></a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Meraki</a></div>
+
+          <!-- Investigación -->
+          <div class="nav-item active">
+            <a class="nav-link" href="index.html">
+              Investigación <i class="fa-solid fa-chevron-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-item"><a class="dropdown-link" href="produccion-cientifica/">Producción Científica</a></li>
+              <li class="dropdown-item"><a class="dropdown-link" href="proyectos/">Proyectos</a></li>
+              <li class="dropdown-item"><a class="dropdown-link" href="grupos/">Grupo Investigación</a></li>
+              <li class="dropdown-item"><a class="dropdown-link" href="ditra/">Ditra</a></li>
+            </ul>
+          </div>
+
+          <div class="nav-item"><a class="nav-link" href="#">Vinculación</a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Contacto</a></div>
+        </nav>
+
+        <!-- Mobile Toggle Button -->
+        <button class="hamburger-btn" id="mobileMenuBtn" aria-label="Abrir Menú">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-header">
+      <img src="https://istpet.edu.ec/wp-content/themes/g5_helium/custom/images/istpet-logo1.png" alt="ISTPET Logo" style="height: 38px;">
+      <button class="drawer-close" id="drawerCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="drawer-nav">
+      <a class="drawer-link" href="#">Inicio</a>
+      <a class="drawer-link" href="#">Nosotros</a>
+      <a class="drawer-link" href="#">Admisiones</a>
+      <a class="drawer-link" href="#">Programa Académico</a>
+      <a class="drawer-link" href="#">Mi ISTPET</a>
+      <a class="drawer-link" href="#">Meraki</a>
+      
+      <!-- Subapartados Móviles -->
+      <a class="drawer-link active" href="index.html" style="color:var(--istpet-gold);">Investigación</a>
+      <a class="drawer-sublink" href="produccion-cientifica/">Producción Científica</a>
+      <a class="drawer-sublink" href="proyectos/">Proyectos</a>
+      <a class="drawer-sublink" href="grupos/">Grupo Investigación</a>
+      <a class="drawer-sublink" href="ditra/">Ditra</a>
+
+      <a class="drawer-link" href="#">Vinculación</a>
+      <a class="drawer-link" href="#">Contacto</a>
+    </div>
+  </aside>
+
+  <!-- ═════════════════════════════════════════════════════════════
+       HERO BANNER (CON DIFUMINADO A LA IZQUIERDA - ESTILO UPS)
+       ═════════════════════════════════════════════════════════════ -->
+  <section class="hero-banner-section">
+    <div class="container">
+      <div class="hero-banner-content">
+        <span class="hero-pretitle">ISTPET · Unidad de Investigación e Innovación</span>
+        <h1 class="hero-main-title">
+          Investigación e
+          Innovación <br>
+          <span> ISTPET</span>
+        </h1>
+        <p class="hero-description">
+          El ISTPET tiene como propósito esencial publicar y difundir las investigaciones desarrollados en el ámbito académico, bajo altos parámetros de calidad de contenido y diseño, pero, sobre todo, con impacto social.
+        <br>
+Entre nuestros objetivos está el contribuir a la difusión de la ciencia y la investigación, así como publicar obras que potencien el aprendizaje y sirvan como textos de apoyo para los estudiantes; obras que no solo sean un aporte a la academia sino que favorezcan la mayor y mejor circulación de la producción intelectual de nuestros docentes.</p>
+        <div class="hero-btn-group">
+          <a href="produccion-cientifica/" class="hero-pill-btn hero-pill-btn-primary">
+            <span>Publicaciones Científicas</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a href="proyectos/" class="hero-pill-btn hero-pill-btn-secondary">
+            <span>Proyectos de Investigación</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═════════════════════════════════════════════════════════════
+       ACCESOS PRINCIPALES CON IMÁGENES (DITRA, PRODUCCIÓN CIENTÍFICA, PROYECTOS, GRUPOS)
+       ═════════════════════════════════════════════════════════════ -->
+  <section class="featured-portals-section">
+    <div class="container">
+      <div class="section-title-wrap">
+        <span class="section-eyebrow">Áreas y Gestión Institucional</span>
+        <h2 class="section-heading">Ejes del Ecosistema Científico</h2>
+        <p class="section-desc">Accede a las unidades clave de investigación, divulgación editorial e innovación tecnológica del ISTPET.</p>
+      </div>
+
+      <div class="portals-grid">
+        
+        <!-- Tarjeta 1: DITRA -->
+        <a href="ditra/" class="portal-image-card">
+          <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80" alt="DITRA" class="portal-card-bg" />
+          <div class="portal-card-overlay"></div>
+          <div class="portal-card-content">
+            <span class="portal-badge">Órgano Rector</span>
+            <h3 class="portal-card-title">DITRA</h3>
+            <p class="portal-card-desc">Dirección de Investigación, Transferencia y Rendimiento Académico: normativas y sello editorial.</p>
+            <div class="portal-card-action">
+              <span>Ingresar a DITRA</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </div>
+          </div>
+        </a>
+
+        <!-- Tarjeta 2: Producción Científica -->
+        <a href="produccion-cientifica/" class="portal-image-card">
+          <img src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=800&q=80" alt="Producción Científica" class="portal-card-bg" />
+          <div class="portal-card-overlay"></div>
+          <div class="portal-card-content">
+            <span class="portal-badge">Catálogo</span>
+            <h3 class="portal-card-title">Producción Científica</h3>
+            <p class="portal-card-desc">Artículos en revistas indexadas (Scopus / Latindex 2.0), libros ISBN y ponencias en congresos.</p>
+            <div class="portal-card-action">
+              <span>Ver Publicaciones</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </div>
+          </div>
+        </a>
+
+        <!-- Tarjeta 3: Proyectos de Investigación -->
+        <a href="proyectos/" class="portal-image-card">
+          <img src="https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=800&q=80" alt="Proyectos de Investigación" class="portal-card-bg" />
+          <div class="portal-card-overlay"></div>
+          <div class="portal-card-content">
+            <span class="portal-badge">I+D+i Aplicada</span>
+            <h3 class="portal-card-title">Proyectos de Investigación</h3>
+            <p class="portal-card-desc">Iniciativas de innovación aplicada, convocatorias a fondos concursables y proyectos en curso.</p>
+            <div class="portal-card-action">
+              <span>Explorar Proyectos</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </div>
+          </div>
+        </a>
+
+        <!-- Tarjeta 4: Grupos de Investigación -->
+        <a href="grupos/" class="portal-image-card">
+          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80" alt="Grupos de Investigación" class="portal-card-bg" />
+          <div class="portal-card-overlay"></div>
+          <div class="portal-card-content">
+            <span class="portal-badge">Comunidades</span>
+            <h3 class="portal-card-title">Grupos de Investigación</h3>
+            <p class="portal-card-desc">Colectivos interdisciplinarios de docentes y estudiantes: GTI, GIEMA y GIDIS.</p>
+            <div class="portal-card-action">
+              <span>Conocer Grupos</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═════════════════════════════════════════════════════════════
+       FOOTER
+       ═════════════════════════════════════════════════════════════ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        
+        <!-- Col 1: Logo & Info -->
+        <div class="footer-col">
+          <a href="index.html" class="footer-logo">
+            <img src="https://istpet.edu.ec/wp-content/uploads/2024/11/dorado-blanco-1024x405.png" alt="ISTPET Tecnológico Traversari">
+          </a>
+          <p class="footer-desc">
+            Formamos profesionales competitivos, creativos, íntegros y con valores, con un elevado nivel académico orientado al desarrollo técnico y social del país.
+          </p>
+          <div class="footer-social-bar">
+            <a href="https://www.facebook.com/istpet" target="_blank" class="social-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/istpet/" target="_blank" class="social-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@istpet" target="_blank" class="social-btn" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+            <a href="https://www.youtube.com/@ISTPET" target="_blank" class="social-btn" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+          </div>
+        </div>
+
+        <!-- Col 2: Enlaces Rápidos -->
+        <div class="footer-col">
+          <h4 class="footer-col-title">Enlaces de Interés</h4>
+          <ul class="footer-links-list">
+            <li><a href="#"><i class="fa-solid fa-angle-right"></i> Nosotros</a></li>
+            <li><a href="#"><i class="fa-solid fa-angle-right"></i> Admisiones</a></li>
+            <li><a href="#"><i class="fa-solid fa-angle-right"></i> Carreras Técnicas</a></li>
+            <li><a href="#"><i class="fa-solid fa-angle-right"></i> Mi ISTPET</a></li>
+            <li><a href="produccion-cientifica/"><i class="fa-solid fa-angle-right"></i> Producción Científica</a></li>
+            <li><a href="ditra/"><i class="fa-solid fa-angle-right"></i> DITRA</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Contacto -->
+        <div class="footer-col">
+          <h4 class="footer-col-title">Encuéntranos</h4>
+          <div class="footer-info-list">
+            <div class="footer-info-item">
+              <i class="fa-solid fa-location-dot"></i>
+              <div>
+                Av. Matilde Álvarez y Hugo Díaz Romero. Sector Chillogallo
+                <div><a href="https://goo.gl/maps/mGFeWLYE1saLpAT97" target="_blank" class="footer-link-highlight">Ir a Google Maps <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 11px;"></i></a></div>
+              </div>
+            </div>
+            <div class="footer-info-item">
+              <i class="fa-solid fa-phone"></i>
+              <span>02 303 2894</span>
+            </div>
+            <div class="footer-info-item">
+              <i class="fa-brands fa-whatsapp"></i>
+              <a href="https://wa.link/6j9opo" target="_blank" style="color:inherit">098 403 3166</a>
+            </div>
+            <div class="footer-info-item">
+              <i class="fa-regular fa-envelope"></i>
+              <a href="mailto:info@istpet.edu.ec" style="color:inherit">info@istpet.edu.ec</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Sub-footer -->
+    <div class="sub-footer">
+      <div class="container">
+        <p>© Copyright 2025 Todos los derechos reservados | Desarrollado para Instituto Superior Tecnológico Traversari</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating CTAs -->
+  <a href="https://wa.link/6j9opo" target="_blank" class="floating-whatsapp" aria-label="Contáctanos por WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+
+
+  <script>
+    // Mobile Drawer Toggle
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const drawer = document.getElementById('mobileDrawer');
+    const backdrop = document.getElementById('drawerBackdrop');
+    const closeBtn = document.getElementById('drawerCloseBtn');
+
+    function toggleMenu() {
+      drawer.classList.toggle('open');
+      backdrop.classList.toggle('active');
+    }
+
+    mobileBtn.addEventListener('click', toggleMenu);
+    closeBtn.addEventListener('click', toggleMenu);
+    backdrop.addEventListener('click', toggleMenu);
+
+    // Live reload listener
+    if (window.EventSource) {
+      const source = new EventSource('/__live_reload');
+      source.onmessage = function(e) { if (e.data === 'reload') location.reload(); };
+    }
+  </script>
+</body>
+</html>

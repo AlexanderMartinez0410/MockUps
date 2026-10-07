@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es-EC" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Ponencias y Congresos – Producción Científica – ISTPET</title>
+  
+  <link rel="shortcut icon" href="https://istpet.edu.ec/wp-content/themes/g5_helium/custom/images/favicon.png" type="image/x-icon" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nunito:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    :root {
+      --istpet-navy: #212c59;
+      --istpet-navy-dark: #141b36;
+      --istpet-gold: #c59b27;
+      --istpet-emerald: #059669;
+      --istpet-text: #1e293b;
+      --istpet-border: #e2e8f0;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Roboto', 'Nunito', sans-serif; color: var(--istpet-text); background-color: #f8fafc; line-height: 1.6; }
+    a { text-decoration: none; color: inherit; transition: var(--transition); }
+    ul { list-style: none; }
+    img { max-width: 100%; height: auto; display: block; }
+    .container { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 20px; }
+
+    /* Header */
+    .top-header { background: #ffffff; border-bottom: 1px solid #edf2f7; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04); }
+    .nav-wrapper { display: flex; align-items: center; justify-content: space-between; height: 85px; }
+    .brand-logo img { height: 52px; width: auto; object-fit: contain; }
+    .main-nav { display: flex; align-items: center; gap: 4px; }
+    .nav-item { position: relative; }
+    .nav-link { display: flex; align-items: center; gap: 6px; padding: 12px 14px; font-size: 14.5px; font-weight: 600; color: var(--istpet-navy); border-radius: 6px; }
+    .nav-link:hover, .nav-item.active > .nav-link { color: var(--istpet-gold); }
+    .dropdown-menu { position: absolute; top: 100%; left: 0; min-width: 250px; background: #ffffff; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12); border-radius: 8px; padding: 10px 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.25s ease; z-index: 1100; border: 1px solid #f1f5f9; }
+    .nav-item:hover > .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+    .dropdown-link { display: flex; align-items: center; padding: 11px 20px; font-size: 13.5px; font-weight: 500; color: #334155; }
+    .dropdown-link:hover, .dropdown-item.active > .dropdown-link { background-color: #f8fafc; color: var(--istpet-navy); padding-left: 24px; border-left: 3px solid var(--istpet-gold); font-weight: 600; }
+    .hamburger-btn { display: none; background: none; border: none; font-size: 24px; color: var(--istpet-navy); cursor: pointer; padding: 8px; }
+
+    /* Page Banner */
+    .page-title-banner { background: linear-gradient(135deg, var(--istpet-navy-dark) 0%, #047857 100%); color: #ffffff; padding: 50px 0 40px; border-bottom: 4px solid var(--istpet-gold); }
+    .page-title-banner h1 { font-family: 'Montserrat', sans-serif; font-size: 32px; font-weight: 800; margin-bottom: 8px; }
+    .page-breadcrumb { font-size: 13.5px; color: #cbd5e1; }
+    .page-breadcrumb a { color: var(--istpet-gold); font-weight: 600; }
+
+    /* Back Navigation Bar */
+    .back-nav-bar { background: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 14px 0; margin-bottom: 40px; }
+    .back-nav-flex { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .back-link-btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'Montserrat', sans-serif; font-size: 13.5px; font-weight: 700; color: var(--istpet-navy); padding: 8px 16px; background: #f1f5f9; border-radius: 8px; }
+    .back-link-btn:hover { background: var(--istpet-navy); color: #ffffff; }
+
+    /* Ponencias Grid */
+    .ponencias-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; margin-bottom: 70px; }
+    .ponencia-card { background: #ffffff; border-radius: 16px; border: 1px solid #e2e8f0; border-top: 4px solid var(--istpet-emerald); padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); transition: var(--transition); display: flex; flex-direction: column; justify-content: space-between; }
+    .ponencia-card:hover { transform: translateY(-5px); box-shadow: 0 16px 36px rgba(33, 44, 89, 0.12); }
+
+    .card-top-tags { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+    .card-type-tag { font-size: 11.5px; font-weight: 800; text-transform: uppercase; padding: 4px 10px; border-radius: 6px; background: rgba(5, 150, 105, 0.1); color: var(--istpet-emerald); }
+    .card-career-badge { font-size: 11.5px; font-weight: 600; color: #64748b; background: #f1f5f9; padding: 4px 10px; border-radius: 6px; }
+
+    .card-title { font-family: 'Montserrat', sans-serif; font-size: 17px; font-weight: 700; color: var(--istpet-navy); line-height: 1.4; margin-bottom: 10px; }
+    .card-source { font-size: 13.5px; font-weight: 600; color: #047857; margin-bottom: 12px; }
+
+    .authors-box { background: #f8fafc; border-left: 3px solid var(--istpet-emerald); padding: 10px 12px; border-radius: 6px; margin-bottom: 12px; }
+    .authors-label { font-size: 11.5px; font-weight: 800; text-transform: uppercase; color: #047857; margin-bottom: 4px; }
+    .authors-text { font-size: 12.5px; color: #334155; }
+
+    .chips-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .chip { font-size: 11.5px; font-weight: 600; padding: 3px 8px; border-radius: 5px; background: #f1f5f9; color: #475569; }
+    .chip-event { background: #dcfce7; color: #166534; }
+
+    .card-actions-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 14px; border-top: 1px solid #f1f5f9; }
+    .btn-action-emerald { display: inline-flex; align-items: center; gap: 8px; background: var(--istpet-emerald); color: #ffffff; font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: 6px; }
+    .btn-action-emerald:hover { background: var(--istpet-navy); }
+
+    /* Footer */
+    .site-footer { background-color: var(--istpet-navy); color: #ffffff; padding-top: 60px; border-top: 4px solid var(--istpet-gold); }
+    .footer-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 40px; padding-bottom: 50px; }
+    .footer-logo img { max-width: 230px; margin-bottom: 18px; }
+    .footer-desc { font-size: 14px; color: #cbd5e1; }
+    .footer-col-title { font-family: 'Montserrat', sans-serif; font-size: 17px; font-weight: 700; color: var(--istpet-gold); margin-bottom: 20px; }
+    .sub-footer { background: var(--istpet-navy-dark); padding: 20px 0; text-align: center; font-size: 13.5px; color: #94a3b8; }
+
+    @media (max-width: 1024px) {
+      .main-nav { display: none; }
+      .hamburger-btn { display: block; }
+      .ponencias-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .card-actions-bar { flex-direction: column; }
+      .btn-action-emerald { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="top-header">
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="../../index.html" class="brand-logo" title="Tecnológico Traversari - ISTPET">
+          <img src="https://istpet.edu.ec/wp-content/themes/g5_helium/custom/images/istpet-logo1.png" alt="ISTPET Tecnológico Traversari" />
+        </a>
+
+        <nav class="main-nav">
+          <div class="nav-item"><a class="nav-link" href="#">Nosotros <i class="fa-solid fa-chevron-down"></i></a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Admisiones <i class="fa-solid fa-chevron-down"></i></a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Programa Académico <i class="fa-solid fa-chevron-down"></i></a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Mi ISTPET <i class="fa-solid fa-chevron-down"></i></a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Meraki</a></div>
+          <div class="nav-item active">
+            <a class="nav-link" href="../../index.html">Investigación <i class="fa-solid fa-chevron-down"></i></a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-item active"><a class="dropdown-link" href="../index.html">Producción Científica</a></li>
+              <li class="dropdown-item"><a class="dropdown-link" href="../../proyectos/">Proyectos</a></li>
+              <li class="dropdown-item"><a class="dropdown-link" href="../../grupos/">Grupo Investigación</a></li>
+              <li class="dropdown-item"><a class="dropdown-link" href="../../ditra/">Ditra</a></li>
+            </ul>
+          </div>
+          <div class="nav-item"><a class="nav-link" href="#">Vinculación</a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Contacto</a></div>
+        </nav>
+
+        <button class="hamburger-btn" id="mobileMenuBtn"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Banner -->
+  <section class="page-title-banner">
+    <div class="container">
+      <h1>Ponencias y Conferencias</h1>
+      <p>Memorias científicas, actas y ponencias internacionales presentadas por docentes investigadores del ISTPET.</p>
+      <div class="page-breadcrumb">
+        <a href="../../index.html">Investigación</a> &gt; <a href="../index.html">Producción Científica</a> &gt; <span>Ponencias</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Back Navigation Bar -->
+  <div class="back-nav-bar">
+    <div class="container">
+      <div class="back-nav-flex">
+        <a href="../index.html" class="back-link-btn">
+          <i class="fa-solid fa-arrow-left"></i> Volver a Producción Científica
+        </a>
+        <div style="display:flex; gap:8px;">
+          <a href="../articulos/" class="back-link-btn"><i class="fa-solid fa-newspaper"></i> Ver Artículos</a>
+          <a href="../libros/" class="back-link-btn"><i class="fa-solid fa-book"></i> Ver Libros</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ponencias List -->
+  <main class="container">
+    <div class="ponencias-grid">
+      <!-- Ponencia 1 -->
+      <article class="ponencia-card">
+        <div>
+          <div class="card-top-tags">
+            <span class="card-type-tag">Ponencia Internacional</span>
+            <span class="card-career-badge">Desarrollo de Software</span>
+          </div>
+          <h2 class="card-title">Implementación de Algoritmos de Machine Learning para la Predicción Temprana de Deserción Estudiantil</h2>
+          <div class="card-source"><i class="fa-solid fa-landmark-dome"></i> VIII Congreso Internacional de Ciencia, Tecnología e Innovación (CICTI 2024)</div>
+          <div class="authors-box">
+            <div class="authors-label"><i class="fa-solid fa-chalkboard-user"></i> Ponentes / Autores</div>
+            <div class="authors-text">Ing. Wilfrido Amilcar Trujillo Quinto, Ing. Jorge Humberto Avilés Valencia</div>
+          </div>
+          <div class="chips-row">
+            <span class="chip chip-event"><i class="fa-solid fa-location-dot"></i> Quito, Ecuador (Sede Pontificia)</span>
+            <span class="chip"><i class="fa-solid fa-award"></i> Modalidad: Magistral Oral</span>
+            <span class="chip">Acta Nº CICTI-2024-88</span>
+          </div>
+        </div>
+        <div class="card-actions-bar">
+          <a href="#" class="btn-action-emerald">
+            <i class="fa-solid fa-file-lines"></i> Ver Memoria Científica
+          </a>
+        </div>
+      </article>
+
+      <!-- Ponencia 2 -->
+      <article class="ponencia-card">
+        <div>
+          <div class="card-top-tags">
+            <span class="card-type-tag">Ponencia Binacional</span>
+            <span class="card-career-badge">Mecánica Automotriz</span>
+          </div>
+          <h2 class="card-title">Evaluación del Rendimiento Térmico y Emisiones en Motores de Combustión con Mezclas de Biocombustibles</h2>
+          <div class="card-source"><i class="fa-solid fa-landmark-dome"></i> Simposio Internacional de Ingeniería Automotriz (SIAME 2024)</div>
+          <div class="authors-box">
+            <div class="authors-label"><i class="fa-solid fa-chalkboard-user"></i> Ponentes / Autores</div>
+            <div class="authors-text">Ing. Christian Giovanny Castro Herrera, Ing. Daniel Alejandro Pantoja Villacís</div>
+          </div>
+          <div class="chips-row">
+            <span class="chip chip-event"><i class="fa-solid fa-location-dot"></i> Medellín, Colombia</span>
+            <span class="chip"><i class="fa-solid fa-award"></i> Modalidad: Presencial</span>
+            <span class="chip">ISBN 978-958-892-12-0</span>
+          </div>
+        </div>
+        <div class="card-actions-bar">
+          <a href="#" class="btn-action-emerald">
+            <i class="fa-solid fa-file-lines"></i> Ver Memoria Científica
+          </a>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="../../index.html" class="footer-logo">
+            <img src="https://istpet.edu.ec/wp-content/uploads/2024/11/dorado-blanco-1024x405.png" alt="ISTPET">
+          </a>
+          <p class="footer-desc">Formamos profesionales competitivos, creativos, íntegros y con valores.</p>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-title">Encuéntranos en</h4>
+          <p style="font-size:14px; color:#e2e8f0;">Av. Matilde Álvarez y Hugo Díaz Romero. Sector Chillogallo</p>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-title">Contáctanos</h4>
+          <p style="font-size:14px; color:#e2e8f0;">info@istpet.edu.ec | 098 403 3166</p>
+        </div>
+      </div>
+    </div>
+    <div class="sub-footer">
+      <div class="container"><p>© Copyright 2025 Todos los derechos reservados | Tecnológico Traversari</p></div>
+    </div>
+  </footer>
+
+  <script>
+    if (window.EventSource) {
+      const source = new EventSource('/__live_reload');
+      source.onmessage = function(e) { if (e.data === 'reload') location.reload(); };
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="es-EC" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>DITRA – Dirección de Investigación y Transferencia – ISTPET</title>
+  
+  <link rel="shortcut icon" href="https://istpet.edu.ec/wp-content/themes/g5_helium/custom/images/favicon.png" type="image/x-icon" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nunito:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    :root {
+      --istpet-navy: #212c59;
+      --istpet-navy-dark: #121933;
+      --istpet-navy-deep: #0b1126;
+      --istpet-navy-light: #2c3a75;
+      --istpet-navy-subtle: #0d2757;
+      --istpet-gold: #c59b27;
+      --istpet-gold-hover: #b0871d;
+      --istpet-gold-light: #fdf8eb;
+      --istpet-text: #334155;
+      --istpet-heading: #1e293b;
+      --istpet-border: #e2e8f0;
+      --istpet-border-light: #f1f5f9;
+      --istpet-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      --istpet-shadow-hover: 0 10px 30px rgba(33, 44, 89, 0.12);
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Roboto', 'Nunito', sans-serif; color: var(--istpet-text); background-color: #ffffff; line-height: 1.6; overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; transition: var(--transition); }
+    ul { list-style: none; }
+    img { max-width: 100%; height: auto; display: block; }
+    .container { width: 100%; max-width: 1260px; margin: 0 auto; padding: 0 24px; }
+
+    /* ═════════════════════════════════════════════════════════════
+       HEADER & NAVIGATION
+       ═════════════════════════════════════════════════════════════ */
+    .top-header { background: #ffffff; border-bottom: 1px solid #edf2f7; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04); }
+    .nav-wrapper { display: flex; align-items: center; justify-content: space-between; height: 85px; }
+    .brand-logo img { height: 52px; width: auto; object-fit: contain; }
+    .main-nav { display: flex; align-items: center; gap: 4px; }
+    .nav-item { position: relative; }
+    .nav-link { display: flex; align-items: center; gap: 6px; padding: 12px 14px; font-size: 14.5px; font-weight: 600; color: var(--istpet-navy); border-radius: 6px; cursor: pointer; }
+    .nav-link i.fa-chevron-down { font-size: 10px; transition: transform 0.25s ease; opacity: 0.8; }
+    .nav-link:hover, .nav-item.active > .nav-link { color: var(--istpet-gold); }
+    .nav-item:hover > .nav-link i.fa-chevron-down { transform: rotate(180deg); }
+
+    .dropdown-menu { position: absolute; top: 100%; left: 0; min-width: 250px; background: #ffffff; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12); border-radius: 8px; padding: 10px 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.25s ease; z-index: 1100; border: 1px solid #f1f5f9; }
+    .nav-item:hover > .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+    .dropdown-link { display: flex; align-items: center; gap: 10px; padding: 11px 20px; font-size: 13.5px; font-weight: 500; color: #334155; }
+    .dropdown-link i { font-size: 13px; color: var(--istpet-gold); width: 16px; text-align: center; }
+    .dropdown-link:hover, .dropdown-item.active > .dropdown-link { background-color: #f8fafc; color: var(--istpet-navy); padding-left: 24px; border-left: 3px solid var(--istpet-gold); font-weight: 600; }
+
+    .hamburger-btn { display: none; background: none; border: none; font-size: 24px; color: var(--istpet-navy); cursor: pointer; padding: 8px; }
+    .mobile-drawer { position: fixed; top: 0; right: -100%; width: 310px; height: 100vh; background: #ffffff; box-shadow: -5px 0 25px rgba(0,0,0,0.15); z-index: 2000; transition: right 0.35s ease; display: flex; flex-direction: column; overflow-y: auto; }
+    .mobile-drawer.open { right: 0; }
+    .drawer-header { display: flex; align-items: center; justify-content: space-between; padding: 20px; border-bottom: 1px solid #edf2f7; }
+    .drawer-close { background: none; border: none; font-size: 20px; color: #64748b; cursor: pointer; }
+    .drawer-nav { padding: 20px; display: flex; flex-direction: column; gap: 8px; }
+    .drawer-link { font-size: 15px; font-weight: 600; color: var(--istpet-navy); padding: 8px 0; display: block; border-bottom: 1px solid #f8fafc; }
+    .drawer-sublink { font-size: 13.5px; color: #475569; padding: 6px 0 6px 16px; display: flex; align-items: center; gap: 8px; }
+    .drawer-sublink.active { color: var(--istpet-navy); font-weight: 700; }
+    .drawer-backdrop { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.4); z-index: 1999; display: none; }
+    .drawer-backdrop.active { display: block; }
+
+    /* ═════════════════════════════════════════════════════════════
+       HERO BANNER CIENTÍFICO (ZONA SUPERIOR)
+       ═════════════════════════════════════════════════════════════ */
+    .hero-scientific-banner {
+      position: relative;
+      background: linear-gradient(135deg, #07152f 0%, #0f2552 45%, #0a3a78 100%);
+      color: #ffffff;
+      padding: 55px 0 60px;
+      overflow: hidden;
+      border-bottom: 4px solid var(--istpet-gold);
+      margin-bottom: 50px;
+    }
+    .hero-scientific-banner::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0; bottom: 0; width: 55%;
+      background: radial-gradient(circle at 75% 45%, rgba(45, 140, 255, 0.22) 0%, rgba(15, 37, 82, 0) 70%);
+      pointer-events: none;
+    }
+    .hero-scientific-banner::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 4%; width: 420px; height: 100%;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200' opacity='0.25'%3E%3Cpath fill='%2360a5fa' d='M320,130 C300,100 280,100 260,130 C240,160 220,160 200,130 C180,100 160,100 140,130 L140,180 L320,180 Z' /%3E%3Ccircle cx='340' cy='60' r='26' fill='%2393c5fd' opacity='0.7'/%3E%3Ccircle cx='280' cy='45' r='18' fill='%2360a5fa' opacity='0.5'/%3E%3Cpath fill='%2338bdf8' d='M80 140 L110 50 L140 140 Z' opacity='0.3'/%3E%3Cpath stroke='%2338bdf8' stroke-width='3' fill='none' d='M50,80 Q100,20 150,80 T250,80 T350,80'/%3E%3Ccircle cx='90' cy='120' r='6' fill='%23fbbf24'/%3E%3Ccircle cx='180' cy='50' r='7' fill='%23fbbf24'/%3E%3Ccircle cx='310' cy='110' r='6' fill='%23fbbf24'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center right;
+      background-size: contain;
+      pointer-events: none;
+      opacity: 0.65;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    .hero-pretitle {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #93c5fd;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-pretitle::after {
+      content: '';
+      display: inline-block;
+      width: 40px;
+      height: 2px;
+      background: #60a5fa;
+      opacity: 0.7;
+    }
+    .hero-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+      color: #ffffff;
+    }
+
+    /* ═════════════════════════════════════════════════════════════
+       LAYOUT PRINCIPAL DE INFORMACIÓN DITRA
+       ═════════════════════════════════════════════════════════════ */
+    .ditra-layout-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.25fr;
+      gap: 50px;
+      align-items: start;
+      margin-bottom: 70px;
+    }
+    @media (max-width: 1024px) {
+      .ditra-layout-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+
+    /* Columna Izquierda */
+    .academic-intro-col {
+      padding-right: 15px;
+    }
+    @media (max-width: 1024px) {
+      .academic-intro-col { padding-right: 0; }
+    }
+    .academic-p {
+      font-size: 15.5px;
+      line-height: 1.85;
+      color: #475569;
+      margin-bottom: 24px;
+      text-align: justify;
+    }
+    .academic-p strong {
+      color: #0f172a;
+      font-weight: 700;
+    }
+    .academic-quote-box {
+      margin-top: 25px;
+      margin-bottom: 25px;
+      padding: 20px 24px;
+      background: var(--istpet-gold-light);
+      border-left: 4px solid var(--istpet-gold);
+      border-radius: 0 8px 8px 0;
+      font-size: 14.5px;
+      color: #78350f;
+    }
+    .academic-quote-box i {
+      margin-right: 8px;
+      color: var(--istpet-gold);
+    }
+
+    /* Tarjeta de Acceso a la Plataforma DITRA */
+    .ditra-access-card {
+      background: linear-gradient(135deg, #0d2757 0%, #1e3a8a 100%);
+      color: #ffffff;
+      border-radius: 12px;
+      padding: 26px;
+      margin-top: 25px;
+      box-shadow: 0 8px 25px rgba(13, 39, 87, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .ditra-access-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .ditra-access-title i {
+      color: var(--istpet-gold);
+    }
+    .ditra-access-desc {
+      font-size: 13.5px;
+      color: #cbd5e1;
+      line-height: 1.5;
+      margin-bottom: 18px;
+    }
+    .ditra-btn-login {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 12px 18px;
+      background: var(--istpet-gold);
+      color: #0d2757;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13.5px;
+      font-weight: 800;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .ditra-btn-login:hover {
+      background: #dfb235;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(197, 155, 39, 0.35);
+    }
+    .ditra-badge-future {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      background: rgba(255, 255, 255, 0.15);
+      color: #fef08a;
+      padding: 3px 8px;
+      border-radius: 12px;
+      margin-top: 10px;
+      text-align: center;
+      width: 100%;
+    }
+
+    /* Columna Derecha: Mockups y Módulos del Sistema DITRA */
+    .ditra-system-showcase {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* Ventana Mockup de Sistema UI (Captura Interactiva) */
+    .system-mockup-frame {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+    }
+    .mockup-header-bar {
+      background: #0d2757;
+      color: #ffffff;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .mockup-controls {
+      display: flex;
+      gap: 6px;
+    }
+    .mockup-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+    .mockup-dot.red { background: #ef4444; }
+    .mockup-dot.yellow { background: #f59e0b; }
+    .mockup-dot.green { background: #10b981; }
+    .mockup-url-bar {
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 4px;
+      padding: 3px 16px;
+      font-size: 11.5px;
+      font-family: monospace;
+      color: #93c5fd;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mockup-screen-body {
+      background: #f8fafc;
+      padding: 20px;
+    }
+    .mockup-stat-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .mockup-stat-tile {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 12px;
+      text-align: center;
+    }
+    .mockup-stat-val {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: #0d2757;
+    }
+    .mockup-stat-lbl {
+      font-size: 10.5px;
+      color: #64748b;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .mockup-table-preview {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      overflow: hidden;
+      font-size: 12px;
+    }
+    .mockup-table-header {
+      background: #f1f5f9;
+      padding: 8px 12px;
+      font-weight: 700;
+      color: #1e293b;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+    }
+    .mockup-table-row {
+      padding: 10px 12px;
+      border-top: 1px solid #f1f5f9;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      align-items: center;
+      color: #475569;
+    }
+    .status-tag-active {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 10.5px;
+      font-weight: 700;
+      background: #dcfce7;
+      color: #15803d;
+      text-align: center;
+    }
+    .status-tag-review {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 10.5px;
+      font-weight: 700;
+      background: #fef3c7;
+      color: #b45309;
+      text-align: center;
+    }
+
+    /* Módulos en Acordeón */
+    .ditra-modules-accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .ditra-mod-item {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .ditra-mod-item.active {
+      border-color: #93c5fd;
+      box-shadow: 0 4px 14px rgba(13, 39, 87, 0.05);
+    }
+    .ditra-mod-header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px;
+      background: #ffffff;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      text-align: left;
+    }
+    .ditra-mod-item.active .ditra-mod-header {
+      background: #f8fafc;
+      border-bottom: 1px solid #edf2f7;
+    }
+    .ditra-mod-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #0d2757;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ditra-mod-title i {
+      color: var(--istpet-gold);
+    }
+    .ditra-mod-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      background: #ffffff;
+      padding: 0 18px;
+    }
+    .ditra-mod-item.active .ditra-mod-body {
+      max-height: 300px;
+      padding: 14px 18px;
+    }
+    .ditra-mod-desc {
+      font-size: 13px;
+      color: #475569;
+      line-height: 1.5;
+    }
+
+    /* ═════════════════════════════════════════════════════════════
+       FOOTER & WIDGETS
+       ═════════════════════════════════════════════════════════════ */
+    .site-footer { background-color: var(--istpet-navy); color: #ffffff; padding-top: 60px; border-top: 4px solid var(--istpet-gold); }
+    .footer-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 40px; padding-bottom: 50px; }
+    .footer-logo img { max-width: 230px; margin-bottom: 18px; }
+    .footer-desc { font-size: 14px; color: #cbd5e1; max-width: 340px; }
+    .footer-col-title { font-family: 'Montserrat', sans-serif; font-size: 17px; font-weight: 700; color: var(--istpet-gold); margin-bottom: 20px; position: relative; padding-bottom: 8px; }
+    .footer-col-title::after { content: ''; position: absolute; bottom: 0; left: 0; width: 35px; height: 2px; background-color: var(--istpet-gold); }
+    .footer-info-list { display: flex; flex-direction: column; gap: 14px; font-size: 14px; color: #e2e8f0; }
+    .footer-info-item { display: flex; gap: 12px; }
+    .footer-info-item i { color: var(--istpet-gold); margin-top: 3px; }
+    .footer-link-highlight { color: var(--istpet-gold); font-weight: 600; display: inline-flex; align-items: center; gap: 6px; }
+    .social-links-row { display: flex; gap: 12px; margin-top: 18px; }
+    .social-btn { width: 38px; height: 38px; border-radius: 50%; background: rgba(255, 255, 255, 0.1); color: #ffffff; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+    .social-btn:hover { background: var(--istpet-gold); color: var(--istpet-navy-dark); }
+    .sub-footer { background: var(--istpet-navy-dark); padding: 20px 0; text-align: center; font-size: 13.5px; color: #94a3b8; }
+
+    .floating-whatsapp { position: fixed; bottom: 25px; right: 25px; width: 58px; height: 58px; background-color: #25d366; color: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 32px; box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4); z-index: 1500; }
+    .floating-gdpr-gear { position: fixed; bottom: 25px; left: 25px; width: 44px; height: 44px; background-color: #212c59; color: #ffffff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; z-index: 1500; border: 2px solid rgba(255, 255, 255, 0.2); cursor: pointer; }
+
+    @media (max-width: 1024px) {
+      .main-nav { display: none; }
+      .hamburger-btn { display: block; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .hero-title { font-size: 28px; }
+      .hero-scientific-banner::after { display: none; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="top-header">
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="../index.html" class="brand-logo" title="Tecnológico Traversari - ISTPET">
+          <img src="https://istpet.edu.ec/wp-content/themes/g5_helium/custom/images/istpet-logo1.png" alt="ISTPET Tecnológico Traversari" />
+        </a>
+
+        <nav class="main-nav">
+          <div class="nav-item"><a class="nav-link" href="#">Nosotros <i class="fa-solid fa-chevron-down"></i></a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Admisiones <i class="fa-solid fa-chevron-down"></i></a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Programa Académico <i class="fa-solid fa-chevron-down"></i></a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Mi ISTPET <i class="fa-solid fa-chevron-down"></i></a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Meraki</a></div>
+          
+          <!-- Menú Investigación -->
+          <div class="nav-item active">
+            <a class="nav-link" href="../index.html">
+              Investigación <i class="fa-solid fa-chevron-down"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-item"><a class="dropdown-link" href="../produccion-cientifica/">Producción Científica</a></li>
+              <li class="dropdown-item"><a class="dropdown-link" href="../proyectos/">Proyectos de Investigación</a></li>
+              <li class="dropdown-item"><a class="dropdown-link" href="../grupos/">Grupos de Investigación</a></li>
+              <li class="dropdown-item active"><a class="dropdown-link" href="./">DITRA</a></li>
+            </ul>
+          </div>
+
+          <div class="nav-item"><a class="nav-link" href="#">Vinculación</a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Contacto</a></div>
+        </nav>
+
+        <button class="hamburger-btn" id="mobileMenuBtn"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="mobile-drawer" id="mobileDrawer">
+    <div class="drawer-header">
+      <img src="https://istpet.edu.ec/wp-content/themes/g5_helium/custom/images/istpet-logo1.png" alt="ISTPET Logo" style="height: 38px;">
+      <button class="drawer-close" id="drawerCloseBtn"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="drawer-nav">
+      <a class="drawer-link" href="#">Inicio</a>
+      <a class="drawer-link" href="#">Nosotros</a>
+      <a class="drawer-link" href="#">Admisiones</a>
+      <a class="drawer-link" href="#">Programa Académico</a>
+      <a class="drawer-link" href="#">Mi ISTPET</a>
+      <a class="drawer-link" href="#">Meraki</a>
+      <a class="drawer-link active" href="../index.html" style="color:var(--istpet-gold);">Investigación</a>
+      <a class="drawer-sublink" href="../produccion-cientifica/">Producción Científica</a>
+      <a class="drawer-sublink" href="../proyectos/">Proyectos de Investigación</a>
+      <a class="drawer-sublink" href="../grupos/">Grupos de Investigación</a>
+      <a class="drawer-sublink active" href="./">DITRA</a>
+      <a class="drawer-link" href="#">Vinculación</a>
+      <a class="drawer-link" href="#">Contacto</a>
+    </div>
+  </aside>
+
+  <!-- Hero Banner Científico (Misma zona superior de Grupos y Proyectos) -->
+  <section class="hero-scientific-banner">
+    <div class="container">
+      <div class="hero-content">
+        <p class="hero-pretitle">INVESTIGACIÓN / PLATAFORMA INSTITUCIONAL</p>
+        <h1 class="hero-title">DITRA – Sistema de Gestión</h1>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contenido Principal DITRA -->
+  <main class="container">
+    <div class="ditra-layout-grid">
+      
+      <!-- Columna Izquierda: Información de la Plataforma Interna -->
+      <div class="academic-intro-col">
+        <p class="academic-p">
+          El <strong>Sistema DITRA</strong> (Dirección de Investigación y Transferencia Académica) es la plataforma tecnológica institucional del ISTPET creada para centralizar el ciclo de vida completo de la producción científica y tecnológica.
+        </p>
+
+        <p class="academic-p">
+          A través de este entorno digital seguro, los docentes investigadores, grupos de investigación y estudiantes pueden <strong>postular propuestas, registrar avances, solicitar horas de descarga investigativa y gestionar publicaciones indexadas</strong> de manera 100% automatizada.
+        </p>
+
+        <div class="academic-quote-box">
+          <i class="fa-solid fa-shield-halved"></i>
+          <strong>Integración y Transparencia:</strong> Todos los proyectos registrados en el DITRA pasan por evaluación a doble ciego y verificación antiplagio institucional.
+        </div>
+
+        <!-- Tarjeta de Acceso al Sistema DITRA -->
+        <div class="ditra-access-card">
+          <h3 class="ditra-access-title">
+            <i class="fa-solid fa-arrow-right-to-bracket"></i> Acceso a Plataforma DITRA
+          </h3>
+          <p class="ditra-access-desc">
+            Ingreso exclusivo para la comunidad docente, tutores y estudiantes investigadores con cuenta institucional @istpet.edu.ec.
+          </p>
+          <button class="ditra-btn-login" onclick="alert('El enlace oficial al Sistema DITRA (https://ditra.istpet.edu.ec) estará disponible próximamente en la intranet institucional.')">
+            <i class="fa-solid fa-lock"></i> Ingresar al Sistema DITRA <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px;"></i>
+          </button>
+          <span class="ditra-badge-future">
+            <i class="fa-solid fa-clock"></i> Enlace institucional en fase de despliegue interno
+          </span>
+        </div>
+      </div>
+
+      <!-- Columna Derecha: Captura de Pantalla Simulada UI + Módulos -->
+      <div class="ditra-system-showcase">
+        
+        <!-- Mockup Frame de la Interfaz del Sistema DITRA -->
+        <div class="system-mockup-frame">
+          <div class="mockup-header-bar">
+            <div class="mockup-controls">
+              <span class="mockup-dot red"></span>
+              <span class="mockup-dot yellow"></span>
+              <span class="mockup-dot green"></span>
+            </div>
+            <div class="mockup-url-bar">
+              <i class="fa-solid fa-lock"></i> https://ditra.istpet.edu.ec/portal/proyectos
+            </div>
+            <div style="font-size: 11px; color: #93c5fd; font-weight:700;">DITRA v2.4</div>
+          </div>
+
+          <div class="mockup-screen-body">
+            <!-- Métricas del Dashboard -->
+            <div class="mockup-stat-row">
+              <div class="mockup-stat-tile">
+                <div class="mockup-stat-val">14</div>
+                <div class="mockup-stat-lbl">Proyectos Activos</div>
+              </div>
+              <div class="mockup-stat-tile">
+                <div class="mockup-stat-val">28</div>
+                <div class="mockup-stat-lbl">Docentes I+D</div>
+              </div>
+              <div class="mockup-stat-tile">
+                <div class="mockup-stat-val">98%</div>
+                <div class="mockup-stat-lbl">Cumplimiento</div>
+              </div>
+            </div>
+
+            <!-- Vista previa de tabla de proyectos -->
+            <div class="mockup-table-preview">
+              <div class="mockup-table-header">
+                <span>PROYECTO REGISTRADO</span>
+                <span>CARRERA</span>
+                <span style="text-align:right;">ESTADO</span>
+              </div>
+              <div class="mockup-table-row">
+                <div><strong>PROY-2025-01</strong> Computación Afectiva</div>
+                <div>Software</div>
+                <div style="text-align:right;"><span class="status-tag-active">En Ejecución</span></div>
+              </div>
+              <div class="mockup-table-row">
+                <div><strong>PROY-2025-02</strong> Telemetría Vehicular IoT</div>
+                <div>Mecánica</div>
+                <div style="text-align:right;"><span class="status-tag-active">En Ejecución</span></div>
+              </div>
+              <div class="mockup-table-row">
+                <div><strong>PROY-2025-03</strong> Metaverso y Gemelos 3D</div>
+                <div>Software</div>
+                <div style="text-align:right;"><span class="status-tag-review">En Evaluación</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Acordeón de Módulos del Sistema DITRA -->
+        <div class="ditra-modules-accordion">
+          
+          <div class="ditra-mod-item active">
+            <button class="ditra-mod-header" onclick="toggleModItem(this)">
+              <span class="ditra-mod-title"><i class="fa-solid fa-file-circle-plus"></i> 1. Formulación y Registro de Proyectos</span>
+              <i class="fa-solid fa-chevron-down" style="font-size:12px; color:#0d2757;"></i>
+            </button>
+            <div class="ditra-mod-body">
+              <p class="ditra-mod-desc">
+                Módulo estructurado bajo estándares UNESCO y Senescyt para ingresar objetivos, cronograma de Gantt, presupuesto y equipo de trabajo de forma guiada.
+              </p>
+            </div>
+          </div>
+
+          <div class="ditra-mod-item">
+            <button class="ditra-mod-header" onclick="toggleModItem(this)">
+              <span class="ditra-mod-title"><i class="fa-solid fa-user-check"></i> 2. Evaluación por Pares Ciegos</span>
+              <i class="fa-solid fa-chevron-down" style="font-size:12px; color:#0d2757;"></i>
+            </button>
+            <div class="ditra-mod-body">
+              <p class="ditra-mod-desc">
+                Asignación anónima de revisores internos y externos que emiten rúbricas de viabilidad metodológica, técnica y pertinencia social.
+              </p>
+            </div>
+          </div>
+
+          <div class="ditra-mod-item">
+            <button class="ditra-mod-header" onclick="toggleModItem(this)">
+              <span class="ditra-mod-title"><i class="fa-solid fa-chart-line"></i> 3. Seguimiento de Hitos e Informes de Avance</span>
+              <i class="fa-solid fa-chevron-down" style="font-size:12px; color:#0d2757;"></i>
+            </button>
+            <div class="ditra-mod-body">
+              <p class="ditra-mod-desc">
+                Carga periódica de evidencias científicas, minutas, borradores de artículos y control del cumplimiento de horas asignadas a la investigación.
+              </p>
+            </div>
+          </div>
+
+          <div class="ditra-mod-item">
+            <button class="ditra-mod-header" onclick="toggleModItem(this)">
+              <span class="ditra-mod-title"><i class="fa-solid fa-certificate"></i> 4. Cierre Técnico y Certificación Institucional</span>
+              <i class="fa-solid fa-chevron-down" style="font-size:12px; color:#0d2757;"></i>
+            </button>
+            <div class="ditra-mod-body">
+              <p class="ditra-mod-desc">
+                Emisión automatizada de actas de finalización, certificados para escalafón docente y depósito de memoria técnica en el Repositorio Digital.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="../index.html" class="footer-logo">
+            <img src="https://istpet.edu.ec/wp-content/uploads/2024/11/dorado-blanco-1024x405.png" alt="ISTPET">
+          </a>
+          <p class="footer-desc">Formamos profesionales competitivos, creativos, íntegros y con valores, con elevado nivel académico e investigativo.</p>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-title">Encuéntranos en</h4>
+          <div class="footer-info-list">
+            <div class="footer-info-item">
+              <i class="fa-solid fa-location-dot"></i>
+              <div>Av. Matilde Álvarez y Hugo Díaz Romero. Sector Chillogallo
+                <div><a href="https://goo.gl/maps/mGFeWLYE1saLpAT97" target="_blank" class="footer-link-highlight">Ir a Google Maps <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 11px;"></i></a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-title">Contáctanos</h4>
+          <div class="footer-info-list">
+            <div class="footer-info-item"><i class="fa-solid fa-phone"></i><span>02 303 2894</span></div>
+            <div class="footer-info-item"><i class="fa-brands fa-whatsapp"></i><a href="https://wa.link/6j9opo" target="_blank" style="color:inherit">098 403 3166</a></div>
+            <div class="footer-info-item"><i class="fa-regular fa-envelope"></i><a href="mailto:investigacion@istpet.edu.ec" style="color:inherit">investigacion@istpet.edu.ec</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sub-footer">
+      <div class="container"><p>© Copyright 2025 Todos los derechos reservados | Dirección de Investigación (DITRA) – ISTPET</p></div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/593984033166?text=Hola%20Tecnol%C3%B3gico%20Traversari,%20necesito%20informaci%C3%B3n%20sobre%20el%20Sistema%20DITRA." target="_blank" class="floating-whatsapp"><i class="fa-brands fa-whatsapp"></i></a>
+  <button class="floating-gdpr-gear" onclick="alert('Configuración de Privacidad RGPD')"><i class="fa-solid fa-gear"></i></button>
+
+  <!-- JavaScript Ligero para WordPress -->
+  <script>
+    // Menú Móvil Drawer
+    const mobileBtn = document.getElementById('mobileMenuBtn');
+    const drawer = document.getElementById('mobileDrawer');
+    const backdrop = document.getElementById('drawerBackdrop');
+    const closeBtn = document.getElementById('drawerCloseBtn');
+
+    function toggleMenu() {
+      drawer.classList.toggle('open');
+      backdrop.classList.toggle('active');
+    }
+    mobileBtn.addEventListener('click', toggleMenu);
+    closeBtn.addEventListener('click', toggleMenu);
+    backdrop.addEventListener('click', toggleMenu);
+
+    // Acordeón de Módulos DITRA
+    function toggleModItem(btn) {
+      const item = btn.closest('.ditra-mod-item');
+      item.classList.toggle('active');
+    }
+
+    // Soporte Live Server
+    if (window.EventSource) {
+      const source = new EventSource('/__live_reload');
+      source.onmessage = function(e) { if (e.data === 'reload') location.reload(); };
+    }
+  </script>
+</body>
+</html>

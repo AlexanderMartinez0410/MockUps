@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es-EC" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Artículos Científicos – Producción Científica – ISTPET</title>
+  
+  <link rel="shortcut icon" href="https://istpet.edu.ec/wp-content/themes/g5_helium/custom/images/favicon.png" type="image/x-icon" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Nunito:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    :root {
+      --istpet-navy: #212c59;
+      --istpet-navy-dark: #141b36;
+      --istpet-gold: #c59b27;
+      --istpet-cyan: #0284c7;
+      --istpet-text: #1e293b;
+      --istpet-border: #e2e8f0;
+      --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Roboto', 'Nunito', sans-serif; color: var(--istpet-text); background-color: #f8fafc; line-height: 1.6; }
+    a { text-decoration: none; color: inherit; transition: var(--transition); }
+    ul { list-style: none; }
+    img { max-width: 100%; height: auto; display: block; }
+    .container { width: 100%; max-width: 1240px; margin: 0 auto; padding: 0 20px; }
+
+    /* Header */
+    .top-header { background: #ffffff; border-bottom: 1px solid #edf2f7; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04); }
+    .nav-wrapper { display: flex; align-items: center; justify-content: space-between; height: 85px; }
+    .brand-logo img { height: 52px; width: auto; object-fit: contain; }
+    .main-nav { display: flex; align-items: center; gap: 4px; }
+    .nav-item { position: relative; }
+    .nav-link { display: flex; align-items: center; gap: 6px; padding: 12px 14px; font-size: 14.5px; font-weight: 600; color: var(--istpet-navy); border-radius: 6px; }
+    .nav-link:hover, .nav-item.active > .nav-link { color: var(--istpet-gold); }
+    .dropdown-menu { position: absolute; top: 100%; left: 0; min-width: 250px; background: #ffffff; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12); border-radius: 8px; padding: 10px 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.25s ease; z-index: 1100; border: 1px solid #f1f5f9; }
+    .nav-item:hover > .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+    .dropdown-link { display: flex; align-items: center; padding: 11px 20px; font-size: 13.5px; font-weight: 500; color: #334155; }
+    .dropdown-link:hover, .dropdown-item.active > .dropdown-link { background-color: #f8fafc; color: var(--istpet-navy); padding-left: 24px; border-left: 3px solid var(--istpet-gold); font-weight: 600; }
+    .hamburger-btn { display: none; background: none; border: none; font-size: 24px; color: var(--istpet-navy); cursor: pointer; padding: 8px; }
+
+    /* Mobile Drawer */
+    .mobile-drawer { position: fixed; top: 0; right: -100%; width: 310px; height: 100vh; background: #ffffff; box-shadow: -5px 0 25px rgba(0,0,0,0.15); z-index: 2000; transition: right 0.35s ease; display: flex; flex-direction: column; overflow-y: auto; }
+    .mobile-drawer.open { right: 0; }
+    .drawer-header { display: flex; align-items: center; justify-content: space-between; padding: 20px; border-bottom: 1px solid #edf2f7; }
+    .drawer-close { background: none; border: none; font-size: 20px; color: #64748b; cursor: pointer; }
+    .drawer-nav { padding: 20px; display: flex; flex-direction: column; gap: 8px; }
+    .drawer-link { font-size: 15px; font-weight: 600; color: var(--istpet-navy); padding: 8px 0; display: block; }
+    .drawer-sublink { font-size: 13.5px; color: #475569; padding: 6px 0 6px 16px; display: block; }
+    .drawer-sublink.active { color: var(--istpet-navy); font-weight: 700; }
+    .drawer-backdrop { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.4); z-index: 1999; display: none; }
+    .drawer-backdrop.active { display: block; }
+
+    /* Page Banner */
+    .page-title-banner { background: linear-gradient(135deg, var(--istpet-navy-dark) 0%, #0369a1 100%); color: #ffffff; padding: 50px 0 40px; border-bottom: 4px solid var(--istpet-gold); }
+    .page-title-banner h1 { font-family: 'Montserrat', sans-serif; font-size: 32px; font-weight: 800; margin-bottom: 8px; }
+    .page-breadcrumb { font-size: 13.5px; color: #cbd5e1; }
+    .page-breadcrumb a { color: var(--istpet-gold); font-weight: 600; }
+
+    /* Back Navigation Bar */
+    .back-nav-bar { background: #ffffff; border-bottom: 1px solid #e2e8f0; padding: 14px 0; margin-bottom: 40px; }
+    .back-nav-flex { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .back-link-btn { display: inline-flex; align-items: center; gap: 8px; font-family: 'Montserrat', sans-serif; font-size: 13.5px; font-weight: 700; color: var(--istpet-navy); padding: 8px 16px; background: #f1f5f9; border-radius: 8px; }
+    .back-link-btn:hover { background: var(--istpet-navy); color: #ffffff; }
+
+    /* Section Grid */
+    .articles-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; margin-bottom: 70px; }
+    .article-card { background: #ffffff; border-radius: 16px; border: 1px solid #e2e8f0; border-top: 4px solid var(--istpet-cyan); padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.04); transition: var(--transition); display: flex; flex-direction: column; justify-content: space-between; }
+    .article-card:hover { transform: translateY(-5px); box-shadow: 0 16px 36px rgba(33, 44, 89, 0.12); }
+    
+    .card-top-tags { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+    .card-type-tag { font-size: 11.5px; font-weight: 800; text-transform: uppercase; padding: 4px 10px; border-radius: 6px; background: rgba(2, 132, 199, 0.1); color: var(--istpet-cyan); }
+    .card-career-badge { font-size: 11.5px; font-weight: 600; color: #64748b; background: #f1f5f9; padding: 4px 10px; border-radius: 6px; }
+
+    .card-body-flex { display: flex; gap: 20px; margin-bottom: 16px; }
+    .card-cover-thumb { flex: 0 0 130px; max-width: 130px; }
+    .cover-box { border-radius: 8px; overflow: hidden; box-shadow: 0 6px 16px rgba(0,0,0,0.12); border: 1px solid #e2e8f0; aspect-ratio: 3/4.2; }
+    .cover-box img { width: 100%; height: 100%; object-fit: cover; }
+    .card-details { flex: 1; }
+    .card-title { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 700; color: var(--istpet-navy); line-height: 1.4; margin-bottom: 10px; }
+    .card-source { font-size: 13px; font-weight: 600; color: #0369a1; margin-bottom: 10px; }
+    
+    .authors-box { background: #f8fafc; border-left: 3px solid var(--istpet-navy); padding: 10px 12px; border-radius: 6px; margin-bottom: 12px; }
+    .authors-label { font-size: 11.5px; font-weight: 800; text-transform: uppercase; color: var(--istpet-navy); margin-bottom: 4px; }
+    .authors-text { font-size: 12.5px; color: #334155; }
+
+    .chips-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .chip { font-size: 11.5px; font-weight: 600; padding: 3px 8px; border-radius: 5px; background: #f1f5f9; color: #475569; }
+    .chip-index { background: #e0f2fe; color: #0369a1; }
+    .chip-doi { background: #f3e8ff; color: #6b21a8; }
+
+    .card-actions-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 14px; border-top: 1px solid #f1f5f9; }
+    .btn-action-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--istpet-navy); color: #ffffff; font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: 6px; }
+    .btn-action-primary:hover { background: var(--istpet-gold); }
+
+    /* Footer */
+    .site-footer { background-color: var(--istpet-navy); color: #ffffff; padding-top: 60px; border-top: 4px solid var(--istpet-gold); }
+    .footer-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 40px; padding-bottom: 50px; }
+    .footer-logo img { max-width: 230px; margin-bottom: 18px; }
+    .footer-desc { font-size: 14px; color: #cbd5e1; }
+    .footer-col-title { font-family: 'Montserrat', sans-serif; font-size: 17px; font-weight: 700; color: var(--istpet-gold); margin-bottom: 20px; }
+    .sub-footer { background: var(--istpet-navy-dark); padding: 20px 0; text-align: center; font-size: 13.5px; color: #94a3b8; }
+
+    @media (max-width: 1024px) {
+      .main-nav { display: none; }
+      .hamburger-btn { display: block; }
+      .articles-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .card-body-flex { flex-direction: column; align-items: center; text-align: center; }
+      .authors-box { text-align: left; }
+      .card-actions-bar { flex-direction: column; }
+      .btn-action-primary { width: 100%; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="top-header">
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="../../index.html" class="brand-logo" title="Tecnológico Traversari - ISTPET">
+          <img src="https://istpet.edu.ec/wp-content/themes/g5_helium/custom/images/istpet-logo1.png" alt="ISTPET Tecnológico Traversari" />
+        </a>
+
+        <nav class="main-nav">
+          <div class="nav-item"><a class="nav-link" href="#">Nosotros <i class="fa-solid fa-chevron-down"></i></a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Admisiones <i class="fa-solid fa-chevron-down"></i></a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Programa Académico <i class="fa-solid fa-chevron-down"></i></a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Mi ISTPET <i class="fa-solid fa-chevron-down"></i></a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Meraki</a></div>
+          <div class="nav-item active">
+            <a class="nav-link" href="../../index.html">Investigación <i class="fa-solid fa-chevron-down"></i></a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-item active"><a class="dropdown-link" href="../index.html">Producción Científica</a></li>
+              <li class="dropdown-item"><a class="dropdown-link" href="../../proyectos/">Proyectos</a></li>
+              <li class="dropdown-item"><a class="dropdown-link" href="../../grupos/">Grupo Investigación</a></li>
+              <li class="dropdown-item"><a class="dropdown-link" href="../../ditra/">Ditra</a></li>
+            </ul>
+          </div>
+          <div class="nav-item"><a class="nav-link" href="#">Vinculación</a></div>
+          <div class="nav-item"><a class="nav-link" href="#">Contacto</a></div>
+        </nav>
+
+        <button class="hamburger-btn" id="mobileMenuBtn"><i class="fa-solid fa-bars"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Banner -->
+  <section class="page-title-banner">
+    <div class="container">
+      <h1>Artículos Científicos</h1>
+      <p>Artículos de investigación indexados en bases de datos con arbitraje por pares (Scopus, Latindex, SciELO, Redalyc).</p>
+      <div class="page-breadcrumb">
+        <a href="../../index.html">Investigación</a> &gt; <a href="../index.html">Producción Científica</a> &gt; <span>Artículos</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Back Navigation Bar -->
+  <div class="back-nav-bar">
+    <div class="container">
+      <div class="back-nav-flex">
+        <a href="../index.html" class="back-link-btn">
+          <i class="fa-solid fa-arrow-left"></i> Volver a Producción Científica
+        </a>
+        <div style="display:flex; gap:8px;">
+          <a href="../libros/" class="back-link-btn"><i class="fa-solid fa-book"></i> Ver Libros</a>
+          <a href="../ponencias/" class="back-link-btn"><i class="fa-solid fa-person-chalkboard"></i> Ver Ponencias</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Articles List -->
+  <main class="container">
+    <div class="articles-grid">
+      <!-- Item 1 -->
+      <article class="article-card">
+        <div>
+          <div class="card-top-tags">
+            <span class="card-type-tag">Artículo Indexado</span>
+            <span class="card-career-badge">Desarrollo de Software</span>
+          </div>
+          <div class="card-body-flex">
+            <div class="card-cover-thumb">
+              <div class="cover-box">
+                <img src="https://istpet.edu.ec/wp-content/uploads/2024/06/art1-1.png" alt="Educación Superior" />
+              </div>
+            </div>
+            <div class="card-details">
+              <h2 class="card-title">Educación Superior en el Ecuador: Un Análisis de la Equidad y la Calidad Educativa</h2>
+              <div class="card-source"><i class="fa-solid fa-bookmark"></i> Revista Científica Arbitrada Multidisciplinaria</div>
+              <div class="authors-box">
+                <div class="authors-label"><i class="fa-solid fa-user-pen"></i> Autores</div>
+                <div class="authors-text">Edison Gabriel Flores C., Wilfrido Amilcar Trujillo Q., Mayra Gabriela Centeno A.</div>
+              </div>
+              <div class="chips-row">
+                <span class="chip chip-index"><i class="fa-solid fa-check"></i> Latindex Catálogo 2.0</span>
+                <span class="chip">ISSN: 2631-2603</span>
+                <span class="chip chip-doi">DOI: 10.5281/zenodo.74921</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-actions-bar">
+          <a href="https://n9.cl/k5w2j" target="_blank" rel="noopener" class="btn-action-primary">
+            <i class="fa-solid fa-file-pdf"></i> Leer Artículo Completo
+          </a>
+        </div>
+      </article>
+
+      <!-- Item 2 -->
+      <article class="article-card">
+        <div>
+          <div class="card-top-tags">
+            <span class="card-type-tag">Artículo Indexado</span>
+            <span class="card-career-badge">Desarrollo de Software / Admin</span>
+          </div>
+          <div class="card-body-flex">
+            <div class="card-cover-thumb">
+              <div class="cover-box">
+                <img src="https://istpet.edu.ec/wp-content/uploads/2024/06/Juegostradicionalescomoinfluenciaenlamejoradelestilodevidadeladultomayor-1-1.jpg" alt="Tecnología 4.0" />
+              </div>
+            </div>
+            <div class="card-details">
+              <h2 class="card-title">Uso de la Tecnología 4.0 en las Especialidades Administrativas del Ámbito Educativo Medio-Superior</h2>
+              <div class="card-source"><i class="fa-solid fa-bookmark"></i> Dominio de las Ciencias</div>
+              <div class="authors-box">
+                <div class="authors-label"><i class="fa-solid fa-user-pen"></i> Autores</div>
+                <div class="authors-text">Juan Carlos Minga Gómez, Jessica Tipantuña, Wilfrido Trujillo, Diego Paz-Naula</div>
+              </div>
+              <div class="chips-row">
+                <span class="chip chip-index"><i class="fa-solid fa-check"></i> Dialnet / Redalyc</span>
+                <span class="chip">ISSN: 2631-2603</span>
+                <span class="chip chip-doi">DOI: 10.33262/dc.v9i4.1802</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-actions-bar">
+          <a href="https://n9.cl/ux1k8" target="_blank" rel="noopener" class="btn-action-primary">
+            <i class="fa-solid fa-file-pdf"></i> Leer Artículo Completo
+          </a>
+        </div>
+      </article>
+
+      <!-- Item 3 -->
+      <article class="article-card">
+        <div>
+          <div class="card-top-tags">
+            <span class="card-type-tag">Artículo Indexado</span>
+            <span class="card-career-badge">Mecánica Automotriz</span>
+          </div>
+          <div class="card-body-flex">
+            <div class="card-cover-thumb">
+              <div class="cover-box">
+                <img src="https://istpet.edu.ec/wp-content/uploads/2024/06/art2-1.png" alt="Consumo combustible" />
+              </div>
+            </div>
+            <div class="card-details">
+              <h2 class="card-title">Consumo de Combustible Frente a la Eco-Conducción y Tráfico en una Ruta Mixta en la Ciudad de Quito</h2>
+              <div class="card-source"><i class="fa-solid fa-bookmark"></i> Revista Enfoque UTE & Automotriz</div>
+              <div class="authors-box">
+                <div class="authors-label"><i class="fa-solid fa-user-pen"></i> Autores</div>
+                <div class="authors-text">Jonathan Espinoza C., Daniel Pantoja V., Christian Castro H., Jhonatan Sangovalin C.</div>
+              </div>
+              <div class="chips-row">
+                <span class="chip chip-index"><i class="fa-solid fa-check"></i> SciELO / Latindex</span>
+                <span class="chip">ISSN: 1390-7638</span>
+                <span class="chip chip-doi">DOI: 10.29019/enfoqueute.891</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-actions-bar">
+          <a href="https://acortar.link/b3haGA" target="_blank" rel="noopener" class="btn-action-primary">
+            <i class="fa-solid fa-file-pdf"></i> Leer Artículo Completo
+          </a>
+        </div>
+      </article>
+
+      <!-- Item 4 -->
+      <article class="article-card">
+        <div>
+          <div class="card-top-tags">
+            <span class="card-type-tag">Artículo Indexado</span>
+            <span class="card-career-badge">Entrenamiento Deportivo</span>
+          </div>
+          <div class="card-body-flex">
+            <div class="card-cover-thumb">
+              <div class="cover-box">
+                <img src="https://istpet.edu.ec/wp-content/uploads/2024/06/art4-1-1.png" alt="Juegos Tradicionales" />
+              </div>
+            </div>
+            <div class="card-details">
+              <h2 class="card-title">Juegos Tradicionales como Influencia en la Mejora del Estilo de Vida del Adulto Mayor</h2>
+              <div class="card-source"><i class="fa-solid fa-bookmark"></i> Revista Científica Retos & Actividad Física</div>
+              <div class="authors-box">
+                <div class="authors-label"><i class="fa-solid fa-user-pen"></i> Autores</div>
+                <div class="authors-text">Fausto Javier Morales C., Daniel Pantoja V., Wilfrido Trujillo Q., Christian Castro H.</div>
+              </div>
+              <div class="chips-row">
+                <span class="chip chip-index"><i class="fa-solid fa-check"></i> Latindex Catálogo 2.0</span>
+                <span class="chip">ISSN: 2631-2603</span>
+                <span class="chip chip-doi">DOI: 10.47197/retos.v51.10123</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-actions-bar">
+          <a href="https://n9.cl/a03s7" target="_blank" rel="noopener" class="btn-action-primary">
+            <i class="fa-solid fa-file-pdf"></i> Leer Artículo Completo
+          </a>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="../../index.html" class="footer-logo">
+            <img src="https://istpet.edu.ec/wp-content/uploads/2024/11/dorado-blanco-1024x405.png" alt="ISTPET">
+          </a>
+          <p class="footer-desc">Formamos profesionales competitivos, creativos, íntegros y con valores.</p>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-title">Encuéntranos en</h4>
+          <p style="font-size:14px; color:#e2e8f0;">Av. Matilde Álvarez y Hugo Díaz Romero. Sector Chillogallo</p>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-col-title">Contáctanos</h4>
+          <p style="font-size:14px; color:#e2e8f0;">info@istpet.edu.ec | 098 403 3166</p>
+        </div>
+      </div>
+    </div>
+    <div class="sub-footer">
+      <div class="container"><p>© Copyright 2025 Todos los derechos reservados | Tecnológico Traversari</p></div>
+    </div>
+  </footer>
+
+  <script>
+    if (window.EventSource) {
+      const source = new EventSource('/__live_reload');
+      source.onmessage = function(e) { if (e.data === 'reload') location.reload(); };
+    }
+  </script>
+</body>
+</html>
